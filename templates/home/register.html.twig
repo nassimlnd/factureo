@@ -20,19 +20,39 @@
         </div>
     </div>
     <div class="relative w-2/4 bg-white h-screen flex justify-end">
-        <div class="w-[600px] mt-40">
+        <div class="w-[600px] pt-12">
             <div>
                 <a href="{{ path('app_home') }}"><img src="{{ asset('assets/svg/logoWithText.svg') }}"
                                                       class="h-[56px]" alt="Logo with text"></a>
             </div>
             <div class="mt-20">
-                <h2 class="text-[32px] font-[600] -tracking-[0.96px]">Connectez-vous à votre compte</h2>
-                <p class="text-[16px] font-[400] -tracking-[0.48px]">Pas de compte ? <a
-                            href="{{ path('app_register') }}" class="text-blue-600">Inscrivez-vous</a>
-                    gratuitement.</p>
+                <h2 class="text-[32px] font-[600] -tracking-[0.96px]">Inscrivez vous gratuitement</h2>
+                <p class="text-[16px] font-[400] -tracking-[0.48px]">Déjà inscrit ? <a href="{{ path('app_login') }}"
+                                                                                       class="text-blue-600">Connectez-vous</a>
+                    à votre compte.</p>
             </div>
-            <div class="mt-9">
-                <form name="auth" class="flex-col">
+            <div class="mt-16">
+                <form name="auth" class="flex-col space-y-10">
+                    <div class="flex space-x-4">
+                        <div>
+                            <div>
+                                <label for="lastname">Nom</label>
+                            </div>
+                            <div>
+                                <input name="lastname" type="text"
+                                       class="w-[195px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="firstname">Prénom</label>
+                            </div>
+                            <div>
+                                <input name="firstname" type="text"
+                                       class="w-[195px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         <div>
                             <label for="email">Adresse e-mail</label>
@@ -42,7 +62,7 @@
                                    class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                         </div>
                     </div>
-                    <div class="mt-10">
+                    <div>
                         <div>
                             <label for="email">Mot de passe</label>
                         </div>
@@ -53,7 +73,7 @@
                     </div>
                     <button type="submit"
                             class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
-                        Se connecter
+                        S'inscrire
                     </button>
                 </form>
             </div>

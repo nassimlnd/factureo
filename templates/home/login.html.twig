@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturéo - Connexion{% endblock %}
+
+{% block body %}
+    <div class="flex">
+        <div class="bg-white w-2/4 h-screen">
+            <div class="mt-40 px-24">
+                <div>
+                    <a href="{{ path('app_home') }}"><img src="{{ asset('assets/svg/logoWithText.svg') }}"
+                                                          class="h-[56px]" alt="Logo with text"></a>
+                </div>
+                <div class="mt-20">
+                    <h2 class="text-[32px] font-[600] -tracking-[0.96px]">Connectez-vous à votre compte</h2>
+                    <p class="text-[16px] font-[400] -tracking-[0.48px]">Pas de compte ? <a class="text-blue-600">Inscrivez-vous</a>
+                        gratuitement.</p>
+                </div>
+                <div class="mt-9">
+                    <form name="auth" class="flex-col">
+                        <div>
+                            <div>
+                                <label for="email">Adresse e-mail</label>
+                            </div>
+                            <div>
+                                <input name="email" type="email"
+                                       class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                        <div class="mt-10">
+                            <div>
+                                <label for="email">Mot de passe</label>
+                            </div>
+                            <div>
+                                <input name="password" type="password"
+                                       class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                        <button type="submit"
+                                class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
+                            Se connecter
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="relative right-0 bg-blue-600 w-2/4 h-screen">
+            <div class="relative h-full w-2/3 blur-[128px]">
+                <svg class="absolute bottom-2 left-2/4"
+                     width="296" height="290" viewBox="0 0 296 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="148" cy="145" rx="148" ry="145" fill="#26FFA4"></ellipse>
+                </svg>
+                <svg class="absolute bottom-1/4 left-2/4"
+                     width="296" height="290" viewBox="0 0 296 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="148" cy="145" rx="148" ry="145" fill="#FF431A"></ellipse>
+                </svg>
+                <svg class="absolute bottom-2/4 left-3/4"
+                     width="296" height="290" viewBox="0 0 296 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="148" cy="145" rx="148" ry="145" fill="#FDFF84"></ellipse>
+                </svg>
+            </div>
+        </div>
+    </div>
+{% endblock %}

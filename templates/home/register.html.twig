@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturéo - Connexion{% endblock %}
+
+{% block body %}
+    <div class="absolute bg-blue-600 h-full w-full">
+        <div class="relative h-full w-full blur-[128px]">
+            <svg class="absolute bottom-2 left-3/4"
+                 width="296" height="290" viewBox="0 0 296 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="148" cy="145" rx="148" ry="145" fill="#26FFA4"></ellipse>
+            </svg>
+            <svg class="absolute bottom-1/4 right-1/4"
+                 width="296" height="290" viewBox="0 0 296 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="148" cy="145" rx="148" ry="145" fill="#FF431A"></ellipse>
+            </svg>
+            <svg class="absolute bottom-2/4 left-3/4"
+                 width="296" height="290" viewBox="0 0 296 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="148" cy="145" rx="148" ry="145" fill="#FDFF84"></ellipse>
+            </svg>
+        </div>
+    </div>
+    <div class="relative w-2/4 bg-white h-screen flex justify-end">
+        <div class="w-[600px] pt-12">
+            <div>
+                <a href="{{ path('app_home') }}"><img src="{{ asset('assets/svg/logoWithText.svg') }}"
+                                                      class="h-[56px]" alt="Logo with text"></a>
+            </div>
+            <div class="mt-20">
+                <h2 class="text-[32px] font-[600] -tracking-[0.96px]">Inscrivez vous gratuitement</h2>
+                <p class="text-[16px] font-[400] -tracking-[0.48px]">Déjà inscrit ? <a href="{{ path('app_login') }}"
+                                                                                       class="text-blue-600">Connectez-vous</a>
+                    à votre compte.</p>
+            </div>
+            <div class="mt-16">
+                <form name="auth" class="flex-col space-y-10">
+                    <div class="flex space-x-4">
+                        <div>
+                            <div>
+                                <label for="lastname">Nom</label>
+                            </div>
+                            <div>
+                                <input id="lastname" name="lastname" type="text"
+                                       class="w-[195px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="firstname">Prénom</label>
+                            </div>
+                            <div>
+                                <input id="firstname" name="firstname" type="text"
+                                       class="w-[195px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="email">Adresse e-mail</label>
+                        </div>
+                        <div>
+                            <input id="email" name="email" type="email"
+                                   class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="password">Mot de passe</label>
+                        </div>
+                        <div>
+                            <input id="password" name="password" type="password"
+                                   class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                    </div>
+                    <button type="submit"
+                            class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
+                        S'inscrire
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

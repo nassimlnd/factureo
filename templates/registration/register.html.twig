@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facturéo - Connexion{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block body %}
     <div class="absolute bg-blue-600 h-full w-full">
@@ -32,51 +32,44 @@
                     à votre compte.</p>
             </div>
             <div class="mt-16">
-                <form name="auth" class="flex-col space-y-10">
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm) }}
+                <div class="space-y-8">
                     <div class="flex space-x-4">
                         <div>
-                            <div>
-                                <label for="lastname">Nom</label>
-                            </div>
-                            <div>
-                                <input id="lastname" name="lastname" type="text"
-                                       class="w-[195px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                            </div>
+                            <label for="registration_form_lastName">Nom</label>
+                            {{ form_row(registrationForm.lastName) }}
                         </div>
                         <div>
-                            <div>
-                                <label for="firstname">Prénom</label>
-                            </div>
-                            <div>
-                                <input id="firstname" name="firstname" type="text"
-                                       class="w-[195px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                            </div>
+                            <label for="registration_form_firstName">Prénom</label>
+                            {{ form_row(registrationForm.firstName) }}
                         </div>
                     </div>
                     <div>
-                        <div>
-                            <label for="email">Adresse e-mail</label>
-                        </div>
-                        <div>
-                            <input id="email" name="email" type="email"
-                                   class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                        </div>
+                        <label for="registration_form_email">Adresse e-mail</label>
+                        {{ form_row(registrationForm.email) }}
                     </div>
                     <div>
-                        <div>
-                            <label for="password">Mot de passe</label>
-                        </div>
-                        <div>
-                            <input id="password" name="password" type="password"
-                                   class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                        </div>
+                        <label for="registration_form_plainPassword">Mot de passe</label>
+                        {{ form_row(registrationForm.plainPassword) }}
                     </div>
-                    <button type="submit"
-                            class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
-                        S'inscrire
-                    </button>
-                </form>
+                    <div>
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    </div>
+                </div>
+
+
+                <button type="submit"
+                        class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
+                    S'inscrire
+                </button>
+                {{ form_end(registrationForm) }}
             </div>
         </div>
     </div>
+
+
+
+
 {% endblock %}

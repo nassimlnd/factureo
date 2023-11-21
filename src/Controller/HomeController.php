@@ -14,9 +14,10 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', []);
     }
 
-    #[Route('/register', name: 'app_register')]
-    public function register(): Response
+
+    #[Route('/dashboard', name: 'app_dashboard')]
+    public function dashboard(): Response
     {
-        return $this->render('home/register.html.twig', []);
+        return $this->render('authenticated/dashboard.html.twig', []);
     }
 }

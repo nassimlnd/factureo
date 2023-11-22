@@ -28,7 +28,7 @@
             <div class="mt-20">
                 <h2 class="text-[32px] font-[600] -tracking-[0.96px]">Connectez-vous à votre compte</h2>
                 <p class="text-[16px] font-[400] -tracking-[0.48px]">Pas de compte ? <a
-                            href="{{ path('app_register') }}" class="text-blue-600">Inscrivez-vous</a>
+                            href="{{ path('app_register_user') }}" class="text-blue-600">Inscrivez-vous</a>
                     gratuitement.</p>
             </div>
             <div class="mt-9">
@@ -38,7 +38,7 @@
                             <label for="username">Adresse e-mail</label>
                         </div>
                         <div>
-                            <input name="_username" type="email" id="username"
+                            <input name="_username" type="email" id="username" placeholder="Adresse e-mail"
                                    class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <label for="password">Mot de passe</label>
                         </div>
                         <div>
-                            <input name="_password" type="password" id="password"
+                            <input name="_password" type="password" id="password" placeholder="Mot de passe"
                                    class="w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                         </div>
                     </div>

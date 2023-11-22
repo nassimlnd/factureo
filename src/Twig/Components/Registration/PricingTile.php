@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Twig\Components\Home;
+namespace App\Twig\Components\Registration;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent(template: 'components/home/pricing_tile.html.twig')]
+#[AsTwigComponent(template: 'components/registration/pricing_tile.html.twig')]
 class PricingTile
 {
     public string $name;

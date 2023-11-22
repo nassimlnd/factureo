@@ -31,7 +31,7 @@ class Customer
     private ?string $phoneNumber = null;
 
     #[ORM\Column]
-    private ?bool $isBusiness = null;
+    private ?bool $isCompany = null;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoice::class)]
     private Collection $invoices;
@@ -40,7 +40,7 @@ class Customer
     private Collection $estimates;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Business $business = null;
+    private ?Company $company = null;
 
     public function __construct()
     {
@@ -113,14 +113,14 @@ class Customer
         return $this;
     }
 
-    public function isIsBusiness(): ?bool
+    public function isIsCompany(): ?bool
     {
-        return $this->isBusiness;
+        return $this->isCompany;
     }
 
-    public function setIsBusiness(bool $isBusiness): static
+    public function setIsCompany(bool $isCompany): static
     {
-        $this->isBusiness = $isBusiness;
+        $this->isCompany = $isCompany;
 
         return $this;
     }
@@ -185,14 +185,14 @@ class Customer
         return $this;
     }
 
-    public function getBusiness(): ?Business
+    public function getCompany(): ?Company
     {
-        return $this->business;
+        return $this->company;
     }
 
-    public function setBusiness(?Business $business): static
+    public function setCompany(?Company $company): static
     {
-        $this->business = $business;
+        $this->company = $company;
 
         return $this;
     }

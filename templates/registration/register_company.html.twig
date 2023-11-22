@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturéo - Information de votre entreprise{% endblock %}
+
+{% block body %}
+    <div class="w-2/3 mx-auto pt-12">
+        <img src="{{ asset('assets/svg/logoWithText.svg') }}" class="h-[56px]">
+        <h2 class="text-4xl font-[600] -tracking-[0.96px] mt-10">Rentrez les informations de votre entreprise</h2>
+        <p class="mt-2 w-1/2 text-base -tracking-[0.48px] leading-[150%]">Il est nécessaire de connaître les
+            informations de votre entreprise pour pouvoir adapter au mieux votre offre et pouvoir adapter vos taxes.</p>
+
+        <div class="w-3/4">
+            {{ form_start(registrationCompanyForm) }}
+            <div class="flex mt-12 justify-between">
+                <div>
+                    <h4 class="text-xl font-[500] -tracking-[0.6px] leading[150%]">Informations de l'entreprise</h4>
+                    <div class="w-[50px] h-0.5 bg-gray-100 mt-2"></div>
+                    <div class="space-y-6 mt-6">
+                        <div>
+                            <label for="registration_company_form_name">Nom d'entreprise</label>
+                            {{ form_row(registrationCompanyForm.name) }}
+                        </div>
+                        <div>
+                            <label for="registration_company_form_email">Adresse e-mail</label>
+                            {{ form_row(registrationCompanyForm.email) }}
+                        </div>
+                        <div>
+                            <label for="registration_company_form_full_adress">Adresse</label>
+                            {{ form_row(registrationCompanyForm.fullAdress) }}
+                        </div>
+                        <div>
+                            <label for="registration_company_form_phone_number">Numéro de téléphone</label>
+                            {{ form_row(registrationCompanyForm.phoneNumber) }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-[500] -tracking-[0.6px] leading[150%]">Type d'entreprise</h4>
+                    <div class="w-[50px] h-0.5 bg-gray-100 mt-2"></div>
+                    <div class="space-y-6 mt-6">
+                        <div>
+                            <label for="registration_company_form_legal_status">Status juridique</label>
+                            {{ form_row(registrationCompanyForm.legalStatus) }}
+                        </div>
+                        <div>
+                            <label for="registration_company_form_business_sector">Secteur d'activité</label>
+                            {{ form_row(registrationCompanyForm.businessSector) }}
+                        </div>
+                        <div>
+                            <label for="registration_company_form_activity_type">Type d'activité</label>
+                            {{ form_row(registrationCompanyForm.activityType) }}
+                        </div>
+                        <div>
+                            <label for="registration_company_form_country">Pays</label>
+                            {{ form_row(registrationCompanyForm.country) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="block cursor-pointer bg-blue-600 hover:bg-blue-700 mt-16 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
+                Suivant
+            </button>
+            {{ form_end(registrationCompanyForm) }}
+        </div>
+    </div>
+{% endblock %}
+

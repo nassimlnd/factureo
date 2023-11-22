@@ -28,7 +28,7 @@ class Invoice
 
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Business $business = null;
+    private ?Company $company = null;
 
     public function getId(): ?int
     {
@@ -90,14 +90,14 @@ class Invoice
         return $this;
     }
 
-    public function getBusiness(): ?Business
+    public function getCompany(): ?Company
     {
-        return $this->business;
+        return $this->company;
     }
 
-    public function setBusiness(?Business $business): static
+    public function setCompany(?Company $company): static
     {
-        $this->business = $business;
+        $this->company = $company;
 
         return $this;
     }

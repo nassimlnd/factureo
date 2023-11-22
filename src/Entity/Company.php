@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\BusinessRepository;
+use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: BusinessRepository::class)]
-class Business
+#[ORM\Entity(repositoryClass: CompanyRepository::class)]
+class Company
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,11 +27,23 @@ class Business
     #[ORM\Column(length: 255)]
     private ?string $phoneNumber = null;
 
-    #[ORM\OneToMany(mappedBy: 'business', targetEntity: Invoice::class)]
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Invoice::class)]
     private Collection $invoices;
 
-    #[ORM\OneToMany(mappedBy: 'business', targetEntity: Estimate::class)]
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Estimate::class)]
     private Collection $estimates;
+
+    #[ORM\Column(length: 255)]
+    private ?string $businessSector = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $legalStatus = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $activityType = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $country = null;
 
     public function __construct()
     {
@@ -148,6 +160,54 @@ class Business
                 $estimate->setBusiness(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBusinessSector(): ?string
+    {
+        return $this->businessSector;
+    }
+
+    public function setBusinessSector(string $businessSector): static
+    {
+        $this->businessSector = $businessSector;
+
+        return $this;
+    }
+
+    public function getLegalStatus(): ?string
+    {
+        return $this->legalStatus;
+    }
+
+    public function setLegalStatus(string $legalStatus): static
+    {
+        $this->legalStatus = $legalStatus;
+
+        return $this;
+    }
+
+    public function getActivityType(): ?string
+    {
+        return $this->activityType;
+    }
+
+    public function setActivityType(string $activityType): static
+    {
+        $this->activityType = $activityType;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

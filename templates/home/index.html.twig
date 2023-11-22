@@ -81,30 +81,31 @@
                 {{ component('Home:PricingTile',
                     { price: 'Gratuit', name: 'Starter', description: 'Parfait pour n’importe qui, un auto-entrepreneur qui vient de débuter', isPrincipal: false,
                         features: [
-                        {name: '5 clients maximum '},
-                        {name: 'Factures illimitées'},
-                        {name: 'Devis illimités'}
-                    ]
-                    }) }}
+                        '5 clients maximum ',
+                        'Factures illimitées',
+                        'Devis illimités'
+                    ], route: 'app_register_user'})
+                }}
                 {{ component('Home:PricingTile',
                     { price: '5€', name: 'Petite entreprise', description: 'Parfait pour les petites / moyennes entreprises', isPrincipal: true,
                         features: [
-                        {name: '30 clients maximum '},
-                        {name: 'Factures illimitées'},
-                        {name: 'Devis illimités'},
-                        {name: 'Envoi de factures automatique'},
-                        {name: 'Statistiques et rapports'}
-                    ]
-                    }) }}
+                        '30 clients maximum ',
+                        'Factures illimitées',
+                        'Devis illimités',
+                        'Envoi de factures automatique',
+                        'Statistiques et rapports'
+                    ], route: 'app_register_user'})
+                }}
                 {{ component('Home:PricingTile',
                     { price: '15€', name: 'Grandes entreprises', description: 'Parfait pour les grandes entreprises, quelque soit la taille', isPrincipal: false,
                         features: [
-                        {name: 'Clients illimités'},
-                        {name: 'Factures illimitées'},
-                        {name: 'Devis illimités'},
-                        {name: 'Accès à toutes les fonctionnalités'}
-                    ]
-                    })
+                        'Clients illimités',
+                        'Factures illimitées',
+                        'Devis illimités',
+                        'Envoi de factures automatique',
+                        'Statistiques et rapports',
+                        'Accès à toutes les fonctionnalités exclusives'
+                    ], route: 'app_register_user'})
                 }}
             </div>
         </div>
@@ -124,49 +125,60 @@
         <div class="relative w-2/3 mx-auto pt-28">
             <div class="space-y-8">
                 <h1 class="font-[600] text-5xl -tracking-[1.92px]">Foire aux questions</h1>
-                <p class="text-[15px] w-2/4">Vous avez des interrogations ? Nous avons les réponses ! Explorez notre FAQ pour trouver des informations utiles sur l'utilisation de Facturéo. Si vous ne trouvez pas la réponse à votre question, n'hésitez pas à nous contacter directement.</p>
+                <p class="text-[15px] w-2/4">Vous avez des interrogations ? Nous avons les réponses ! Explorez notre FAQ
+                    pour trouver des informations utiles sur l'utilisation de Facturéo. Si vous ne trouvez pas la
+                    réponse à votre question, n'hésitez pas à nous contacter directement.</p>
             </div>
             <div class="mt-24 flex space-x-8">
                 <div class="w-1/3 space-y-16">
                     <div class="space-y-6">
                         <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
                     </div>
                     <div class="space-y-6">
                         <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
                     </div>
                     <div class="space-y-6">
                         <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
-                    </div>
-                </div>
-                <div class="w-1/3 space-y-16">
-                    <div class="space-y-6">
-                        <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
-                    </div>
-                    <div class="space-y-6">
-                        <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
-                    </div>
-                    <div class="space-y-6">
-                        <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
                     </div>
                 </div>
                 <div class="w-1/3 space-y-16">
                     <div class="space-y-6">
                         <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
                     </div>
                     <div class="space-y-6">
                         <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
                     </div>
                     <div class="space-y-6">
                         <p class="font-[600] text-xl">Question blablabla ?</p>
-                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la hess.</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
+                    </div>
+                </div>
+                <div class="w-1/3 space-y-16">
+                    <div class="space-y-6">
+                        <p class="font-[600] text-xl">Question blablabla ?</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="font-[600] text-xl">Question blablabla ?</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="font-[600] text-xl">Question blablabla ?</p>
+                        <p class="text-[15px] text-slate-900">Réponse à la question blablabla lorem ipsum de la
+                            hess.</p>
                     </div>
                 </div>
             </div>

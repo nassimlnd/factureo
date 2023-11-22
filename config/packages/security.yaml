@@ -10,9 +10,6 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
-        secured_area:
-            form_login:
-                enable_csrf: true
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -23,11 +20,18 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
+                enable-csrf: true
             logout:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
-
+        #secured_area:
+        #    form_login:
+        #        login_path: app_login
+        #        check_path: app_login
+        #        enable_csrf: true
+        #    logout:
+        #        path: app_logout
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturéo - Choisissez votre offre{% endblock %}
+
+{% block body %}
+    <div class="absolute h-screen w-screen blur-[192px]">
+        <svg width="1683" height="808" viewBox="0 0 1683 808" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="1568" cy="256" r="115" fill="#2563EB"></circle>
+            <circle cx="240" cy="693" r="115" fill="#2563EB"></circle>
+            <circle cx="505" cy="593" r="150" fill="#C361FF"></circle>
+            <circle cx="150" cy="505" r="150" fill="#C361FF"></circle>
+            <circle cx="1303" cy="643" r="150" fill="#C361FF"></circle>
+            <circle cx="396" cy="241" r="100" fill="#EE4591"></circle>
+            <circle cx="265" cy="230" r="100" fill="#EE4591"></circle>
+            <circle cx="755" cy="693" r="100" fill="#EE4591"></circle>
+            <circle cx="1527" cy="471" r="100" fill="#EE4591"></circle>
+            <circle cx="1234.5" cy="367.5" r="137.5" fill="#B6EDFF"></circle>
+            <circle cx="502.5" cy="412.5" r="137.5" fill="#B6EDFF"></circle>
+            <circle cx="1467.5" cy="615.5" r="137.5" fill="#B6EDFF"></circle>
+            <circle cx="984.5" cy="642.5" r="137.5" fill="#B6EDFF"></circle>
+            <circle cx="217.5" cy="137.5" r="137.5" fill="#B6EDFF"></circle>
+        </svg>
+
+    </div>
+    <div class="relative w-2/3 mx-auto pt-12">
+        <a href="{{ path('app_home') }}"><img src="{{ asset('assets/svg/logoWithText.svg') }}" class="h-[56px]"></a>
+        <h2 class="text-4xl font-[600] -tracking-[0.96px] mt-10">Choisissez votre offre</h2>
+        <p class="mt-2 w-1/2 text-base -tracking-[0.48px] leading-[150%]">Choisissez l’offre qui correspond à votre besoin.</p>
+
+        <div class="flex mt-12 space-x-4">
+            {% for offer in offers %}
+                {{ component('Registration:PricingTile', {
+                    price: offer.price,
+                    name: offer.name,
+                    description: offer.description,
+                    isPrincipal: offer.isPrincipal,
+                    features: offer.features,
+                    route:'app_register_success'
+                }) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

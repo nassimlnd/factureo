@@ -1,0 +1,31 @@
+{% if isPrincipal == true %}
+<div class="p-8 space-y-6 rounded-2xl bg-blue-600 text-white">
+    {% else %}
+    <div class="p-8 space-y-6 rounded-2xl bg-white border border-gray-100 text-slate-500">
+        {% endif %}
+        {% if isPrincipal %}
+        <h2 class="text-white text-3xl font-[600] -tracking-[0.96px]">{{ price }}</h2>
+        <h4 class="text-white text-xl font-[500] -tracking-[0.6px]">{{ name }}</h4>
+        {% else %}
+        <h2 class="text-black text-3xl font-[600] -tracking-[0.96px]">{{ price }}</h2>
+        <h4 class="text-black text-xl font-[500] -tracking-[0.6px]">{{ name }}</h4>
+        {% endif %}
+        <p class="text-base font-[400] -tracking-[0.48px]  max-w-[314px]">{{ description }}</p>
+        {% if isPrincipal == true %}
+            <a href="{{ path(route) }}" class="block text-center py-2 px-6 bg-white hover:bg-gray-100 rounded-full text-slate-900 -tracking-[0.48px] font-[600] text-base">Commencez dès maintenant</a>
+        {% else %}
+            <a href="{{ path(route) }}" class="block text-center py-2 px-6 bg-blue-600 hover:bg-blue-700 rounded-full text-white -tracking-[0.48px] font-[600] text-base">Commencez dès maintenant</a>
+        {% endif %}
+        <div class="space-y-6">
+            {% for feature in features %}
+                <div class="flex space-x-4">
+                    {% if isPrincipal == true %}
+                        <img src="{{ asset('assets/svg/tick_white.svg') }}" alt="Tick">
+                    {% else %}
+                        <img src="{{ asset('assets/svg/tick.svg') }}" alt="Tick">
+                    {% endif %}
+                    <p class="text-base font-[400] -tracking-[0.48px]">{{ feature }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>

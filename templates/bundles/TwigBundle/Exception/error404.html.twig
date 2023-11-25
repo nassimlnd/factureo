@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturéo - Oups{% endblock %}
+
+{% block body %}
+    <div class="h-screen max-h-[50vh]">
+        {{ component('Home:Navbar') }}
+        <div class="w-full lg:w-3/4 mx-auto h-full flex flex-col justify-center px-16">
+            <div class="space-y-2">
+                <p class="text-blue-600">404</p>
+                <h1 class="text-5xl font-[600]">Ressource introuvable</h1>
+                <p>Désolé, nous arrivons pas à trouver la ressource demandée.</p>
+            </div>
+            <a href="{{ path('app_home') }}" class="bg-blue-600 hover:bg-blue-700 rounded-lg px-4 py-2.5 block w-fit text-white mt-16">Retour à l'accueil</a>
+        </div>
+        {{ component('Home:Footer') }}
+    </div>
+{% endblock %}

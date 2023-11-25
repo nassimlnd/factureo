@@ -1,4 +1,4 @@
-<div class="w-[300px] h-screen space-y-2 flex flex-col justify-between border-r border-gray-100">
+<div class="w-[300px] h-screen space-y-2 flex flex-col justify-between border-r border-gray-100 fixed top-0 left-0 bg-white">
     <div>
         <div class="w-full py-4 px-6 items-center space-x-2 cursor-pointer hover:bg-slate-50 transition-colors ease-in-out transform"
              onmouseenter="(
@@ -20,7 +20,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2 justify-start">
                     <div class="rounded-full bg-blue-600 text-white w-8 h-8 flex items-center justify-center">
-                        NL
+                        {{ app.user.firstName|first }}{{ app.user.lastName|first }}
                     </div>
                     <div>
                         <p class="-tracking-[0.48px] font-[400] text-base leading-[150%]">{{ app.user }}</p>
@@ -33,7 +33,7 @@
                 </svg>
             </div>
             <div class="space-y-2 pt-4 hidden transition-all ease-in-out bg-slate-50" id="user-menu">
-                <a class="block">
+                <a href="{{ path('app_user_account') }}" class="block">
                     <div class="flex p-2 w-full space-x-2 hover:bg-white rounded-lg">
                         <p class="px-1">👨‍💻</p>
                         <p class="-tracking-[0.48px] leading-[150%] text-base">Mon compte</p>
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="py-2 space-y-2 px-6">
-            <a href="{{ path('app_dashboard') }}" class="block">
+            <a href="{{ path('app_user_dashboard') }}" class="block">
                 <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                     <p class="px-1">📈</p>
                     <p class="-tracking-[0.48px] leading-[150%] text-base">Tableau de bord</p>
@@ -78,7 +78,7 @@
         <div class="space-y-2 px-6 py-2">
             <h4 class="text-xl font-[500] -tracking-[0.6px]">Gestion</h4>
             <div class="space-y-2">
-                <a class="block">
+                <a href="{{ path('app_user_invoice_index') }}" class="block">
                     <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                         <p class="px-1">📄</p>
                         <p class="-tracking-[0.48px] leading-[150%] text-base">Factures</p>

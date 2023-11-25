@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturéo - Mon compte{% endblock %}
+
+{% block body %}
+    <div class="flex">
+        {{ component('User:Sidebar') }}
+        <div class="w-3/4 lg:ml-[300px] mx-auto pl-16">
+            <div class="flex items-center justify-between mt-6 px-8 py-5 border-b border-gray-100">
+                <h2 class="text-3xl font-[600] -tracking-[0.96px]">Mon compte</h2>
+                <div>
+                    <a href="#"
+                       class="hidden bg-slate-900 rounded-lg text-white px-4 py-3 flex items-center space-x-2 text-[14px]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <g clip-path="url(#clip0_432_6449)">
+                                <path d="M14.1866 4.26678L7.8266 10.6267C7.19327 11.2601 5.31325 11.5534 4.89325 11.1334C4.47325 10.7134 4.75991 8.83342 5.39325 8.20008L11.7599 1.83343C11.9169 1.66214 12.107 1.52444 12.3187 1.42864C12.5304 1.33284 12.7593 1.28091 12.9917 1.27602C13.2239 1.27113 13.4549 1.31336 13.6704 1.40016C13.8859 1.48697 14.0817 1.61657 14.2457 1.7811C14.4098 1.94564 14.5389 2.1417 14.6251 2.35748C14.7113 2.57326 14.7529 2.80426 14.7474 3.03656C14.7419 3.26886 14.6893 3.49765 14.5929 3.70908C14.4965 3.92051 14.3583 4.11024 14.1866 4.26678Z"
+                                      stroke="white" stroke-width="1.33" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                <path d="M7.33337 2.66675H4.00004C3.29279 2.66675 2.61456 2.94769 2.11446 3.44779C1.61437 3.94789 1.33337 4.62617 1.33337 5.33341V12.0001C1.33337 12.7073 1.61437 13.3856 2.11446 13.8857C2.61456 14.3858 3.29279 14.6667 4.00004 14.6667H11.3334C12.8067 14.6667 13.3334 13.4667 13.3334 12.0001V8.66675"
+                                      stroke="white" stroke-width="1.33" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_432_6449">
+                                    <rect width="16" height="16" fill="white"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p>Modifier</p>
+                    </a>
+                </div>
+            </div>
+            <div class="w-fit mx-auto mt-6 flex space-x-2 border-b border-gray-100">
+                <a href="#" class="flex items-center border-b-2 border-blue-600 text-blue-600 px-4 py-2 min-h-[60px]">
+                    Informations
+                </a>
+                <a href="#"
+                   class="flex items-center text-gray-200 px-4 py-2 hover:text-gray-400 hover:border-b hover:border-gray-400 min-h-[60px]">
+                    Notifications
+                </a>
+                <a href="#"
+                   class="flex items-center text-gray-200 px-4 py-2 hover:text-gray-400 hover:border-b hover:border-gray-400 min-h-[60px]">
+                    Données
+                </a>
+                <a href="#"
+                   class="flex items-center text-gray-200 px-4 py-2 hover:text-gray-400 hover:border-b hover:border-gray-400 min-h-[60px]">
+                    Paramètres
+                </a>
+            </div>
+            {{ form_start(infoForm) }}
+            <div class="space-y-6 mt-12 w-fit mx-auto">
+                <div class="space-y-2">
+                    <h4 class="text-xl font-[500] -tracking-[0.6px] leading-[150%]">Informations personnelles</h4>
+                    <div class="bg-gray-200 w-[50px] h-[2px]"></div>
+                </div>
+                <div class="flex w-full space-x-8 px-6 py-6">
+                    <div class="bg-slate-900 flex items-center justify-center text-white rounded-full p-7 w-[100px] h-[100px]">
+                        <h2 class="text-white text-3xl -tracking-[0.96px]">{{ app.user.firstName|first }}{{ app.user.lastName|first }}</h2>
+                    </div>
+                    <div class="flex flex-col items-center max-w-[450px] space-y-2">
+                        <div class="flex justify-center items-center space-x-2 px-10">
+                            <a href="#"
+                               class="bg-blue-600 hover:bg-blue-700 text-white -tracking-[0.48px] font-[500] p-3 rounded-lg">Mettre
+                                à jour la photo de profil</a>
+                            <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
+                                     fill="none">
+                                    <path d="M4.5 6H20.5M16.5 6L16.2294 5.18807C15.9671 4.40125 15.8359 4.00784 15.5927 3.71698C15.3779 3.46013 15.1021 3.26132 14.7905 3.13878C14.4376 3 14.023 3 13.1936 3H11.8064C10.977 3 10.5624 3 10.2095 3.13878C9.89792 3.26132 9.62208 3.46013 9.40729 3.71698C9.16405 4.00784 9.03292 4.40125 8.77064 5.18807L8.5 6M18.5 6V16.2C18.5 17.8802 18.5 18.7202 18.173 19.362C17.8854 19.9265 17.4265 20.3854 16.862 20.673C16.2202 21 15.3802 21 13.7 21H11.3C9.61984 21 8.77976 21 8.13803 20.673C7.57354 20.3854 7.1146 19.9265 6.82698 19.362C6.5 18.7202 6.5 17.8802 6.5 16.2V6M14.5 10V17M10.5 10V17"
+                                          stroke="black" stroke-width="2" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="text-center text-[14px]">
+                            L’image doit être au format JPEG, PNG ou GIF et ne doit pas dépasser 10 Mo.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex space-x-6">
+                    <div class="space-y-2">
+                        {{ form_row(infoForm.lastName, {'value': app.user.lastName}) }}
+                    </div>
+                    <div class="space-y-2">
+                        {{ form_row(infoForm.firstName, {'value': app.user.firstName}) }}
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    {{ form_row(infoForm.email, {'value': app.user.email}) }}
+                </div>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5">Modifier</button>
+            </div>
+            {{ form_end(infoForm) }}
+            {{ form_start(passwordForm) }}
+                <div class="space-y-6 mt-14 max-w-[625px] mx-auto mb-6">
+                    <div class="space-y-2">
+                        <h4 class="text-xl font-[500] -tracking-[0.6px] leading-[150%]">Changez votre mot de passe</h4>
+                        <div class="bg-gray-200 w-[50px] h-[2px]"></div>
+                    </div>
+                    <div class="space-y-6">
+                        {{ form_row(passwordForm.currentPassword) }}
+                        {{ form_row(passwordForm.password) }}
+                    </div>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5">Modifier</button>
+                </div>
+            {{ form_end(passwordForm) }}
+            {{ component('User:Footer') }}
+        </div>
+    </div>
+{% endblock %}

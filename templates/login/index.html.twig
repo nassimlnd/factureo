@@ -52,6 +52,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <input type="hidden" name="_target_path" value="{{ path('app_user_dashboard') }}">
                     <button type="submit"
                             class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full">
                         Se connecter

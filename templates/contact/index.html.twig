@@ -1,20 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Facturéo - Contact{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {{ component('Home:Navbar') }}
+    <main class="w-3/4 mx-auto mt-14 mb-14">
+        <h1 class="text-5xl font-[700] -tracking-[1.92px] text-center">Contactez nous</h1>
+        <p class="text-base -tracking-[0.48px] leading-[150%] text-center mt-4">Une question ? Besoin d’aide ?
+            Parlons-en !</p>
+        <p class="text-center -tracking-[0.48px] leading-[150%] text-base mt-3 max-w-4xl mx-auto">Nous sommes là pour
+            répondre à toutes vos questions et vous assister de la
+            meilleure façon possible. Remplissez le formulaire ci-dessous, et nous vous contacterons dès que possible.
+            N'hésitez pas, nous sommes là pour vous !</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/stump/Documents/GitHub/factureo/src/Controller/ContactController.php'|file_link(0) }}">src/Controller/ContactController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/stump/Documents/GitHub/factureo/templates/contact/index.html.twig'|file_link(0) }}">templates/contact/index.html.twig</a></code></li>
-    </ul>
-</div>
+        {{ form_start(contactForm) }}
+        <div class="w-3/4 mx-auto pt-12 space-y-6 ">
+            <div class="">
+                <label for="message_fullName">Nom complet</label>
+                {{ form_row(contactForm.fullName) }}
+            </div>
+            <div class="">
+                <label for="message_subject">Objet</label>
+                {{ form_row(contactForm.subject) }}
+            </div>
+            <div class="">
+                <label for="message_email">Adresse e-mail</label>
+                {{ form_row(contactForm.email) }}
+            </div>
+            <div class="">
+                <label for="message_content">Votre message</label>
+                {{ form_row(contactForm.content) }}
+            </div>
+            <button type="submit" class="cursor-pointer bg-blue-600 hover:bg-blue-700 mt-10 w-[405px] px-8 py-2 text-white font-[600] rounded-full block w-fit">Envoyer</button>
+        </div>
+        {{ form_end(contactForm) }}
+    </main>
+    {{ component('Home:Footer') }}
 {% endblock %}

@@ -59,8 +59,8 @@ class AccountController extends AbstractController
             $currentPassword = $passwordForm->get('currentPassword')->getData();
             if ($userPasswordHasher->isPasswordValid($user, $currentPassword))
             {
-                $newPassword = $passwordForm->get('password')->getData();
-                $passwordConfirm = $passwordForm->get('passwordConfirm')->getData();
+                $newPassword = $passwordForm->get('password')->getViewData()['first'];
+                $passwordConfirm = $passwordForm->get('password')->getViewData()['second'];
                 if ($newPassword === $passwordConfirm)
                 {
                     $user->setPassword(
@@ -75,11 +75,32 @@ class AccountController extends AbstractController
 
                     $this->addFlash(
                         'success',
-                        'Votre mot de passe a bien été modifié.'
+                        [
+                            'message' => 'Votre mot de passe a bien été modifié.',
+                            'title' => 'Mise à jour réussie'
+                        ]
                     );
 
                     return $this->redirectToRoute('app_user_account');
+                } else {
+                    $this->addFlash(
+                        'error',
+                        [
+                            'message' => 'Les mots de passe sont différents.',
+                            'title' => 'Une erreur est survenue'
+                        ]
+                    );
                 }
+            } else {
+                $this->addFlash(
+                    'error',
+                    [
+                        'message' => 'Le mot de passe actuel est incorrect.',
+                        'title' => 'Une erreur est survenue'
+                    ]
+                );
+
+                return $this->redirectToRoute('app_user_account');
             }
         }
 
@@ -90,7 +111,10 @@ class AccountController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre compte a bien été mis à jour.'
+                [
+                    'message' => 'Votre compte a bien été mis à jour.',
+                    'title' => 'Mise à jour réussie.'
+                ]
             );
 
             return $this->redirectToRoute('app_user_account');

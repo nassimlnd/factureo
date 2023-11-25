@@ -5,6 +5,26 @@
 {% block body %}
     <div class="flex">
         {{ component('User:Sidebar') }}
+        {% for type, message in app.flashes('success') %}
+            {{ component('Alert',
+                {
+                    state: 'success',
+                    title: message['title'],
+                    content: message['message']
+                }
+            ) }}
+        {% endfor %}
+
+        {% for type, message in app.flashes('error') %}
+            {{ component('Alert',
+                {
+                    state: 'error',
+                    title: message['title'],
+                    content: message['message']
+                }
+            ) }}
+        {% endfor %}
+
         <div class="w-3/4 lg:ml-[300px] mx-auto pl-16">
             <div class="flex items-center justify-between mt-6 px-8 py-5 border-b border-gray-100">
                 <h2 class="text-3xl font-[600] -tracking-[0.96px]">Mon compte</h2>
@@ -87,21 +107,23 @@
                 <div class="space-y-2">
                     {{ form_row(infoForm.email, {'value': app.user.email}) }}
                 </div>
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5">Modifier</button>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5">Modifier
+                </button>
             </div>
             {{ form_end(infoForm) }}
             {{ form_start(passwordForm) }}
-                <div class="space-y-6 mt-14 max-w-[625px] mx-auto mb-6">
-                    <div class="space-y-2">
-                        <h4 class="text-xl font-[500] -tracking-[0.6px] leading-[150%]">Changez votre mot de passe</h4>
-                        <div class="bg-gray-200 w-[50px] h-[2px]"></div>
-                    </div>
-                    <div class="space-y-6">
-                        {{ form_row(passwordForm.currentPassword) }}
-                        {{ form_row(passwordForm.password) }}
-                    </div>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5">Modifier</button>
+            <div class="space-y-6 mt-14 max-w-[625px] mx-auto mb-6">
+                <div class="space-y-2">
+                    <h4 class="text-xl font-[500] -tracking-[0.6px] leading-[150%]">Changez votre mot de passe</h4>
+                    <div class="bg-gray-200 w-[50px] h-[2px]"></div>
                 </div>
+                <div class="space-y-6">
+                    {{ form_row(passwordForm.currentPassword) }}
+                    {{ form_row(passwordForm.password) }}
+                </div>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5">Modifier
+                </button>
+            </div>
             {{ form_end(passwordForm) }}
             {{ component('User:Footer') }}
         </div>

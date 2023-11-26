@@ -20,7 +20,7 @@ class Invoice
     private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tags = null;
+    private ?array $tags = null;
 
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
@@ -66,12 +66,12 @@ class Invoice
         return $this;
     }
 
-    public function getTags(): ?string
+    public function getTags(): ?array
     {
         return $this->tags;
     }
 
-    public function setTags(?string $tags): static
+    public function setTags(?array $tags): static
     {
         $this->tags = $tags;
 

@@ -2,9 +2,8 @@
 
 namespace App\Controller\User;
 
-use App\Entity\User;
-use App\Form\UserInfoType;
-use App\Form\UserPasswordType;
+use App\Form\User\UserInfoType;
+use App\Form\User\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use function Symfony\Component\Translation\t;
 
 class AccountController extends AbstractController
 {

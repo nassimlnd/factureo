@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\User\UserInfoType;
+use App\Form\User\UserPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +17,12 @@ class AccountController extends AbstractController
     ]
     public function index(): Response
     {
-        return $this->render('admin/account/index.html.twig', []);
+        $infoForm = $this->createForm(UserInfoType::class);
+        $passwordForm = $this->createForm(UserPasswordType::class);
+
+        return $this->render('admin/account/index.html.twig', [
+            'infoForm' => $infoForm,
+            'passwordForm' => $passwordForm
+        ]);
     }
 }

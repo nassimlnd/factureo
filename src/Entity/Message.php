@@ -29,6 +29,9 @@ class Message
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\Column]
+    private ?int $state = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Message
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): static
+    {
+        $this->state = $state;
 
         return $this;
     }

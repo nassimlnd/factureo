@@ -89,6 +89,7 @@ class RegistrationCompanyFormType extends AbstractType
                     ],
                     'label' => false,
                     'choices' => [
+                        'Auto-entreprise' => 'AE',
                         'Entreprise individuelle' => 'EI',
                         'Entreprise unipersonnelle à responsabilité limitée' => 'EURL',
                         'Société à responsabilité limité' => 'SARL',
@@ -99,7 +100,6 @@ class RegistrationCompanyFormType extends AbstractType
                         'Société coopérative de production' => 'SCOP',
                         'Société en commandite par actions' => 'SCA',
                         'Société en commandite simple' => 'SCS'
-
                     ]
                 ]
             )

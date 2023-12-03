@@ -98,16 +98,16 @@
                                 <td class="pl-6">
                                     <div class="flex items-center gap-3 ">
                                         <div>
-                                            <p class="rounded-full bg-blue-600 text-white p-2">MN</p>
+                                            <p class="rounded-full bg-blue-600 text-white p-2 h-10 w-10 flex justify-center capitalize">{{ invoice.customer.lastName|first|capitalize ~ invoice.customer.firstName|first|capitalize  }}</p>
                                         </div>
                                         <div>
-                                            <p class="text-sm">NERON Martin</p>
-                                            <p class="text-sm text-gray-600">NeronMartin@gmail.com</p>
+                                            <p class="text-sm">{{ invoice.customer.lastName ~ ' ' ~ invoice.customer.firstName }}</p>
+                                            <p class="text-sm text-gray-600">{{ invoice.customer.email }}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-sm border w-fit rounded-full px-2 bg-gray-200 text-slate-700">{{ invoice.id }}</p>
+                                    <p class="text-sm border w-fit rounded-full px-2 bg-gray-200 text-slate-700">#{{ invoice.id }}</p>
                                 </td>
                                 <td>
                                     <p>{{ invoice.type }}</p>
@@ -123,19 +123,15 @@
                                 </td>
                                 <td class="h-full  items-center ">
                                     <div class="flex space-x-2">
-                                        <p class="text-sm bg-gray-200 rounded-full px-2 text-slate-700">
-                                            {{ invoice.tags }}
-                                        </p>
-                                        <p class="text-sm bg-red-50 rounded-full px-2 text-red-700">
-                                            Design
-                                        </p>
-                                        <p class="text-sm bg-gray-100 rounded-full px-2 text-slate-400">
-                                            +1
-                                        </p>
+                                        {% for tag in invoice.tags %}
+                                            <p class="text-sm bg-gray-200 rounded-full px-2 text-slate-700">
+                                                {{ tag }}
+                                            </p>
+                                        {% endfor %}
                                     </div>
                                 </td>
-                                <td class="px-6">
-                                    <a href="#" class="">
+                                <td class="px-6 flex justify-end items-center h-20">
+                                    <a href="#" class="block w-fit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16"
                                              fill="none">
                                             <path d="M2.00002 8.83331C2.46026 8.83331 2.83335 8.46022 2.83335 7.99998C2.83335 7.53974 2.46026 7.16665 2.00002 7.16665C1.53978 7.16665 1.16669 7.53974 1.16669 7.99998C1.16669 8.46022 1.53978 8.83331 2.00002 8.83331Z"

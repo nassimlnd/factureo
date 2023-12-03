@@ -122,7 +122,6 @@ class RegistrationCompanyFormType extends AbstractType
                         'placeholder' => 'Pays'
                     ],
                     'label' => false,
-
                 ]
             )
         ;

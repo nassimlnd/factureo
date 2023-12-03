@@ -4,7 +4,7 @@ namespace App\Twig\Components\Admin\Message;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent(template: 'components/table/message/table_item.html.twig')]
+#[AsTwigComponent(template: 'components/admin/message/table_item.html.twig')]
 class TableItem
 {
     public string $id;

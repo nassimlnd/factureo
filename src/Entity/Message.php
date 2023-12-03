@@ -32,6 +32,9 @@ class Message
     #[ORM\Column]
     private ?int $state = 0;
 
+    #[ORM\Column]
+    private ?int $parentId = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Message
     public function setState(int $state): static
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
+
+    public function setParentId(?int $parentId): static
+    {
+        $this->parentId = $parentId;
 
         return $this;
     }

@@ -63,15 +63,19 @@
                     <input type="text" placeholder="Rechercher une facture par client, type ou ID"
                            class="relative h-full w-full rounded-2xl pl-12 pr-28 bg-transparent">
                     <div class="absolute right-0">
-                        <a href="#"
-                           class="py-2 px-3 text-slate-900 border border-gray-100 mr-2 my-3 rounded-lg flex items-center text-[14px] space-x-2">
+                        <button class="py-2 px-3 text-slate-900 border border-gray-100 mr-2 my-3 rounded-lg flex items-center text-[14px] space-x-2"
+                                onclick="(() => {
+                                    document.getElementById('filter-modal').classList.toggle('hidden');
+                                    document.body.classList.toggle('overflow-hidden');
+                                }) ()"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                  fill="none">
                                 <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#344054" stroke-width="1.67"
                                       stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
-                            <p>Filtrer</p>
-                        </a>
+                            Filtrer
+                        </button>
                     </div>
                 </div>
             </div>
@@ -80,7 +84,16 @@
                     <table class="table-auto w-full">
                         <thead class="text-left h-11 bg-gray-100">
                         <tr class="text-sm text-slate-700">
-                            <th class="pl-6"><input type="checkbox"></th>
+                            <th class="pl-6">
+                                <input type="checkbox"
+                                       onclick="((source) => {
+                                           let checkboxes = document.getElementsByClassName('checkbox-all');
+                                           for (let i = 0; i < checkboxes.length; i++) {
+                                               let checkbox = checkboxes[i];
+                                               checkbox.checked = source.checked
+                                           }
+                                       }) (this)">
+                            </th>
                             <th class="pl-6">Client</th>
                             <th class="">ID Facture</th>
                             <th>Type</th>
@@ -93,12 +106,12 @@
                         {% for invoice in invoices %}
                             <tr class="h-20 gap-8 items-center">
                                 <td class="pl-6 ">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="checkbox-all">
                                 </td>
                                 <td class="pl-6">
                                     <div class="flex items-center gap-3 ">
                                         <div>
-                                            <p class="rounded-full bg-blue-600 text-white p-2 h-10 w-10 flex justify-center capitalize">{{ invoice.customer.lastName|first|capitalize ~ invoice.customer.firstName|first|capitalize  }}</p>
+                                            <p class="rounded-full bg-blue-600 text-white p-2 h-10 w-10 flex justify-center capitalize">{{ invoice.customer.lastName|first|capitalize ~ invoice.customer.firstName|first|capitalize }}</p>
                                         </div>
                                         <div>
                                             <p class="text-sm">{{ invoice.customer.lastName ~ ' ' ~ invoice.customer.firstName }}</p>
@@ -107,19 +120,41 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-sm border w-fit rounded-full px-2 bg-gray-200 text-slate-700">#{{ invoice.id }}</p>
+                                    <p class="text-sm border w-fit rounded-full px-2 bg-gray-200 text-slate-700">
+                                        #{{ invoice.id }}</p>
                                 </td>
                                 <td>
                                     <p>{{ invoice.type }}</p>
                                 </td>
                                 <td class>
-                                    <p class="text-sm gap-1 flex px-2 bg-green-50 items-center text-green-700 w-fit rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"
-                                             fill="none">
-                                            <circle cx="4.00002" cy="4" r="3" fill="#12B76A"/>
-                                        </svg>
-                                        {{ invoice.state }}
-                                    </p>
+                                    {% if invoice.state == 0 %}
+                                        <p class="text-sm gap-1 flex px-2 bg-amber-50 items-center text-amber-700 w-fit rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                                 viewBox="0 0 8 8"
+                                                 fill="none">
+                                                <circle cx="4.00002" cy="4" r="3" fill="#B76112"></circle>
+                                            </svg>
+                                            En cours
+                                        </p>
+                                    {% elseif invoice.state == 1 %}
+                                        <p class="text-sm gap-1 flex px-2 bg-green-50 items-center text-green-700 w-fit rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                                 viewBox="0 0 8 8"
+                                                 fill="none">
+                                                <circle cx="4.00002" cy="4" r="3" fill="#12B76A"></circle>
+                                            </svg>
+                                            Terminé
+                                        </p>
+                                    {% elseif invoice.state == 2 %}
+                                        <p class="text-sm gap-1 flex px-2 bg-red-50 items-center text-red-700 w-fit rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                                 viewBox="0 0 8 8"
+                                                 fill="none">
+                                                <circle cx="4.00002" cy="4" r="3" fill="#B71212"></circle>
+                                            </svg>
+                                            Annulé
+                                        </p>
+                                    {% endif %}
                                 </td>
                                 <td class="h-full  items-center ">
                                     <div class="flex space-x-2">
@@ -130,21 +165,36 @@
                                         {% endfor %}
                                     </div>
                                 </td>
-                                <td class="px-6 flex justify-end items-center h-20">
-                                    <a href="#" class="block w-fit">
+                                <td class="px-6 flex justify-end items-center h-20 relative">
+                                    <button class="py-2 px-3 hover:bg-gray-100 rounded-lg"
+                                            id="dropdown-btn"
+                                            onclick="(() => {
+                                                    document.getElementById('dropdown-menu-{{ invoice.id }}').classList.toggle('hidden');
+                                                    }) ()"
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16"
-                                             fill="none">
-                                            <path d="M2.00002 8.83331C2.46026 8.83331 2.83335 8.46022 2.83335 7.99998C2.83335 7.53974 2.46026 7.16665 2.00002 7.16665C1.53978 7.16665 1.16669 7.53974 1.16669 7.99998C1.16669 8.46022 1.53978 8.83331 2.00002 8.83331Z"
+                                             fill="none"
+                                             class="pointer-events-none">
+                                            <path d="M2 8.83331C2.46023 8.83331 2.83333 8.46022 2.83333 7.99998C2.83333 7.53974 2.46023 7.16665 2 7.16665C1.53976 7.16665 1.16666 7.53974 1.16666 7.99998C1.16666 8.46022 1.53976 8.83331 2 8.83331Z"
                                                   stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
                                                   stroke-linejoin="round"></path>
-                                            <path d="M2.00002 2.99998C2.46026 2.99998 2.83335 2.62688 2.83335 2.16665C2.83335 1.70641 2.46026 1.33331 2.00002 1.33331C1.53978 1.33331 1.16669 1.70641 1.16669 2.16665C1.16669 2.62688 1.53978 2.99998 2.00002 2.99998Z"
+                                            <path d="M2 2.99998C2.46023 2.99998 2.83333 2.62688 2.83333 2.16665C2.83333 1.70641 2.46023 1.33331 2 1.33331C1.53976 1.33331 1.16666 1.70641 1.16666 2.16665C1.16666 2.62688 1.53976 2.99998 2 2.99998Z"
                                                   stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
                                                   stroke-linejoin="round"></path>
-                                            <path d="M2.00002 14.6666C2.46026 14.6666 2.83335 14.2936 2.83335 13.8333C2.83335 13.3731 2.46026 13 2.00002 13C1.53978 13 1.16669 13.3731 1.16669 13.8333C1.16669 14.2936 1.53978 14.6666 2.00002 14.6666Z"
+                                            <path d="M2 14.6666C2.46023 14.6666 2.83333 14.2935 2.83333 13.8333C2.83333 13.3731 2.46023 13 2 13C1.53976 13 1.16666 13.3731 1.16666 13.8333C1.16666 14.2935 1.53976 14.6666 2 14.6666Z"
                                                   stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
                                                   stroke-linejoin="round"></path>
                                         </svg>
-                                    </a>
+                                    </button>
+                                    <div class="absolute right-8 -bottom-20 bg-white border border-gray-200 rounded-lg px-2 py-2 drop-shadow-md hidden z-20 w-[234px] dropdown-content"
+                                         id="dropdown-menu-{{ invoice.id }}">
+                                        <button class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start"
+                                        >Modifier
+                                        </button>
+                                        <button class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start"
+                                        >Supprimer
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -181,5 +231,51 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="filter-modal"
+         class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center">
+        <div class="bg-white p-6 mx-auto rounded-lg space-y-6 w-[500px]">
+            <div class="flex justify-between">
+                <h4 class="text-xl font-bold leading-[150%] -tracking-[0.6px]">Filtrage</h4>
+                <button class="p-1 hover:bg-gray-200 rounded"
+                        onclick="(() => {
+                            document.getElementById('filter-modal').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
+                        }) ()"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M16.9497 8.46443C17.3403 8.0739 17.3403 7.44074 16.9497 7.05021C16.5592 6.65969 15.926 6.65969 15.5355 7.05021L12 10.5858L8.46443 7.05021C8.0739 6.65969 7.44074 6.65969 7.05021 7.05021C6.65969 7.44074 6.65969 8.0739 7.05021 8.46443L10.5858 12L7.05021 15.5355C6.65969 15.9261 6.65969 16.5592 7.05021 16.9497C7.44074 17.3403 8.0739 17.3403 8.46443 16.9497L12 13.4142L15.5355 16.9497C15.926 17.3403 16.5592 17.3403 16.9497 16.9497C17.3403 16.5592 17.3403 15.9261 16.9497 15.5355L13.4142 12L16.9497 8.46443Z"
+                              fill="black"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-2.5">
+                <div class="flex space-x-2.5">
+                    <input type="radio" name="critere" id="critere1" value="critere1">
+                    <label for="critere1">Critère 1</label>
+                </div>
+                <div class="flex space-x-2.5">
+                    <input type="radio" name="critere" id="critere2" value="critere2">
+                    <label for="critere2">Critère 2</label>
+                </div>
+                <div class="flex space-x-2.5">
+                    <input type="radio" name="critere" id="critere3" value="critere3">
+                    <label for="critere3">Critère 3</label>
+                </div>
+            </div>
+            <button type="submit"
+                    class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
+                <div class="rounded-full border border-dashed border-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                         fill="none">
+                        <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                              stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+                <p>Enregistrer</p>
+            </button>
+        </div>
+    </div>
     </div>
 {% endblock %}

@@ -186,7 +186,7 @@
                                                   stroke-linejoin="round"></path>
                                         </svg>
                                     </button>
-                                    <div class="absolute right-8 -bottom-20 bg-white border border-gray-200 rounded-lg px-2 py-2 drop-shadow-md hidden z-20 w-[234px] dropdown-content"
+                                    <div class="dropdown-content absolute right-8 -bottom-20 bg-white border border-gray-200 rounded-lg px-2 py-2 drop-shadow-md hidden z-20 w-[234px] dropdown-content"
                                          id="dropdown-menu-{{ invoice.id }}">
                                         <button class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start"
                                         >Modifier
@@ -277,5 +277,21 @@
             </button>
         </div>
     </div>
-    </div>
+    {% block javascripts %}
+        <script type="text/javascript">
+            window.onclick = function (event) {
+                if (!event.target.matches('#dropdown-btn')) {
+                    let dropdowns = document.getElementsByClassName("dropdown-content");
+                    let i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        let openDropdown = dropdowns[i];
+                        if (!openDropdown.classList.contains('hidden')) {
+                            openDropdown.classList.toggle('hidden');
+                        }
+                    }
+                }
+            }
+        </script>
+    {% endblock %}
+
 {% endblock %}

@@ -1,11 +1,11 @@
-<div id="new-modal"
-     class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center">
+<div id="edit-modal"
+     class="absolute top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center">
     <div class="bg-white p-6 mx-auto rounded-lg w-fit space-y-6">
         <div class="flex justify-between">
-            <h4 class="text-xl font-medium leading-[150%] -tracking-[0.6px]">Nouvel utilisateur</h4>
+            <h4 class="text-xl leading-[150%] -tracking-[0.6px] font-bold">Modifier l'entreprise n°{{ id }}</h4>
             <button class="p-1 hover:bg-gray-200 rounded"
                     onclick="(() => {
-                            document.getElementById('new-modal').classList.toggle('hidden');
+                            document.getElementById('edit-modal').classList.toggle('hidden');
                             document.body.classList.toggle('overflow-hidden');
                         }) ()"
             >
@@ -16,26 +16,37 @@
                 </svg>
             </button>
         </div>
-        {{ form_start(newUserForm) }}
+        {{ form_start(editForm) }}
         <div class="space-y-6">
-            <div class="flex space-x-6">
-                {{ form_row(newUserForm.lastName) }}
-                {{ form_row(newUserForm.firstName) }}
-            </div>
-            <div class="flex space-x-6">
-                {{ form_row(newUserForm.email) }}
-            </div>
-            <div class="flex space-x-6">
-                {{ form_row(newUserForm.password) }}
-            </div>
-            <div class="flex space-x-6">
-                {{ form_row(newUserForm.roles) }}
-            </div>
-            <div class="flex space-x-6">
-                {{ form_row(newUserForm.company) }}
-            </div>
-            <div class="flex space-x-6">
-                {{ form_row(newUserForm.isVerified) }}
+            <div class="flex space-x-4">
+                <div class="space-y-6">
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.name) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.email) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.fullAdress) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.phoneNumber) }}
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.businessSector) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.legalStatus) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.activityType) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        {{ form_row(editForm.country) }}
+                    </div>
+                </div>
             </div>
             <button type="submit"
                     class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
@@ -49,6 +60,6 @@
                 <p>Enregistrer</p>
             </button>
         </div>
-        {{ form_end(newUserForm) }}
+        {{ form_end(editForm) }}
     </div>
 </div>

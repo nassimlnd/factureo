@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Twig\Components;
+namespace App\Twig\Components\Admin\User;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent(template: 'components/table_item.html.twig')]
+#[AsTwigComponent(template: 'components/admin/user/table_item.html.twig')]
 class TableItem
 {
     public string $id;

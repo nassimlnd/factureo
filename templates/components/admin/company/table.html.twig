@@ -2,19 +2,17 @@
     <div class="flex bg-gray-100 h-11 rounded-t-lg items-center justify-start">
         <div class="px-6 min-w-16">
             <input type="checkbox"
-                   onclick="(() => {
+                   onclick="((source) => {
                        let checkboxes = document.getElementsByClassName('checkbox-all');
                        for (let i = 0; i < checkboxes.length; i++) {
                            let checkbox = checkboxes[i];
-                           if (!checkbox.checked) {
-                               checkbox.checked = true;
-                           }
+                           checkbox.checked = source.checked
                        }
-                   }) ()"
+                   }) (this)"
             >
         </div>
         <div class="px-6 min-w-[163px]">
-            <p class="text-sm text-slate-700">ID Client</p>
+            <p class="text-sm text-slate-700">ID</p>
         </div>
         <div class="px-6 min-w-[205px]">
             <p class="text-sm text-slate-700">Nom</p>
@@ -23,10 +21,10 @@
             <p class="text-sm text-slate-700">Adresse e-mail</p>
         </div>
         <div class="px-6 min-w-[180px]">
-            <p class="text-sm text-slate-700">État</p>
+            <p class="text-sm text-slate-700">Statut légal</p>
         </div>
         <div class="px-6 min-w-[208px]">
-            <p class="text-sm text-slate-700">Roles</p>
+            <p class="text-sm text-slate-700">Pays</p>
         </div>
     </div>
     {% block content %}

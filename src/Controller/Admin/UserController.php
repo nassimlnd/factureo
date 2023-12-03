@@ -74,7 +74,6 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user,
             [
                 'method' => 'POST',
-                'action' => $this->generateUrl('app_admin_user_new'),
                 'company_repository' => $companyRepository
             ]
         );
@@ -87,7 +86,8 @@ class UserController extends AbstractController
         }
 
         return new JsonResponse([
-            'html' => $this->renderView('components/admin/user/edit_modal.html.twig', ['id' => $user->getId(), 'editForm' => $form->createView()]),
+            'html' => $this->renderView('components/admin/company/edit_modal.html.twig',
+                ['id' => $user->getId(), 'editForm' => $form->createView()]),
         ]);
     }
 
@@ -95,8 +95,16 @@ class UserController extends AbstractController
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
+            if ($user != $this->getUser()) {
+                $entityManager->remove($user);
+                $entityManager->flush();
+            } else {
+                $this->addFlash('error', [
+                    'message' => "Vous ne pouvez pas supprimer l'utilisateur sur lequel vous êtes connecté.",
+                    'title' => 'Une erreur est survenue'
+                    ]);
+                return $this->redirectToRoute('app_admin_user_index');
+            }
         }
 
         return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);

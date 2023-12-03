@@ -1,10 +1,11 @@
-<div class="absolute top-0 left-0 bg-black bg-opacity-20 z-30 h-screen w-full flex items-center justify-center">
+<div id="edit-modal" class="absolute top-0 left-0 bg-black bg-opacity-20 z-30 h-screen w-full flex items-center justify-center">
     <div class="bg-white p-6 mx-auto rounded-lg w-fit space-y-6">
         <div class="flex justify-between">
-            <h4 class="text-xl font-medium leading-[150%] -tracking-[0.6px]">Modifier l'utilisateur n°{{ id }}</h4>
+            <h4 class="text-xl font-bold leading-[150%] -tracking-[0.6px]">Modifier l'utilisateur n°{{ id }}</h4>
             <button class="p-1 hover:bg-gray-200 rounded"
                     onclick="(() => {
                             document.getElementById('edit-modal').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
                         }) ()"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -17,37 +18,23 @@
         {{ form_start(editForm) }}
         <div class="space-y-6">
             <div class="flex space-x-6">
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.lastName) }}
-                </div>
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.firstName) }}
-                </div>
+                {{ form_row(editForm.lastName) }}
+                {{ form_row(editForm.firstName) }}
             </div>
             <div class="flex space-x-6">
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.email) }}
-                </div>
+                {{ form_row(editForm.email) }}
             </div>
             <div class="flex space-x-6">
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.password) }}
-                </div>
+                {{ form_row(editForm.password) }}
             </div>
             <div class="flex space-x-6">
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.roles) }}
-                </div>
+                {{ form_row(editForm.roles) }}
             </div>
             <div class="flex space-x-6">
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.company) }}
-                </div>
+                {{ form_row(editForm.company) }}
             </div>
             <div class="flex space-x-6">
-                <div class="space-y-2 flex flex-col">
-                    {{ form_row(editForm.isVerified) }}
-                </div>
+                {{ form_row(editForm.isVerified) }}
             </div>
             <button type="submit"
                     class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">

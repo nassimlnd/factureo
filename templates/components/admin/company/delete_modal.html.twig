@@ -9,7 +9,7 @@
                       fill="#C92323"></path>
             </svg>
         </div>
-        <p>Voulez-vous vraiment supprimer l'utilisateur n°{{ id }}</p>
+        <p>Voulez-vous vraiment supprimer l'entreprise n°{{ id }}</p>
         <div class="flex space-x-2.5 text-sm">
             <button class="border border-gray-200 hover:bg-gray-100 text-slate-900 rounded-lg px-4 py-2.5 h-[44px] flex items-center justify-center"
                     onclick="(() => {
@@ -19,7 +19,7 @@
             >
                 Annuler
             </button>
-            <form method="post" action="{{ path('app_admin_user_delete', {'id': id}) }}">
+            <form method="post" action="{{ path('app_admin_company_delete', {'id': id}) }}">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
                 <button type="submit"
                         class="bg-red-600 rounded-lg text-white px-4 py-2.5 h-[44px] hover:bg-red-700 flex items-center justify-center">

@@ -1,7 +1,15 @@
 <div class="min-h-[650px] rounded-lg border border-gray-200 mt-6 overflow-x-auto">
-    <div class="flex bg-gray-100 h-11 rounded-t-lg items-center items-start">
+    <div class="flex bg-gray-100 h-11 rounded-t-lg items-center justify-start">
         <div class="px-6 min-w-16">
-            <input type="checkbox">
+            <input type="checkbox"
+                   onclick="((source) => {
+                       let checkboxes = document.getElementsByClassName('checkbox-all');
+                       for (let i = 0; i < checkboxes.length; i++) {
+                           let checkbox = checkboxes[i];
+                           checkbox.checked = source.checked
+                       }
+                   }) (this)"
+            >
         </div>
         <div class="px-6 min-w-[163px]">
             <p class="text-sm text-slate-700">ID Client</p>

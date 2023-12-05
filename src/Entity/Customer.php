@@ -196,4 +196,7 @@ class Customer
 
         return $this;
     }
+    public function toString(){
+        return $this->name;
+    }
 }

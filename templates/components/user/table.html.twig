@@ -1,0 +1,95 @@
+<div class="border mt-6 h-[650px] rounded-lg overflow-hidden ">
+    <div class="h-[90%]">
+        <table class="table-auto w-full">
+            <thead class="text-left h-11 bg-gray-100">
+            <tr class="text-sm text-slate-700">
+                <th class="pl-6 w-[68px]"><input type="checkbox"></th>
+                <th class="pl-6 w-[253px]">Client</th>
+                <th class="w-[200px]">ID Facture</th>
+                <th class="w-[250px]">Type</th>
+                <th class="w-[150px]">Etat</th>
+                <th class="">Teams</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="divide-y">
+            {% for invoice in invoices %}
+                <tr class="h-20 gap-8 items-center">
+                    <td class="pl-6 ">
+                        <input type="checkbox">
+                    </td>
+                    <td class="pl-6">
+                        <div class="flex items-center gap-3 ">
+                            <div>
+                                <p class="rounded-full bg-blue-600 text-white p-2">MN</p>
+                            </div>
+                            <div>
+                                <p class="text-sm">{{ invoice.customer.firstName }}</p>
+                                <p class="text-sm text-gray-600">NeronMartin@gmail.com</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="text-sm border w-fit rounded-full px-2 bg-gray-200 text-slate-700">{{ invoice.id }}</p>
+                    </td>
+                    <td>
+                        <p>{{ invoice.type }}</p>
+                    </td>
+                    <td class>
+                        {% if invoice.state == 0 %}
+                            <p class="text-sm gap-1 flex px-2 bg-green-50 items-center text-green-700 w-fit rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                     viewBox="0 0 8 8"
+                                     fill="none">
+                                    <circle cx="4.00002" cy="4" r="3" fill="#12B76A"/>
+                                </svg>
+                                Terminée
+                            </p>
+                        {% elseif invoice.state == 1 %}
+                            <p class="text-sm gap-1 flex px-2 bg-red-50 items-center text-red-700 w-fit rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                     viewBox="0 0 8 8" fill="none">
+                                    <circle cx="4" cy="4" r="3" fill="#B71212"/>
+                                </svg>
+                                Annulée
+                            </p>
+                        {% elseif invoice.state == 2 %}
+                            <p class="text-sm gap-1 flex px-2 bg-amber-50 items-center text-amber-700 w-fit rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                     viewBox="0 0 8 8" fill="none">
+                                    <circle cx="4" cy="4" r="3" fill="#B76112"/>
+                                </svg>
+                                En cours
+                            </p>
+                        {% endif %}
+                    </td>
+                    <td class="h-full  items-center ">
+                        <div class="flex space-x-2">
+                            {% for tag in invoice.tags %}
+                                <p class="text-sm bg-gray-200 rounded-full px-2 text-slate-700">
+                                    {{ tag }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td class="px-6">
+                        <a href="#" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16"
+                                 fill="none">
+                                <path d="M2.00002 8.83331C2.46026 8.83331 2.83335 8.46022 2.83335 7.99998C2.83335 7.53974 2.46026 7.16665 2.00002 7.16665C1.53978 7.16665 1.16669 7.53974 1.16669 7.99998C1.16669 8.46022 1.53978 8.83331 2.00002 8.83331Z"
+                                      stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                <path d="M2.00002 2.99998C2.46026 2.99998 2.83335 2.62688 2.83335 2.16665C2.83335 1.70641 2.46026 1.33331 2.00002 1.33331C1.53978 1.33331 1.16669 1.70641 1.16669 2.16665C1.16669 2.62688 1.53978 2.99998 2.00002 2.99998Z"
+                                      stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                <path d="M2.00002 14.6666C2.46026 14.6666 2.83335 14.2936 2.83335 13.8333C2.83335 13.3731 2.46026 13 2.00002 13C1.53978 13 1.16669 13.3731 1.16669 13.8333C1.16669 14.2936 1.53978 14.6666 2.00002 14.6666Z"
+                                      stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>

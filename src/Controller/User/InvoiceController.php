@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Entity\Invoice;
 use App\Form\User\InvoiceType;
+use App\Form\User\NewInvoiceType;
 use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\EntityManager;
@@ -64,7 +65,7 @@ class InvoiceController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $invoice = new Invoice();
-        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form = $this->createForm(NewInvoiceType::class, $invoice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +76,6 @@ class InvoiceController extends AbstractController
         }
 
         return $this->render('user/invoice/new.html.twig', [
-            'invoice' => $invoice,
             'form' => $form,
         ]);
     }

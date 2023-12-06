@@ -196,7 +196,7 @@ class Customer
 
         return $this;
     }
-    public function toString(){
-        return $this->name;
+    public function __toString(){
+        return $this->getFirstName() . $this->getLastName();
     }
 }

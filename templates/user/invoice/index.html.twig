@@ -6,7 +6,7 @@
     <div class="flex">
         {{ component('User:Sidebar') }}
         <div class="w-3/4 mx-auto my-6 lg:ml-[300px] pl-16">
-            <div class="flex  items-center px-6 py-5 justify-between w-full border-b border-gray-100">
+            <div class="flex items-center px-6 py-5 justify-between w-full border-b border-gray-100">
                 <div class="flex space-x-2 items-center">
                     <h2 class="text-3xl -tracking-[0.96px] font-[600]">Factures</h2>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -39,7 +39,7 @@
                         </svg>
                         <p>Exporter</p>
                     </a>
-                    <a href="#"
+                    <a href="{{ path('app_user_invoice_new')}}"
                        class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
                         <div class="rounded-full border border-dashed border-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"

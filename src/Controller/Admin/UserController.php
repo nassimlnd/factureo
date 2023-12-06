@@ -73,6 +73,7 @@ class UserController extends AbstractController
     {
         $form = $this->createForm(UserType::class, $user,
             [
+                'action' => $this->generateUrl('app_admin_user_edit', ['id' => $user->getId()]),
                 'method' => 'POST',
                 'company_repository' => $companyRepository
             ]
@@ -86,7 +87,7 @@ class UserController extends AbstractController
         }
 
         return new JsonResponse([
-            'html' => $this->renderView('components/admin/company/edit_modal.html.twig',
+            'html' => $this->renderView('components/admin/user/edit_modal.html.twig',
                 ['id' => $user->getId(), 'editForm' => $form->createView()]),
         ]);
     }

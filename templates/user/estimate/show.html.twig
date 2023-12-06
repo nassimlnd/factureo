@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Estimate{% endblock %}
+
+{% block body %}
+    <h1>Estimate</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ estimate.id }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ estimate.state }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ estimate.type }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ estimate.tags }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_estimate_index') }}">back to list</a>
+
+    <a href="{{ path('app_user_estimate_edit', {'id': estimate.id}) }}">edit</a>
+
+    {{ include('user/estimate/_delete_form.html.twig') }}
+{% endblock %}

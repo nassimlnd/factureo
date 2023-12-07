@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Entity\Customer;
 use App\Form\CustomerType;
+use App\Repository\CompanyRepository;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class CustomerController extends AbstractController
 {
     #[Route('/', name: 'app_user_customer_index', methods: ['GET'])]
-    public function index(CustomerRepository $customerRepository): Response
+    public function index(CustomerRepository $customerRepository,Request $request,CompanyRepository $companyRepository): Response
     {
+        $this->CustomerRepository = $customerRepository;
+        $id = $request->query->get('recherche');
+        $idOrderASC = $request->query->get('idOrderASC');
+        $idOrderDESC = $request->query->get('idOrderDESC');
+        $isCompany = $request->query->get('isCompany');
+        $customers = $customerRepository->findByFilter($id,$idOrderASC,$idOrderDESC,$isCompany);
+
         return $this->render('user/customer/index.html.twig', [
-            'customers' => $customerRepository->findAll(),
+            'controller_name' => 'CustomerController',
+            'id' => $id,
+            'idOrderASC' => $idOrderASC,
+            'idOrderDESC' => $idOrderDESC,
+            'isCompany' => $isCompany,
+            'customers' => $customers,
+            'companies' => $companyRepository->findAll()
         ]);
     }
 

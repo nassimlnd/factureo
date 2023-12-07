@@ -21,6 +21,36 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
+
+
+    public function findByFilter($recherche, $idOrderASC, $idOrderDESC,$isCompany): array
+    {
+        $query = $this->createQueryBuilder('c');
+
+        if($recherche){
+            $query->andWhere('c.firstName = :id')
+                ->setParameter('id', $recherche);
+        }
+        else if($recherche){
+            $query->andWhere('c.id = :id')
+            ->setParameter('id', $recherche);
+        }
+        if($idOrderASC){
+            $query->orderBy('c.id',$idOrderASC);
+        }
+        if($idOrderDESC){
+            $query->orderBy('c.id',$idOrderDESC);
+        }
+        if($isCompany){
+            $query->andWhere('c.isCompany = :isCompany')
+                ->setParameter('isCompany', $isCompany);
+
+        }
+
+        return $query->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Customer[] Returns an array of Customer objects
 //     */

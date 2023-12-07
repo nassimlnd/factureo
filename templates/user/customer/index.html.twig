@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Customer index{% endblock %}
+
+{% block body %}
+    <h1>Customer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>FullAdress</th>
+                <th>PhoneNumber</th>
+                <th>IsCompany</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.firstName }}</td>
+                <td>{{ customer.lastName }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.fullAdress }}</td>
+                <td>{{ customer.phoneNumber }}</td>
+                <td>{{ customer.isCompany ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_user_customer_show', {'id': customer.id}) }}">show</a>
+                    <a href="{{ path('app_user_customer_edit', {'id': customer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_customer_new') }}">Create new</a>
+{% endblock %}

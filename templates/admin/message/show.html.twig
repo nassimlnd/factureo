@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message{% endblock %}
+
+{% block body %}
+    <div class="flex h-screen relative overflow-x-hidden">
+        {{ component('Admin:Sidebar') }}
+        <div class="w-3/4 mx-auto my-6 lg:ml-[300px] pl-16">
+            <div class="flex items-center px-6 py-5 justify-between w-full border-b border-gray-100">
+                <div class="flex space-x-2 items-center">
+                    <h2 class="text-3xl -tracking-[0.96px] font-[600]">Message #{{ parent.id }}
+                        - {{ parent.subject }}</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                         class="hidden">
+                        <g clip-path="url(#clip0_622_773)">
+                            <path d="M6.05998 6.00004C6.21672 5.55449 6.52608 5.17878 6.93328 4.93946C7.34048 4.70015 7.81924 4.61267 8.28476 4.69252C8.75028 4.77236 9.17252 5.01439 9.4767 5.37573C9.78087 5.73706 9.94735 6.19439 9.94665 6.66671C9.94665 8.00004 7.94665 8.66671 7.94665 8.66671M7.99998 11.3334H8.00665M14.6666 8.00004C14.6666 11.6819 11.6819 14.6667 7.99998 14.6667C4.31808 14.6667 1.33331 11.6819 1.33331 8.00004C1.33331 4.31814 4.31808 1.33337 7.99998 1.33337C11.6819 1.33337 14.6666 4.31814 14.6666 8.00004Z"
+                                  stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_622_773">
+                                <rect width="16" height="16" fill="white"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <p class="hidden rounded-full bg-slate-900 text-white p-1 w-6 h-6 flex justify-center items-center text-[14px]">
+                        10
+                    </p>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="#"
+                       class="text-slate-900 border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px] hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8.08148 10.2908L8.08148 2.26343" stroke="#0E2354" stroke-width="1.2"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M10.0255 8.33899L8.08147 10.291L6.13747 8.33899" stroke="#0E2354"
+                                  stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M11.5061 5.00024H12.2121C13.7521 5.00024 15 6.21235 15 7.70892L15 11.2989C15 12.7911 13.7552 14.0002 12.2189 14.0002L3.78866 14.0002C2.24866 14.0002 1.00001 12.7874 1.00001 11.2916L1.00001 7.70083C1.00001 6.20941 2.24564 5.00024 3.7811 5.00024H4.49396"
+                                  stroke="#0E2354" stroke-width="1.2" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                        <p>Exporter</p>
+                    </a>
+                    <button class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2 cursor-pointer"
+                            onclick="(() => {
+                                document.getElementById('leftsidebar').classList.toggle('translate-x-full');
+                            }) ()"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z"
+                                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M11 11V15" stroke="white" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                            <circle cx="11" cy="7" r="1" fill="white"></circle>
+                        </svg>
+                        <p>Informations</p>
+                    </button>
+                </div>
+            </div>
+            <div class="h-[90%] w-4/5 mx-auto flex flex-col justify-end">
+                <div id="messages" class="space-y-4 overflow-y-auto mt-4">
+                    <div class="flex justify-start">
+                        <div class="w-[500px] bg-gray-200 px-4 py-2.5 rounded-t-2xl rounded-br-2xl">
+                            <p>{{ parent.content }}</p>
+                        </div>
+                    </div>
+                    {% for message in messages %}
+                        <div class="flex justify-end">
+                            <div class="bg-blue-600 w-[500px] text-white px-4 py-2.5 rounded-t-2xl rounded-bl-2xl">
+                                <p>{{ message.content }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="#" class="w-full h-fit relative mt-12">
+                    <form id="form" action="" onsubmit="sendMessage()">
+                        <input id="message-content"
+                               type="text"
+                               class="bg-slate-100 border border-gray-200 w-full placeholder-slate-500 rounded-full px-6 py-2 h-[60px] flex items-center"
+                               placeholder="Votre message ...">
+                        <button type="submit" class="absolute right-6 bottom-[18px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none">
+                                <path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z"
+                                      stroke="#738195" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </a>
+            </div>
+        </div>
+        <div id="leftsidebar"
+             class="h-screen bg-white absolute right-0 w-[400px] drop-shadow-2xl px-6 py-6 space-y-8 translate-x-full transition ease-in-out">
+            <button class="cursor-pointer hover:bg-gray-200 rounded-lg"
+                    onclick="(() => {
+                        document.getElementById('leftsidebar').classList.toggle('translate-x-full');
+                    }) ()"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M22.5998 11.2859C23.1206 10.7652 23.1206 9.92099 22.5998 9.40029C22.0791 8.87959 21.2348 8.87959 20.7142 9.40029L16.0002 14.1144L11.2861 9.40029C10.7654 8.87959 9.92118 8.87959 9.40047 9.40029C8.87978 9.92099 8.87978 10.7652 9.40047 11.2859L14.1146 16L9.40047 20.714C8.87978 21.2348 8.87978 22.0789 9.40047 22.5996C9.92118 23.1204 10.7654 23.1204 11.2861 22.5996L16.0002 17.8856L20.7142 22.5996C21.2348 23.1204 22.0791 23.1204 22.5998 22.5996C23.1206 22.0789 23.1206 21.2348 22.5998 20.714L17.8858 16L22.5998 11.2859Z"
+                          fill="#0F172A"></path>
+                </svg>
+            </button>
+            <h4 class="text-xl font-[500] -tracking-[0.6px]">Informations</h4>
+            <div class="space-y-2 flex flex-col">
+                <label>ID du message</label>
+                <input type="text" disabled="disabled"
+                       class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                       value="#{{ parent.id }}">
+            </div>
+            <div class="space-y-2 flex flex-col">
+                <label>Nom de l'expéditeur</label>
+                <input type="text" disabled="disabled"
+                       class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                       value="{{ parent.fullName }}">
+            </div>
+            <div class="space-y-2 flex flex-col">
+                <label>Adresse e-mail</label>
+                <input type="text" disabled="disabled"
+                       class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                       value="{{ parent.email }}">
+            </div>
+            <div class="space-y-2 flex flex-col">
+                <label>Objet</label>
+                <input type="text" disabled="disabled"
+                       class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                       value="{{ parent.subject }}">
+            </div>
+            <div class="space-y-2 flex flex-col">
+                <label>État du message</label>
+                {% if parent.state == 0 %}
+                    <input type="text" disabled="disabled"
+                           class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                           value="Non répondu">
+                {% elseif message.state == 1 %}
+                    <input type="text" disabled="disabled"
+                           class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                           value="En cours">
+                {% elseif parent.state == 2 %}
+                    <input type="text" disabled="disabled"
+                           class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                           value="Cloturé">
+                {% endif %}
+            </div>
+            <div class="space-y-2 flex flex-col">
+                <label>Type</label>
+                <input type="text" disabled="disabled"
+                       class="bg-slate-100 px-4 flex items-center h-[50px] rounded-2xl border border-gray-200"
+                       value="{{ parent.type }}">
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript">
+            function sendMessage() {
+                let messageContent = document.getElementById('message-content').value;
+                axios.post('{{ path('app_admin_message_response', {id: parent.id}) }}', {messageContent: messageContent});
+
+                let selfDivMessage = document.getElementById('messages');
+                selfDivMessage.innerHTML += '<div class="flex justify-end" id="self-message">' +
+                    '<div class="w-[500px] bg-blue-600 text-white px-4 py-2.5 rounded-t-2xl rounded-bl-2xl">' +
+                    '<p>' + messageContent + '</p>' + '</div>' + '</div>';
+
+                document.getElementById('message-content').value = "";
+            }
+        </script>
+    {% endblock %}
+{% endblock %}

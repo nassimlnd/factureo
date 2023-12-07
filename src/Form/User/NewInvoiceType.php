@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\User;
 
-use App\Entity\User;
+use App\Entity\Invoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class NewInvoiceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('isVerified')
-            ->add('firstName')
-            ->add('lastName')
+            ->add('state')
+            ->add('type')
+            ->add('tags')
+            ->add('customer')
             ->add('company')
         ;
     }
@@ -25,7 +23,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Invoice::class,
         ]);
     }
 }

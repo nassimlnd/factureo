@@ -21,6 +21,54 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
+
+    public function findByUser($company)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.company = :company')
+            ->setParameter('company', $company)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function findByCustomer($company, $customer)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.company =:company AND i.customer = :customer')
+            ->setParameter('company', $company)
+            ->setParameter('customer', $customer)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllType()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.type')
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByType($type)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.type =:type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByState($state)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.state =:state')
+            ->setParameter('state', $state)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Invoice[] Returns an array of Invoice objects
 //     */

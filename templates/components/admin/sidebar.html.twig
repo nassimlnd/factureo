@@ -114,7 +114,7 @@
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Utilisateurs</p>
                         </div>
                     </a>
-                    <a class="block">
+                    <a href="{{ path('app_admin_company_index') }}" class="block">
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                             <p class="px-1">🏗️</p>
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Entreprises</p>
@@ -124,6 +124,12 @@
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                             <p class="px-1">👨</p>
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Clients</p>
+                        </div>
+                    </a>
+                    <a class="block" href="{{ path('app_admin_message_index') }}">
+                        <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
+                            <p class="px-1">✉️</p>
+                            <p class="-tracking-[0.48px] leading-[150%] text-base">Messages</p>
                         </div>
                     </a>
                 </div>

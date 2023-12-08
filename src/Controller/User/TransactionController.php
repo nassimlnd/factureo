@@ -28,8 +28,6 @@ class TransactionController extends AbstractController
                 return $this->render('user/transaction/index.html.twig', [
                     'transactions' => $transactionSort,
                     'customers' => $customerRepository->findAll(),
-                    'amounts' => $transactionRepository->findAllAmount(),
-                    'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
                 ]);
             }
 
@@ -39,28 +37,22 @@ class TransactionController extends AbstractController
                 return $this->render('user/transaction/index.html.twig', [
                     'transactions' => $transactionSort,
                     'customers' => $customerRepository->findAll(),
-                    'amounts' => $transactionRepository->findAllAmount(),
-                    'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
                 ]);
             }
 
             if($request->get('critere') == "paymentDate"){
-                if($request->get('paymentDate') == "Ascendant"){
+                if($request->get('paymentdate') == "Ascendant"){
                     $transactionSort = $transactionRepository->paymentDateAsc();
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
-                        'amounts' => $transactionRepository->findAllAmount(),
-                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
                     ]);
                 }
-                else if($request->get('paymentDate') == "Descendant"){
+                else if($request->get('paymentdate') == "Descendant"){
                     $transactionSort = $transactionRepository->paymentDateDesc();
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
-                        'amounts' => $transactionRepository->findAllAmount(),
-                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
                     ]);
                 }
             }
@@ -70,8 +62,6 @@ class TransactionController extends AbstractController
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
-                        'amounts' => $transactionRepository->findAllAmount(),
-                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
                     ]);
                 }
                 else if($request->get('amount') == "Descendant"){
@@ -79,8 +69,6 @@ class TransactionController extends AbstractController
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
-                        'amounts' => $transactionRepository->findAllAmount(),
-                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
                     ]);
                 }
             }
@@ -89,8 +77,6 @@ class TransactionController extends AbstractController
         return $this->render('user/transaction/index.html.twig', [
             'transactions' => $transactionRepository->findByUser($user->getCompany()),
             'customers' => $customerRepository->findAll(),
-            'amounts' => $transactionRepository->findAllAmount(),
-            'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
         ]);
     }
 

@@ -54,22 +54,7 @@ class TransactionRepository extends ServiceEntityRepository
             ;
 
     }
-    public function findAllAmount()
-    {
-        return $this->createQueryBuilder('t')
-            ->select('t.amount')
-            ->distinct()
-            ->getQuery()
-            ->getResult();
-    }
-    public function findAllPaymentDate()
-    {
-        return $this->createQueryBuilder('t')
-            ->select('t.paymentDate')
-            ->distinct()
-            ->getQuery()
-            ->getResult();
-    }
+
     public function paymentDateAsc(){
         return $this->createQueryBuilder('a')
             ->orderBy('a.paymentDate', 'ASC')

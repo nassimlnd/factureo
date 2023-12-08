@@ -18,12 +18,79 @@ class TransactionController extends AbstractController
     #[Route('/', name: 'app_user_transaction_index', methods: ['GET'])]
     public function index(TransactionRepository $transactionRepository,Request $request, CustomerRepository $customerRepository): Response
     {
+        $user = $this->getUser();
         $customer = $request->query->get('customer');
+        $state = $request->query->get('state');
+        if ($request->get('critere') != "") {
+            if ($request->get('critere') === "customer")
+            {
+                $transactionSort = $transactionRepository->findByCustomer($user->getCompany(), $customer);
+                return $this->render('user/transaction/index.html.twig', [
+                    'transactions' => $transactionSort,
+                    'customers' => $customerRepository->findAll(),
+                    'amounts' => $transactionRepository->findAllAmount(),
+                    'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
+                ]);
+            }
 
+            if($request->get('critere') == "state")
+            {
+                $transactionSort = $transactionRepository->findByState($state);
+                return $this->render('user/transaction/index.html.twig', [
+                    'transactions' => $transactionSort,
+                    'customers' => $customerRepository->findAll(),
+                    'amounts' => $transactionRepository->findAllAmount(),
+                    'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
+                ]);
+            }
+
+            if($request->get('critere') == "paymentDate"){
+                if($request->get('paymentDate') == "Ascendant"){
+                    $transactionSort = $transactionRepository->paymentDateAsc();
+                    return $this->render('user/transaction/index.html.twig', [
+                        'transactions' => $transactionSort,
+                        'customers' => $customerRepository->findAll(),
+                        'amounts' => $transactionRepository->findAllAmount(),
+                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
+                    ]);
+                }
+                else if($request->get('paymentDate') == "Descendant"){
+                    $transactionSort = $transactionRepository->paymentDateDesc();
+                    return $this->render('user/transaction/index.html.twig', [
+                        'transactions' => $transactionSort,
+                        'customers' => $customerRepository->findAll(),
+                        'amounts' => $transactionRepository->findAllAmount(),
+                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
+                    ]);
+                }
+            }
+            if($request->get('critere') == "amount"){
+                if($request->get('amount') == "Ascendant"){
+                    $transactionSort = $transactionRepository->amountAsc();
+                    return $this->render('user/transaction/index.html.twig', [
+                        'transactions' => $transactionSort,
+                        'customers' => $customerRepository->findAll(),
+                        'amounts' => $transactionRepository->findAllAmount(),
+                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
+                    ]);
+                }
+                else if($request->get('amount') == "Descendant"){
+                    $transactionSort = $transactionRepository->amountDesc();
+                    return $this->render('user/transaction/index.html.twig', [
+                        'transactions' => $transactionSort,
+                        'customers' => $customerRepository->findAll(),
+                        'amounts' => $transactionRepository->findAllAmount(),
+                        'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
+                    ]);
+                }
+            }
+        }
 
         return $this->render('user/transaction/index.html.twig', [
-            'transactions' => $transactionRepository->findAll(),
-            'customers' => $customerRepository->findAll()
+            'transactions' => $transactionRepository->findByUser($user->getCompany()),
+            'customers' => $customerRepository->findAll(),
+            'amounts' => $transactionRepository->findAllAmount(),
+            'paymentsDate' =>$transactionRepository->findAllPaymentDate(),
         ]);
     }
 

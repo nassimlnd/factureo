@@ -159,7 +159,7 @@
                                         #{{ transaction.invoice.id }}</p>
                                 </td>
                                 <td>
-                                     <p>{{ transaction.paymentDate }}</p>
+                                    <p>{{ transaction.paymentDate }}</p>
                                 </td>
                                 <td class="px-6 flex justify-end items-center h-20 relative">
                                     <button class="py-2 px-3 hover:bg-gray-100 rounded-lg"
@@ -220,7 +220,7 @@
                                                 ><p>Annuler</p>
                                                 </button>
                                                 <form method="post"
-                                                      action="{{ path('app_user_invoice_delete', {'id': transaction.id}) }}">
+                                                      action="{{ path('app_user_transaction_delete', {'id': transaction.id}) }}">
                                                     <input type="hidden" name="_token"
                                                            value="{{ csrf_token('delete' ~ transaction.id) }}">
                                                     <button class="bg-red-600 rounded-lg text-sm text-white px-4 py-2.5 h-[44px] hover:bg-red-700 flex items-center justify-center"
@@ -272,7 +272,7 @@
          class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center">
         <div class="bg-white p-6 mx-auto rounded-lg space-y-6 w-[500px]">
             <div class="flex justify-between">
-                <h4 class="text-xl font-bold leading-[150%] -tracking-[0.6px]">Filtrage</h4>
+                <h4 class="text-xl font-bold leading-[150%] -tracking-[0.6px]">Filtrage </h4>
                 <button class="p-1 hover:bg-gray-200 rounded"
                         onclick="(() => {
                             document.getElementById('filter-modal').classList.toggle('hidden');
@@ -305,18 +305,35 @@
                         <option value="0">En cours</option>
                     </select>
                 </div>
-            </form>
-            <button type="submit"
-                    class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
-                <div class="rounded-full border border-dashed border-gray-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                         fill="none">
-                        <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
-                              stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
+                <h4 class="text-xl font-bold leading-[150%] -tracking-[0.6px]">Trie </h4>
+                <div class="flex space-x-2.5">
+                    <input type="radio" name="critere" id="critere3" value="state">
+                    <label for="critere3">Date</label>
+                    <select name="paymentdate" class="border rounded-lg">
+                        <option value="Ascendant">Ascendant</option>
+                        <option value="Descendant">Descendant</option>
+                    </select>
                 </div>
-                <p>Enregistrer</p>
-            </button>
+                <div class="flex space-x-2.5">
+                    <input type="radio" name="critere" id="critere3" value="state">
+                    <label for="critere3">Montant</label>
+                    <select name="amount" class="border rounded-lg">
+                        <option value="Ascendant">Ascendant</option>
+                        <option value="Descendant">Descendant</option>
+                    </select>
+                </div>
+                <button type="submit"
+                        class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
+                    <div class="rounded-full border border-dashed border-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                             fill="none">
+                            <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                                  stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <p>Enregistrer</p>
+                </button>
+            </form>
         </div>
     </div>
 

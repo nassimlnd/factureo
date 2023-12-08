@@ -20,7 +20,70 @@ class TransactionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Transaction::class);
     }
+    public function findByCustomer($company, $customer)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.company =:company AND i.customer = :customer')
+            ->setParameter('company', $company)
+            ->setParameter('customer', $customer)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findByUser($company)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.company = :company')
+            ->setParameter('company', $company)
+            ->getQuery()
+            ->getResult();
 
+    }
+    public function amountAsc(){
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.amount', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+    public function amountDesc(){
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.amount', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+    public function findAllAmount()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.amount')
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAllPaymentDate()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.paymentDate')
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
+    public function paymentDateAsc(){
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.paymentDate', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function paymentDateDesc(){
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.paymentDate', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 //    /**
 //     * @return Transaction[] Returns an array of Transaction objects
 //     */

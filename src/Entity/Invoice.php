@@ -172,4 +172,8 @@ class Invoice
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return 'Facture : ' . $this->getId();
+    }
 }

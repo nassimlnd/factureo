@@ -117,7 +117,9 @@ class Transaction
 
     public function getPaymentDate(): ?string
     {
-        return $this->paymentDate->format('Y-m-d');
+        if($this->paymentDate != null){
+            return $this->paymentDate->format('Y-m-d');
+        } else return null;
     }
 
     public function setPaymentDate(\DateTimeInterface $paymentDate): static

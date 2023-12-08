@@ -5,6 +5,7 @@ namespace App\Controller\User;
 use App\Entity\Transaction;
 use App\Form\TransactionType;
 use App\Repository\CustomerRepository;
+use App\Repository\InvoiceRepository;
 use App\Repository\TransactionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,18 +17,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class TransactionController extends AbstractController
 {
     #[Route('/', name: 'app_user_transaction_index', methods: ['GET'])]
-    public function index(TransactionRepository $transactionRepository,Request $request, CustomerRepository $customerRepository): Response
+    public function index(TransactionRepository $transactionRepository,Request $request, CustomerRepository $customerRepository, InvoiceRepository $invoiceRepository): Response
     {
         $user = $this->getUser();
         $customer = $request->query->get('customer');
         $state = $request->query->get('state');
+        $transaction = new transaction();
+        $newTransactionForm = $this->createForm(TransactionType::class, $transaction, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('app_user_transaction_new'),
+            'invoice_repository' =>$invoiceRepository,
+            'customer_repository'=>$customerRepository
+        ]);
         if ($request->get('critere') != "") {
+
             if ($request->get('critere') === "customer")
             {
                 $transactionSort = $transactionRepository->findByCustomer($user->getCompany(), $customer);
                 return $this->render('user/transaction/index.html.twig', [
                     'transactions' => $transactionSort,
                     'customers' => $customerRepository->findAll(),
+                    'newTransactionForm' => $newTransactionForm,
+                    'invoice_repository' =>$invoiceRepository,
+                    'customer_repository'=>$customerRepository
                 ]);
             }
 
@@ -37,6 +49,9 @@ class TransactionController extends AbstractController
                 return $this->render('user/transaction/index.html.twig', [
                     'transactions' => $transactionSort,
                     'customers' => $customerRepository->findAll(),
+                    'newTransactionForm' => $newTransactionForm,
+                    'invoice_repository' =>$invoiceRepository,
+                    'customer_repository'=>$customerRepository
                 ]);
             }
 
@@ -46,6 +61,9 @@ class TransactionController extends AbstractController
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
+                        'newTransactionForm' => $newTransactionForm,
+                        'invoice_repository' =>$invoiceRepository,
+                        'customer_repository'=>$customerRepository
                     ]);
                 }
                 else if($request->get('paymentdate') == "Descendant"){
@@ -53,6 +71,9 @@ class TransactionController extends AbstractController
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
+                        'newTransactionForm' => $newTransactionForm,
+                        'invoice_repository' =>$invoiceRepository,
+                        'customer_repository'=>$customerRepository
                     ]);
                 }
             }
@@ -62,6 +83,9 @@ class TransactionController extends AbstractController
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
+                        'newTransactionForm' => $newTransactionForm,
+                        'invoice_repository' =>$invoiceRepository,
+                        'customer_repository'=>$customerRepository
                     ]);
                 }
                 else if($request->get('amount') == "Descendant"){
@@ -69,6 +93,9 @@ class TransactionController extends AbstractController
                     return $this->render('user/transaction/index.html.twig', [
                         'transactions' => $transactionSort,
                         'customers' => $customerRepository->findAll(),
+                        'newTransactionForm' => $newTransactionForm,
+                        'invoice_repository' =>$invoiceRepository,
+                        'customer_repository'=>$customerRepository
                     ]);
                 }
             }
@@ -77,17 +104,25 @@ class TransactionController extends AbstractController
         return $this->render('user/transaction/index.html.twig', [
             'transactions' => $transactionRepository->findByUser($user->getCompany()),
             'customers' => $customerRepository->findAll(),
+            'newTransactionForm' => $newTransactionForm,
+            'invoice_repository' =>$invoiceRepository,
+            'customer_repository'=>$customerRepository
         ]);
     }
 
     #[Route('/new', name: 'app_user_transaction_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response
     {
         $transaction = new Transaction();
-        $form = $this->createForm(TransactionType::class, $transaction);
+        $form = $this->createForm(TransactionType::class, $transaction,[
+            'method' => 'POST',
+            'action' => $this->generateUrl('app_user_transaction_new'),
+            'invoice_repository' => $invoiceRepository,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $transaction->setCompany($this->getUser()->getCompany());
             $entityManager->persist($transaction);
             $entityManager->flush();
 
@@ -96,7 +131,7 @@ class TransactionController extends AbstractController
 
         return $this->render('user/transaction/new.html.twig', [
             'transaction' => $transaction,
-            'form' => $form,
+            'newTransactionForm' => $form,
         ]);
     }
 

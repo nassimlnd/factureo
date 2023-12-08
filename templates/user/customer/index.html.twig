@@ -26,9 +26,7 @@
                 </p>
             </div>
             <div class="flex space-x-2">
-                <a href="#">
-                    <div class=" flex py-2.5 px-4 justify-center items-center rounded-lg border-gray-100 bg-white gap-2 border ">
-
+                    <button class=" flex py-2.5 px-4 justify-center items-center rounded-lg border-gray-100 bg-white gap-2 border ">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.08146 10.2908L8.08146 2.26343" stroke="#0E2354" stroke-width="1.2"
@@ -39,20 +37,19 @@
                                   stroke="#0E2354" stroke-width="1.2" stroke-linecap="round"
                                   stroke-linejoin="round"/>
                         </svg>
-                        <h2>Exporter</h2>
-                    </div>
-                </a>
-                {# <a href="{{ path('app_user_customer_new')}}"> #}
-                <div onclick="newClient()" class="flex py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
+                        Exporter
+                    </button>
+
+                <button onclick="newClient()" class="flex py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.99992 3.33337V12.6667M3.33325 8.00004H12.6666" stroke="#F5F6F7"
                               stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <h2>Nouveau client</h2>
-                </div>
-               {# </a> #}
+                    Nouveau client
+                </button>
             </div>
         </div>
+
         <div class="flex items-start p-2 justify-between items-center rounded-2xl border border-gray-200 my-6 h-14">
             <div class="flex gap-2.5 items-center justify-center shrink-0 rounded-2xl py-3 pl-9 pr-4">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,12 +59,12 @@
                     <input name="recherche" value="{{ id }}" type="text" placeholder="Rechercher un client par nom ou ID" size="40" class="outline-none" >
                 </form>
             </div>
-            <div onclick="filtre()" class="flex items-center border gap-2 rounded-lg  mr-2 my-3 space-x-2 py-2 px-3 text-slate-900">
+            <button onclick="filtre()" class="flex items-center border gap-2 rounded-lg  mr-2 my-3 space-x-2 py-2 px-3 text-slate-900">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <h2>Filtrer</h2>
-            </div>
+                Filtrer
+            </button>
         </div>
 
         <div class="border mt-6 h-[650px] rounded-lg overflow-hidden ">
@@ -81,11 +78,11 @@
                                 </form>
                             </th>
                             <th>Id</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
                             <th>Email</th>
-                            <th>FullAdress</th>
-                            <th>PhoneNumber</th>
+                            <th>Adresse</th>
+                            <th>Numéro de téléphone</th>
                             <th>IsCompany</th>
                             <th></th>
 
@@ -105,7 +102,13 @@
                             <td>{{ customer.email }}</td>
                             <td>{{ customer.fullAdress }}</td>
                             <td>{{ customer.phoneNumber }}</td>
-                            <td>{{ customer.isCompany ? 'Yes' : 'No' }}</td>
+                            <td>
+                                {% if customer.isCompany == 1 %}
+                                    <p>Yes</p>
+                                {% elseif customer.isCompany != 1 %}
+                                    <p>No</p>
+                                {% endif %}
+                            </td>
                             <td>
                                 <button onclick="clientModif()" id="dropdown-btn">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,6 +118,52 @@
                                     </svg>
                                 </button>
                             </td>
+                            <div class="absolute hidden bg-white mr-4 p-2 text-sm font-medium rounded-lg drop-shadow-lg text-slate-900 border
+                                        dropdown-content right-8 -bottom-20  px-2 py-2 drop-shadow-md z-20 w-[234px]" id="popupForm">
+                                <div>
+                                    <button onclick="" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Modifier</button>
+
+                                        <button onclick="document.getElementById('delete-modal-{{ customer.id }}').style.display='block'"
+                                                type="submit" id="delete-btn" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Supprimer</button>
+
+                                    <button type="button" onclick="closeForm()" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Fermer
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="delete-modal-{{ customer.id }}"
+                                 class="absolute hidden top-0 left-0 h-screen w-full z-30 bg-black bg-opacity-20 flex items-center">
+                                <div class="bg-white mx-auto w-fit px-6 py-8 flex flex-col justify-center items-center rounded-lg space-y-6 min-w-[600px]">
+                                    <div class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                            <rect x="1" y="1" width="46" height="46" rx="23" stroke="#dc2626" stroke-width="2"></rect>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M33.8994 16.9289C34.6806 16.1478 34.6806 14.8815 33.8994 14.1004C33.1184 13.3194 31.852 13.3194 31.071 14.1004L24 21.1715L16.9289 14.1004C16.1478 13.3194 14.8815 13.3194 14.1004 14.1004C13.3194 14.8815 13.3194 16.1478 14.1004 16.9289L21.1716 23.9999L14.1004 31.0709C13.3194 31.8521 13.3194 33.1183 14.1004 33.8993C14.8815 34.6805 16.1478 34.6805 16.9289 33.8993L24 26.8283L31.071 33.8993C31.852 34.6805 33.1184 34.6805 33.8994 33.8993C34.6806 33.1183 34.6806 31.8521 33.8994 31.0709L26.8284 23.9999L33.8994 16.9289Z"
+                                                  fill="#C92323"></path>
+                                        </svg>
+                                    </div>
+                                    <p>Voulez-vous vraiment supprimer le client n°{{ customer.id }}</p>
+                                    <div class="flex space-x-2.5 text-sm">
+                                        <button class="border border-gray-200 hover:bg-gray-100 text-slate-900 rounded-lg px-4 py-2.5 h-[44px] flex items-center justify-center"
+                                                onclick="(() => {
+                                                        document.getElementById('delete-modal-{{ customer.id }}').classList.toggle('hidden');
+                                                        document.body.classList.toggle('overflow-hidden');
+                                                        }) ()"
+                                        >
+                                            Annuler
+                                        </button>
+                                        <form method="post" action="{{ path('app_admin_company_delete', {'id': customer.id}) }}">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ customer.id) }}">
+                                            <button type="submit"
+                                                    class="bg-red-600 rounded-lg text-white px-4 py-2.5 h-[44px] hover:bg-red-700 flex items-center justify-center">
+                                                Supprimer
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </tr>
                     {% else %}
                         <tr>
@@ -126,8 +175,7 @@
             </div>
         </div>
 
-        <form>
-            <div class="flex fixed h-[430px] hidden border items-start justify-between self-stretch inline-flex inset-1/4 z-10 bg-white rounded-lg" id="new">
+            <div class="flex fixed h-[500px] hidden border items-start justify-between self-stretch inline-flex inset-y-24 inset-x-48 z-10 bg-white rounded-lg" id="new">
                 <div class="m-6">
                     <div class="flex mb-6 items-start self-stretch justify-between">
                         <h1 class="text-black font-normal text-base font-semibold leading-5 tracking-tighter">Nouvel utilisateur</h1>
@@ -135,41 +183,39 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9497 8.46443C17.3403 8.0739 17.3403 7.44074 16.9497 7.05021C16.5592 6.65969 15.926 6.65969 15.5355 7.05021L12 10.5858L8.46443 7.05021C8.0739 6.65969 7.44074 6.65969 7.05021 7.05021C6.65969 7.44074 6.65969 8.0739 7.05021 8.46443L10.5858 12L7.05021 15.5355C6.65969 15.9261 6.65969 16.5592 7.05021 16.9497C7.44074 17.3403 8.0739 17.3403 8.46443 16.9497L12 13.4142L15.5355 16.9497C15.926 17.3403 16.5592 17.3403 16.9497 16.9497C17.3403 16.5592 17.3403 15.9261 16.9497 15.5355L13.4142 12L16.9497 8.46443Z" fill="black"/>
                         </svg>
                     </div>
+                    {{ form_start(newCustomerForm) }}
                     <div class="flex-col items-start gap-6 self-stretch justify-between">
                         <div class="flex-col my-6 items-start gap-2 self-stretch">
-                            <h1>Le client à t'il une entreprise?</h1>
-                            <input type="radio" value="1" name="isCompany"> Oui
-                            <input type="radio" value="null" name="isCompany"> Non
-                            <br>
-                            Si oui laquelle?
-                                <select>
-                                    <option>Entreprise(s)</option>
-                                    {% for company in companies %}
-                                    <option value="{{ company.id }}"> {{ company.name }} </option>
-                                    {% endfor %}
-                                </select>
+
+                            {{ form_row(newCustomerForm.isCompany) }}
+
+                            {{ form_row(newCustomerForm.company) }}
+                            <div>
+                                    <a href="#"  class="border">
+                                    Créer une entreprise
+                                    </a>
+                            </div>
+
                         </div>
-                        <div class="flex-col items-start gap-2">
-                            <h1>Nom</h1>
-                            <label></label>
-                            <input type="text" name="nom" id="firstname" class="flex required:border-red-500 w-48 h-12 py-2 px-2 pl-6 items-center gap-2 border border-gray-300 rounded bg-gray-50">
-                        </div>
-                        <div class="flex-col items-start gap-2">
-                            Prénom
-                            <input type="text" name="prenom" id="lastname" class="flex required:border-red-500 w-48 h-12 py-2 px-2 pl-6 items-center gap-2 border border-gray-300 rounded bg-gray-50">
+                        <div class="flex items-start gap-2">
+
+                            {{ form_row(newCustomerForm.firstName) }}
+
+                            {{ form_row(newCustomerForm.lastName) }}
+
                         </div>
                     </div>
                     <div class="flex-col my-6 items-start gap-2 self-stretch">
-                        <h1>Adresse</h1>
-                        <input type="text" name="adress" id="adress" class="flex required:border-red-500 h-12 py-2 px-2 pl-6 items-center gap-2 self-stretch border border-gray-300 rounded bg-gray-50">
+
+                        {{ form_row(newCustomerForm.fullAdress) }}
+
                     </div>
-                    <div class="flex-col my-6 items-start gap-2 self-stretch">
-                        <h1>Adresse mail</h1>
-                        <input type="text" name="mail" id="email" class="flex required:border-red-500 h-12 py-2 px-2 pl-6 items-center gap-2 self-stretch border border-gray-300 rounded bg-gray-50">
-                    </div>
-                    <div  class="flex-col my-6 items-start gap-2">
-                        <h1>Numéro de téléphone</h1>
-                        <input type="text" name="telephone" id="role" class="flex required:border-red-500 h-12 py-2 px-2 pl-6 items-center gap-2 self-stretch border border-gray-300 rounded bg-gray-50">
+                    <div class="flex my-6 items-start gap-2 self-stretch">
+
+                        {{ form_row(newCustomerForm.email) }}
+
+                        {{ form_row(newCustomerForm.phoneNumber) }}
+
                     </div>
                     <button type="submit" value="" class="flex w-1/2 h-11 py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,11 +224,12 @@
                         Enregistrer
                     </button>
                 </div>
+                {{ form_end(newCustomerForm) }}
             </div>
-        </form>
+
 
         <form>
-            <div class="flex-col fixed hidden items-start gap-6 p-6 inset-0 shrink-0 z-10 bg-white border rounded-2xl inset-1/3 h-64 w-[500px]" id="filtre">
+            <div class="flex-col fixed hidden  items-start gap-6 p-6 inset-0 shrink-0 z-10 bg-white border rounded-2xl inset-1/3 h-64 w-[500px]" id="filtre">
                 <div class="flex items-center self-stretch justify-between px-2">
                     <h1>Filtrage</h1>
                     <div>
@@ -209,17 +256,7 @@
                 </button>
             </div>
         </form>
-        <div class="absolute hidden bg-white mr-4 p-2 text-sm font-medium rounded-lg drop-shadow-lg text-slate-900 border bg-white
-dropdown-content right-8 -bottom-20  px-2 py-2 drop-shadow-md hidden z-20 w-[234px]" id="popupForm">
-            <div>
-                <button class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Modifier</button>
-                <form>
-                    <button type="submit" id="delete-btn" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Supprimer</button>
-                </form>
-                <button type="button" onclick="closeForm()" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Fermer
-                </button>
-            </div>
-        </div>
+
         {% block javascripts %}
             <script>
                 var modal = document.getElementById("popupForm");
@@ -227,6 +264,22 @@ dropdown-content right-8 -bottom-20  px-2 py-2 drop-shadow-md hidden z-20 w-[234
                 var modalNew = document.getElementById("new");
                 var checkbox = document.getElementById('checkbox');
                 var button = document.getElementById('delete-btn');
+
+
+
+
+                window.onclick = function (event) {
+                    if (!event.target.matches('#dropdown-btn')) {
+                        let dropdowns = document.getElementsByClassName("dropdown-content");
+                        let i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                            let openDropdown = dropdowns[i];
+                            if (!openDropdown.classList.contains('hidden')) {
+                                openDropdown.classList.toggle('hidden');
+                            }
+                        }
+                    }
+                }
 
                 function newClient(){
                     modalNew.style.display = "block";

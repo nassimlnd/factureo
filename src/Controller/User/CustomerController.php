@@ -25,6 +25,12 @@ class CustomerController extends AbstractController
         $isCompany = $request->query->get('isCompany');
         $customers = $customerRepository->findByFilter($id,$idOrderASC,$idOrderDESC,$isCompany);
 
+        $customer = new Customer();
+        $newCustomerForm = $this->createForm(CustomerType::class, $customer, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('app_user_customer_new')
+        ]);
+
         return $this->render('user/customer/index.html.twig', [
             'controller_name' => 'CustomerController',
             'id' => $id,
@@ -32,6 +38,7 @@ class CustomerController extends AbstractController
             'idOrderDESC' => $idOrderDESC,
             'isCompany' => $isCompany,
             'customers' => $customers,
+            'newCustomerForm' => $newCustomerForm,
             'companies' => $companyRepository->findAll()
         ]);
     }
@@ -85,6 +92,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}', name: 'app_user_customer_delete', methods: ['POST'])]
     public function delete(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
     {
+
         if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->request->get('_token'))) {
             $entityManager->remove($customer);
             $entityManager->flush();

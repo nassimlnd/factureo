@@ -128,18 +128,18 @@
                             <p>Ajouter un nouveau client</p>
                         </button>
                     </div>
-                    <div class="flex flex-col w-full">
+                    <div>
                         <label for="customer">Client</label>
-                        <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        {{ component('Combobox', {data: customers}) }}
                     </div>
                     <div class="flex space-x-6">
                         <div class="flex flex-col w-full">
                             <label for="invoice-createddate">Date de facturation</label>
-                            <input type="text" id="invoice-createddate" name="invoice-createddate" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            <input type="date" id="invoice-createddate" name="invoice-createddate" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                         </div>
                         <div class="flex flex-col w-full">
                             <label for="invoice-duedate">Date limite de paiement</label>
-                            <input type="text" id="invoice-duedate" name="invoice-duedate" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            <input type="date" id="invoice-duedate" name="invoice-duedate" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                         </div>
                     </div>
                 </div>
@@ -151,36 +151,12 @@
                         </div>
                     </div>
                     <div class="flex flex-col w-full">
-                        <label for="customer">Type</label>
-                        <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        <label for="invoice-type">Type</label>
+                        <input type="text" id="invoice-type" name="invoice-type" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                     </div>
-                    <div id="invoice-items-list" class="space-y-2">
+                    <div id="invoice-items-list" class="space-y-2 overflow-y-auto">
                         <h5 class="font-bold text-base -tracking-[0.48px]">Liste des éléments</h5>
-                        <div class="flex space-x-2">
-                            <div class="flex flex-col min-w-[300px] w-full">
-                                <label for="customer">Nom de l'élément</label>
-                                <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                            </div>
-                            <div class="flex flex-col max-w-[200px]">
-                                <label for="customer">Prix unitaire</label>
-                                <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                            </div>
-                            <div class="flex flex-col max-w-[200px]">
-                                <label for="customer">Quantité</label>
-                                <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                            </div>
-                            <div class="flex flex-col max-w-[200px]">
-                                <label for="customer">Total</label>
-                                <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <button class="p-1 hover:bg-gray-200 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
+
                     </div>
                     <button type="button"
                             onclick="addInvoiceItem()"
@@ -192,7 +168,7 @@
                     <div class="space-y-6">
                         <div class="flex justify-between">
                             <h5 class="font-bold text-base -tracking-[0.48px]">Paiement total</h5>
-                            <h5 class="font-bold text-base -tracking-[0.48px] text-blue-600">€ 125 000</h5>
+                            <h5 id="totalPrice" class="font-bold text-base -tracking-[0.48px] text-blue-600">€ 0</h5>
                         </div>
                         <div class="flex flex-col w-full">
                             <label for="customer">Notes de remerciement</label>
@@ -203,6 +179,18 @@
                             <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
                         </div>
                     </div>
+                    <div class="h-[1px] bg-gray-200 w-full"></div>
+                    <button onclick="createInvoice()"
+                       class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2 w-fit">
+                        <div class="rounded-full border border-dashed border-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                 fill="none">
+                                <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                        <p>Enregistrer</p>
+                    </button>
                 </div>
             </div>
         </div>
@@ -210,13 +198,88 @@
     {% block javascripts %}
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script type="text/javascript">
+            const NB_MAX_ITEMS = 10;
             let nbItems = 0;
+            let selectedCustomer;
+
             function addInvoiceItem() {
-                document.getElementById('invoice-items-list').innerHTML += '<div id="invoice-items-'+ nbItems +'" class="flex space-x-2 invoice-items"><div class="flex flex-col min-w-[300px] w-full"><label for="customer">Nom de l\'élément</label><input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="customer">Prix unitaire</label><input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="customer">Quantité</label><input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="customer">Total</label><input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex items-center justify-center"><button class="p-1 hover:bg-gray-200 rounded" onclick="(() => { document.getElementById(\'invoice-items-\'+ ' + nbItems + ').remove() }) ()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div>';
+                if (nbItems < NB_MAX_ITEMS) {
+                    document.getElementById('invoice-items-list').insertAdjacentHTML('beforeend', '<div id="invoice-items-'+ nbItems +'" class="flex space-x-2 invoice-items"><div class="flex flex-col min-w-[300px] w-full"><label for="invoice-items-name-' + nbItems + '">Nom de l\'élément</label><input type="text" id="invoice-items-name-' + nbItems + '" name="invoice-items-name-' + nbItems + '" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="invoice-items-unit-price-' + nbItems + '">Prix unitaire</label><input type="text" id="invoice-items-unit-price-' + nbItems + '" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="invoice-items-quantity-' + nbItems + '">Quantité</label><input type="number" value="0" id="invoice-items-quantity-' + nbItems + '" name="invoice-items-quantity-' + nbItems + '" onchange="((source) => {document.getElementById(\'invoice-items-total-' + nbItems + '\').value = source.value * document.getElementById(\'invoice-items-unit-price-' + nbItems + '\').value + \' €\'; onTotalChange() }) (this)" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="invoice-items-total-' + nbItems + '">Total</label><input onchange="onTotalChange()" type="text" disabled value="0 €" id="invoice-items-total-' + nbItems + '" name="invoice-items-total-' + nbItems + '" class="invoice-items-total border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex items-center justify-center"><button class="p-1 hover:bg-gray-200 rounded" onclick="(() => { document.getElementById(\'invoice-items-\'+ ' + nbItems + ').remove() }) ()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div>');
+                    nbItems++;
+                }
+            }
+
+            function getTotal() {
+                let total = 0;
+                let totals = document.querySelectorAll('.invoice-items-total');
+                for (item of totals) {
+                    total += parseFloat(item.value);
+                }
+
+                return parseFloat(total);
+            }
+
+            function onTotalChange() {
+                document.getElementById('totalPrice').innerHTML = getTotal() + ' €';
+            }
+
+            function getInvoiceItems() {
+                let invoiceDivs = document.querySelectorAll('.invoice-items');
+                let invoiceItems = {}
+                for (invoiceDiv of invoiceDivs) {
+                    let id = invoiceDiv.id.charAt(invoiceDiv.id.length-1);
+                    let name = document.getElementById('invoice-items-name-' + id).value;
+                    let unitPrice = parseFloat(document.getElementById('invoice-items-unit-price-' + id).value);
+                    let quantity = parseInt(document.getElementById('invoice-items-quantity-' + id).value);
+                    let total = parseInt(document.getElementById('invoice-items-total-' + id).value.split('')[0]);
+
+                    invoiceItems['item-'+id] = {
+                        id: id,
+                        name: name,
+                        unitPrice: unitPrice,
+                        quantity: quantity,
+                        total: total
+                    }
+                }
+                return invoiceItems;
             }
 
             function createInvoice() {
+                let invoice = {}
 
+                let invoiceItems = getInvoiceItems();
+                let createdAt = document.getElementById('invoice-createddate').value;
+                let dueDate = document.getElementById('invoice-duedate').value;
+                let type = document.getElementById('invoice-type').value;
+
+                if (Object.keys(invoiceItems).length >= 1 && selectedCustomer !== {} && createdAt !== "" && dueDate !== "") {
+                    let total = getTotal();
+                    console.log(total);
+                    for (invoiceItem in invoiceItems) {
+                        if (invoiceItem.name != "") {
+                            continue;
+                        } else
+                            return;
+                    }
+                    if (dueDate >= createdAt) {
+                        if (type !== "") {
+                            invoice = {
+                                customer: selectedCustomer,
+                                invoiceItems: invoiceItems,
+                                createdAt: createdAt,
+                                dueDate: dueDate,
+                                type: type,
+                            }
+
+                            console.log("Sending")
+                            axios.post('{{ path('app_user_invoice_new') }}', {
+                                invoice: invoice
+                            }).then((response) => {
+                                console.log(response);
+                            })
+                        }
+                    }
+                }
             }
         </script>
     {% endblock %}

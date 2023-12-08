@@ -3,12 +3,14 @@
 namespace App\Controller\User;
 
 use App\Entity\Invoice;
+use App\Entity\InvoiceDetails;
 use App\Form\User\InvoiceType;
 use App\Form\User\NewInvoiceType;
 use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,21 +64,54 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CustomerRepository $customerRepository, LoggerInterface $logger): Response
     {
         $invoice = new Invoice();
-        $form = $this->createForm(NewInvoiceType::class, $invoice);
-        $form->handleRequest($request);
+        $customers = $customerRepository->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->getMethod() == "POST") {
+            $data = $request->getContent();
+            $data = json_decode($data, true);
+            $invoice = $data['invoice'];
+
+            $customer = $customerRepository->findById($invoice['customer']['id']);
+
+            $invoiceObj = new Invoice();
+            $invoiceObj->setCustomer($customer);
+            $invoiceObj->setCreatedAt(date_create_immutable($invoice['createdAt']));
+            $invoiceObj->setDueDate(date_create_immutable($invoice['dueDate']));
+            $invoiceObj->setState(0);
+            $invoiceObj->setType($invoice['type']);
+            $invoiceObj->setCompany($this->getUser()->getCompany());
+
+            foreach ($invoice['invoiceItems'] as $invoiceLine) {
+                $invoiceDetail = new InvoiceDetails();
+                $invoiceDetail->setElement($invoiceLine['name']);
+                $invoiceDetail->setQuantity($invoiceLine['quantity']);
+                $invoiceDetail->setUnitPrice($invoiceLine['unitPrice']);
+                $invoiceDetail->setInvoice($invoiceObj);
+
+                $entityManager->persist($invoiceDetail);
+                $entityManager->flush();
+
+                $invoiceObj->addDetail($invoiceDetail);
+            }
+
+            $entityManager->persist($invoiceObj);
+            $entityManager->flush();
+
+            return $this->json($invoice);
+        }
+
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($invoice);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_invoice_index', [], Response::HTTP_SEE_OTHER);
-        }
+        }*/
 
         return $this->render('user/invoice/new.html.twig', [
-            'form' => $form,
+            'customers' => $customers
         ]);
     }
 

@@ -22,7 +22,7 @@ class InvoiceDetails
     #[ORM\Column]
     private ?float $unitPrice = null;
 
-    #[ORM\ManyToOne(inversedBy: 'details')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'details')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Invoice $invoice = null;
 

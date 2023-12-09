@@ -32,11 +32,11 @@
                 <div class="flex space-x-6">
                     {{ form_row(newCustomerForm.phoneNumber) }}
                 </div>
+                <div id="company-field" class="flex space-x-6">
+                    {{ form_row(newCustomerForm.company) }}
+                </div>
                 <div class="flex space-x-6">
                     {{ form_row(newCustomerForm.isCompany) }}
-                </div>
-                <div id="company-field" class="flex space-x-6 hidden">
-                    {{ form_row(newCustomerForm.company) }}
                 </div>
             </div>
             <button type="submit"
@@ -54,23 +54,3 @@
         {{ form_end(newCustomerForm) }}
     </div>
 </div>
-{% block javascripts %}
-    <script type="text/javascript">
-
-        window.addEventListener('load', (event) => {
-            console.log('loaded');
-            /*document.getElementById('customer_isCompany').addEventListener('change', (event) => {
-                toggleCompanyForm(document.getElementById('selectStatus'))
-            })*/
-        })
-
-        function toggleCompanyForm(select) {
-            let companyField = document.getElementById('company-field');
-            if (select.value === '1') {
-                companyField.classList.toggle('hidden');
-            } else if (select.value === '0') {
-                companyField.classList.toggle('hidden');
-            }
-        }
-    </script>
-{% endblock %}

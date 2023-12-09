@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Transaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -69,6 +71,19 @@ class TransactionRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalAmountGenerated(): float|bool|int|string|null
+    {
+        return $this->createQueryBuilder('t')
+            ->select('SUM(t.amount) as total')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Transaction[] Returns an array of Transaction objects
 //     */

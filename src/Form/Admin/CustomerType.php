@@ -71,7 +71,6 @@ class CustomerType extends AbstractType
             ->add('isCompany', ChoiceType::class, [
                 'attr' => [
                     'class' => 'w-full h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
-                    'onchange' => 'toggleCompanyForm(this);'
                 ],
                 'label' => 'Statut',
                 'row_attr' => [

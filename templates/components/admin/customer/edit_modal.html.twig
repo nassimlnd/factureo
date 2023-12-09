@@ -18,34 +18,25 @@
         </div>
         {{ form_start(editForm) }}
         <div class="space-y-6">
-            <div class="flex space-x-4">
-                <div class="space-y-6">
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.name) }}
-                    </div>
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.email) }}
-                    </div>
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.fullAdress) }}
-                    </div>
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.phoneNumber) }}
-                    </div>
+            <div class="space-y-6">
+                <div class="flex space-x-6">
+                    {{ form_row(editForm.lastName) }}
+                    {{ form_row(editForm.firstName) }}
                 </div>
-                <div class="space-y-6">
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.businessSector) }}
-                    </div>
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.legalStatus) }}
-                    </div>
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.activityType) }}
-                    </div>
-                    <div class="flex space-x-6">
-                        {{ form_row(editForm.country) }}
-                    </div>
+                <div class="flex space-x-6">
+                    {{ form_row(editForm.email) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(editForm.fullAdress) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(editForm.phoneNumber) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(editForm.isCompany) }}
+                </div>
+                <div id="company-field" class="flex space-x-6 hidden">
+                    {{ form_row(editForm.company) }}
                 </div>
             </div>
             <button type="submit"

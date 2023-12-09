@@ -67,7 +67,7 @@ class InvoiceController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, CustomerRepository $customerRepository, LoggerInterface $logger): Response
     {
         $invoice = new Invoice();
-        $customers = $customerRepository->findAll();
+        $customers = $customerRepository->findByCompany($this->getUser()->getCompany());
 
         if ($request->getMethod() == "POST") {
             $data = $request->getContent();
@@ -83,6 +83,7 @@ class InvoiceController extends AbstractController
             $invoiceObj->setState(0);
             $invoiceObj->setType($invoice['type']);
             $invoiceObj->setCompany($this->getUser()->getCompany());
+            $invoiceObj->setTotalPrice($invoice['totalPrice']);
 
             foreach ($invoice['invoiceItems'] as $invoiceLine) {
                 $invoiceDetail = new InvoiceDetails();
@@ -102,13 +103,6 @@ class InvoiceController extends AbstractController
 
             return $this->json($invoice);
         }
-
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($invoice);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_user_invoice_index', [], Response::HTTP_SEE_OTHER);
-        }*/
 
         return $this->render('user/invoice/new.html.twig', [
             'customers' => $customers

@@ -18,7 +18,6 @@ class CustomerController extends AbstractController
     #[Route('/', name: 'app_user_customer_index', methods: ['GET'])]
     public function index(CustomerRepository $customerRepository,Request $request,CompanyRepository $companyRepository): Response
     {
-        $this->CustomerRepository = $customerRepository;
         $id = $request->query->get('recherche');
         $idOrderASC = $request->query->get('idOrderASC');
         $idOrderDESC = $request->query->get('idOrderDESC');

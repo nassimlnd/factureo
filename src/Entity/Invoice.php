@@ -23,7 +23,7 @@ class Invoice
     private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?array $tags = null;
+    private ?array $tags = [];
 
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
@@ -41,6 +41,9 @@ class Invoice
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dueDate = null;
+
+    #[ORM\Column]
+    private ?float $totalPrice = null;
 
     public function __construct()
     {
@@ -85,7 +88,11 @@ class Invoice
 
     public function getTags(): ?array
     {
-        return $this->tags;
+        if ($this->tags != null) {
+            return $this->tags;
+        } else {
+            return [];
+        }
     }
 
     public function setTags(?array $tags): static
@@ -175,5 +182,17 @@ class Invoice
     public function __toString(): string
     {
         return 'Facture : ' . $this->getId();
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
     }
 }

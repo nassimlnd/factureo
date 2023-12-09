@@ -8,6 +8,7 @@ use App\Repository\CompanyRepository;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,9 +65,13 @@ class CustomerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_customer_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Customer $customer, EntityManagerInterface $entityManager, CompanyRepository $companyRepository): Response
     {
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(CustomerType::class, $customer, [
+            'action' => $this->generateUrl('app_admin_customer_edit', ['id' => $customer->getId()]),
+            'method' => 'POST',
+            'company_repository' => $companyRepository
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,9 +80,10 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute('app_admin_customer_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/customer/edit.html.twig', [
-            'customer' => $customer,
-            'form' => $form,
+        return new JsonResponse([
+            'html' => $this->renderView('components/admin/customer/edit_modal.html.twig',
+                ['id' => $customer->getId(), 'editForm' => $form->createView()]
+            )
         ]);
     }
 

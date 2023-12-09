@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <p class="-tracking-[0.48px] font-[400] text-base leading-[150%]">{{ app.user }}</p>
-                        <p class="text-[11px] -tracking-[0.33px] leading-[125%] text-slate-500">Auto-entrepreneur</p>
+                        <p class="text-[11px] -tracking-[0.33px] leading-[125%] text-slate-500">ADMINISTRATEUR</p>
                     </div>
                 </div>
                 <svg id="down-arrow" class="hidden" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
@@ -91,7 +91,7 @@
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Devis</p>
                         </div>
                     </a>
-                    <a class="block">
+                    <a href="{{ path('app_admin_transaction_index') }}" class="block">
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                             <p class="px-1">💰</p>
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Transactions</p>

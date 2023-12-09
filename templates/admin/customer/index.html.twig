@@ -90,8 +90,10 @@
                     {{ component('Admin:Customer:DeleteModal', {id: customer.id}) }}
                 {% endfor %}
             </twig:Admin:Customer:Table>
-            {{ component('Admin:Customer:NewModal', {newCustomerForm: newCustomerForm}) }}
-
         </div>
+    </div>
+    {{ component('Admin:Customer:NewModal', {newCustomerForm: newCustomerForm}) }}
+    <div id="edit-modal" class="hidden">
+
     </div>
 {% endblock %}

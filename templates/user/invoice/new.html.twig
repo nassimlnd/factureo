@@ -2,8 +2,6 @@
 
 {% block title %}Nouvelle facture - Facturéo{% endblock %}
 
-{% set id = 0 %}
-
 {% block body %}
     <div class="flex">
         {{ component('User:Sidebar') }}
@@ -269,6 +267,7 @@
                                 createdAt: createdAt,
                                 dueDate: dueDate,
                                 type: type,
+                                totalPrice: total,
                             }
 
                             axios.post('{{ path('app_user_invoice_new') }}', {

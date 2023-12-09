@@ -63,6 +63,15 @@ class CustomerRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findByCompany($company) : array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.company = :company')
+            ->setParameter('company', $company)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Customer[] Returns an array of Customer objects
 //     */

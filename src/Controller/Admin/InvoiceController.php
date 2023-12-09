@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Invoice;
+use App\Entity\InvoiceDetails;
 use App\Form\Admin\Invoice1Type;
+use App\Repository\CompanyRepository;
+use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,22 +26,51 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CustomerRepository $customerRepository, CompanyRepository $companyRepository): Response
     {
         $invoice = new Invoice();
-        $form = $this->createForm(Invoice1Type::class, $invoice);
-        $form->handleRequest($request);
+        $customers = $customerRepository->findAll();
+        $companies = $companyRepository->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($invoice);
+        if ($request->getMethod() == "POST") {
+            $data = $request->getContent();
+            $data = json_decode($data, true);
+            $invoice = $data['invoice'];
+
+            $customer = $customerRepository->findById($invoice['customer']['id']);
+            $company = $companyRepository->findById($invoice['company']['id']);
+
+            $invoiceObj = new Invoice();
+            $invoiceObj->setCustomer($customer);
+            $invoiceObj->setCreatedAt(date_create_immutable($invoice['createdAt']));
+            $invoiceObj->setDueDate(date_create_immutable($invoice['dueDate']));
+            $invoiceObj->setState(0);
+            $invoiceObj->setType($invoice['type']);
+            $invoiceObj->setCompany($company);
+            $invoiceObj->setTotalPrice($invoice['totalPrice']);
+
+            foreach ($invoice['invoiceItems'] as $invoiceLine) {
+                $invoiceDetail = new InvoiceDetails();
+                $invoiceDetail->setElement($invoiceLine['name']);
+                $invoiceDetail->setQuantity($invoiceLine['quantity']);
+                $invoiceDetail->setUnitPrice($invoiceLine['unitPrice']);
+                $invoiceDetail->setInvoice($invoiceObj);
+
+                $entityManager->persist($invoiceDetail);
+                $entityManager->flush();
+
+                $invoiceObj->addDetail($invoiceDetail);
+            }
+
+            $entityManager->persist($invoiceObj);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_invoice_index', [], Response::HTTP_SEE_OTHER);
+            return $this->json($invoice);
         }
 
         return $this->render('admin/invoice/new.html.twig', [
-            'invoice' => $invoice,
-            'form' => $form,
+            'customers' => $customers,
+            'companies' => $companies,
         ]);
     }
 

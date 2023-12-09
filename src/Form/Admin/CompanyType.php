@@ -20,7 +20,7 @@ class CompanyType extends AbstractType
             ->add('name', TextType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Nom de l\'entreprise',
                     'row_attr' => [
@@ -31,7 +31,7 @@ class CompanyType extends AbstractType
             ->add('email', EmailType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Adresse e-mail',
                     'row_attr' => [
@@ -42,7 +42,7 @@ class CompanyType extends AbstractType
             ->add('fullAdress', TextType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Adresse',
                     'row_attr' => [
@@ -53,7 +53,7 @@ class CompanyType extends AbstractType
             ->add('phoneNumber', TelType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Numéro de téléphone',
                     'row_attr' => [
@@ -64,7 +64,7 @@ class CompanyType extends AbstractType
             ->add('businessSector', ChoiceType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Secteur d\'activité',
                     'choices' => [
@@ -94,7 +94,7 @@ class CompanyType extends AbstractType
             ->add('legalStatus', ChoiceType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Statut juridique',
                     'choices' => [
@@ -118,7 +118,7 @@ class CompanyType extends AbstractType
             ->add('activityType', ChoiceType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Type d\'activité',
                     'choices' => [
@@ -132,7 +132,7 @@ class CompanyType extends AbstractType
             ->add('country', CountryType::class,
                 [
                     'attr' => [
-                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
+                        'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-slate-50 p-3 pl-6',
                     ],
                     'label' => 'Pays',
                     'row_attr' => [

@@ -77,7 +77,7 @@
                 </a>
             </div>
             <div class="space-y-2 px-6 py-2">
-                <h4 class="text-xl font-[500] -tracking-[0.6px]">Gestion</h4>
+                <h4 class="text-xl font-[500] -tracking-[0.6px]">Administration</h4>
                 <div class="space-y-2">
                     <a href="{{ path('app_admin_invoice_index') }}" class="block">
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
@@ -93,21 +93,10 @@
                     </a>
                     <a class="block">
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
-                            <p class="px-1">👨</p>
-                            <p class="-tracking-[0.48px] leading-[150%] text-base">Clients</p>
-                        </div>
-                    </a>
-                    <a class="block">
-                        <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                             <p class="px-1">💰</p>
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Transactions</p>
                         </div>
                     </a>
-                </div>
-            </div>
-            <div class="space-y-2 px-6 py-2">
-                <h4 class="text-xl font-[500] -tracking-[0.6px]">Administration</h4>
-                <div class="space-y-2">
                     <a href="{{ path('app_admin_user_index') }}" class="block">
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                             <p class="px-1">📄</p>
@@ -120,7 +109,7 @@
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Entreprises</p>
                         </div>
                     </a>
-                    <a class="block">
+                    <a href="{{ path('app_admin_customer_index') }}" class="block">
                         <div class="flex p-2 w-full space-x-2 hover:bg-gray-100 rounded-lg">
                             <p class="px-1">👨</p>
                             <p class="-tracking-[0.48px] leading-[150%] text-base">Clients</p>

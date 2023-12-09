@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Transaction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,20 +37,29 @@ class TransactionType extends AbstractType
                     'attr' => [
                         'class' => 'bg-slate-100 border border-gray-200 rounded-lg w-[424px] p-2.5 pl-6 h-[50px]'
                     ],
-                    'label' => 'Etat',
+                    'label' => 'État',
                     'row_attr' => [
                         'class' => 'flex flex-col space-y-2 w-full'
                     ],
-                    'placeholder' => 'Choisir un etat',
+                    'placeholder' => 'Choisir un état',
                     'choices' => [
                         'En cours' => '0',
                         'Payé' => '1'
                     ],
                 ]
             )
-            ->add('paymentDate')
+            ->add('paymentDate', DateType::class, [
+                'attr' => [
+                    'class' => 'rounded-lg border p-2.5 pl-6 bg-slate-100 border border-gray-200 ml-2'
+                ],
+                'label' => 'Date de paiement',
+                'row_attr' => [
+                    'class' => 'flex flex-col space-y-2 w-full'
+                ],
+                'widget' => 'single_text',
+            ])
             //->add('company')
-            ->add('customer',ChoiceType::class,[
+            /*->add('customer',ChoiceType::class,[
                 'attr' => [
                     'class' => 'rounded-lg border p-2.5 pl-6 bg-slate-100 border border-gray-200 ml-2'
                 ],
@@ -63,14 +73,12 @@ class TransactionType extends AbstractType
                 },
                 'choice_value' => 'id',
                  ]
-
-
-            )
+            )*/
             ->add('invoice', ChoiceType::class, [
                     'attr' => [
                         'class' => 'rounded-lg border p-2.5 pl-6 bg-slate-100 border border-gray-200 ml-2'
                     ],
-                    'label' => 'Factures',
+                    'label' => 'Facture',
                     'row_attr' => [
                         'class' => 'flex flex-col space-y-2 w-full'
                     ],

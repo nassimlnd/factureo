@@ -271,11 +271,12 @@
                                 type: type,
                             }
 
-                            console.log("Sending")
                             axios.post('{{ path('app_user_invoice_new') }}', {
                                 invoice: invoice
                             }).then((response) => {
-                                console.log(response);
+                                if (response.status === 200) {
+                                    window.location.href = '{{ path('app_user_invoice_index') }}';
+                                }
                             })
                         }
                     }

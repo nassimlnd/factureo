@@ -10,7 +10,6 @@
         </svg>
     </div>
     <div id="combobox-list"
-         data-customers="{{ data|serialize(format = 'json') }}"
          class="hidden absolute top-14 left-0 w-full bg-white rounded-xl border border-gray-200 drop-shadow-2xl divide-y divide-gray-200">
         <div id="comboxbox-test" class="relative flex items-center h-12">
             <div class="absolute left-4">
@@ -41,7 +40,10 @@
 
 {% block javascripts %}
     <script type="text/javascript">
-        let customers = JSON.parse(document.getElementById('combobox-list').dataset.customers);
+        let customers;
+        window.addEventListener('load', () => {
+            customers = JSON.parse({{ data|json_encode|raw }});
+        })
 
         function showList() {
             document.getElementById('combobox-list').classList.toggle('hidden');

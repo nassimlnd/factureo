@@ -20,85 +20,51 @@ class TransactionController extends AbstractController
     public function index(TransactionRepository $transactionRepository,Request $request, CustomerRepository $customerRepository, InvoiceRepository $invoiceRepository): Response
     {
         $user = $this->getUser();
+        $transaction = new Transaction();
+
         $customer = $request->query->get('customer');
         $state = $request->query->get('state');
-        $transaction = new transaction();
+
         $newTransactionForm = $this->createForm(TransactionType::class, $transaction, [
             'method' => 'POST',
             'action' => $this->generateUrl('app_user_transaction_new'),
             'invoice_repository' =>$invoiceRepository,
             'customer_repository'=>$customerRepository
         ]);
-        if ($request->get('critere') != "") {
 
+        if ($request->get('critere') != "") {
+            $transactionSort = [];
             if ($request->get('critere') === "customer")
             {
                 $transactionSort = $transactionRepository->findByCustomer($user->getCompany(), $customer);
-                return $this->render('user/transaction/index.html.twig', [
-                    'transactions' => $transactionSort,
-                    'customers' => $customerRepository->findAll(),
-                    'newTransactionForm' => $newTransactionForm,
-                    'invoice_repository' =>$invoiceRepository,
-                    'customer_repository'=>$customerRepository
-                ]);
             }
-
             if($request->get('critere') == "state")
             {
                 $transactionSort = $transactionRepository->findByState($state);
-                return $this->render('user/transaction/index.html.twig', [
-                    'transactions' => $transactionSort,
-                    'customers' => $customerRepository->findAll(),
-                    'newTransactionForm' => $newTransactionForm,
-                    'invoice_repository' =>$invoiceRepository,
-                    'customer_repository'=>$customerRepository
-                ]);
             }
-
             if($request->get('critere') == "paymentDate"){
                 if($request->get('paymentdate') == "Ascendant"){
                     $transactionSort = $transactionRepository->paymentDateAsc();
-                    return $this->render('user/transaction/index.html.twig', [
-                        'transactions' => $transactionSort,
-                        'customers' => $customerRepository->findAll(),
-                        'newTransactionForm' => $newTransactionForm,
-                        'invoice_repository' =>$invoiceRepository,
-                        'customer_repository'=>$customerRepository
-                    ]);
                 }
                 else if($request->get('paymentdate') == "Descendant"){
                     $transactionSort = $transactionRepository->paymentDateDesc();
-                    return $this->render('user/transaction/index.html.twig', [
-                        'transactions' => $transactionSort,
-                        'customers' => $customerRepository->findAll(),
-                        'newTransactionForm' => $newTransactionForm,
-                        'invoice_repository' =>$invoiceRepository,
-                        'customer_repository'=>$customerRepository
-                    ]);
                 }
             }
             if($request->get('critere') == "amount"){
                 if($request->get('amount') == "Ascendant"){
                     $transactionSort = $transactionRepository->amountAsc();
-                    return $this->render('user/transaction/index.html.twig', [
-                        'transactions' => $transactionSort,
-                        'customers' => $customerRepository->findAll(),
-                        'newTransactionForm' => $newTransactionForm,
-                        'invoice_repository' =>$invoiceRepository,
-                        'customer_repository'=>$customerRepository
-                    ]);
                 }
                 else if($request->get('amount') == "Descendant"){
                     $transactionSort = $transactionRepository->amountDesc();
-                    return $this->render('user/transaction/index.html.twig', [
-                        'transactions' => $transactionSort,
-                        'customers' => $customerRepository->findAll(),
-                        'newTransactionForm' => $newTransactionForm,
-                        'invoice_repository' =>$invoiceRepository,
-                        'customer_repository'=>$customerRepository
-                    ]);
                 }
             }
+            return $this->render('user/transaction/index.html.twig', [
+                'transactions' => $transactionSort,
+                'customers' => $customerRepository->findAll(),
+                'newTransactionForm' => $newTransactionForm,
+                'invoice_repository' =>$invoiceRepository,
+                'customer_repository'=>$customerRepository
+            ]);
         }
 
         return $this->render('user/transaction/index.html.twig', [
@@ -123,6 +89,8 @@ class TransactionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $transaction->setCompany($this->getUser()->getCompany());
+            $transaction->setCustomer($transaction->getInvoice()->getCustomer());
+
             $entityManager->persist($transaction);
             $entityManager->flush();
 

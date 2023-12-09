@@ -40,8 +40,8 @@
                         <p>Exporter</p>
                     </a>
                     <button
-                       class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2"
-                       onclick="(() => {
+                            class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2"
+                            onclick="(() => {
                                     document.getElementById('new-modal').classList.toggle('hidden');
                                     document.body.classList.toggle('overflow-hidden');
                                 }) ()">
@@ -342,7 +342,7 @@
     </div>
     <div id="new-modal"
          class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center">
-        <div class="bg-white p-6 mx-auto rounded-lg w-fit space-y-6">
+        <div class="bg-white p-6 mx-auto rounded-lg w-fit space-y-6 w-[700px]">
             <div class="flex justify-between">
                 <h4 class="text-xl leading-[150%] -tracking-[0.6px] font-bold">Nouvelle transaction</h4>
                 <button class="p-1 hover:bg-gray-200 rounded"
@@ -360,25 +360,22 @@
             </div>
             {{ form_start(newTransactionForm) }}
             <div class="space-y-6">
-                <div class="flex space-x-4">
+                <div class="space-x-4">
                     <div class="space-y-6">
                         <div class="flex space-x-6">
-                            {{ form_row(newTransactionForm.customer) }}
-                        </div>
-                        <div class="flex space-x-6">
-                            {{ form_row(newTransactionForm.paymentMethod) }}
+                            {{ form_row(newTransactionForm.invoice) }}
                         </div>
                         <div class="flex space-x-6">
                             {{ form_row(newTransactionForm.amount) }}
                         </div>
                         <div class="flex space-x-6">
+                            {{ form_row(newTransactionForm.paymentMethod) }}
+                        </div>
+                        <div class="flex space-x-6">
                             {{ form_row(newTransactionForm.state) }}
                         </div>
                         <div class="flex space-x-6">
-                            {{ form_row(newTransactionForm.invoice) }}
-                        </div>
-                        <div class="flex space-x-6">
-                          {{ form_row(newTransactionForm.paymentDate) }}
+                            {{ form_row(newTransactionForm.paymentDate) }}
                         </div>
                         <button type="submit"
                                 class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
@@ -392,11 +389,10 @@
                             <p>Enregistrer</p>
                         </button>
                     </div>
-                        {{ form_end(newTransactionForm) }}
-                    </div>
-                </div>
 
+                </div>
             </div>
+            {{ form_end(newTransactionForm) }}
         </div>
     </div>
 

@@ -39,7 +39,7 @@ class Customer
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Estimate::class)]
     private Collection $estimates;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(cascade: ['persist'])]
     private ?Company $company = null;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Transaction::class)]

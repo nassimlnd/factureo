@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facturéo - Mes Devis{% endblock %}
+{% block title %}Devis - Facturéo{% endblock %}
 
 {% block body %}
     <div class="flex">
@@ -39,7 +39,7 @@
                         </svg>
                         <p>Exporter</p>
                     </a>
-                    <a href="#"
+                    <a href="{{ path('app_user_estimate_new')}}"
                        class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
                         <div class="rounded-full border border-dashed border-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"

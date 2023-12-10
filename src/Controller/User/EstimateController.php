@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\Estimate;
+use App\Entity\EstimateDetails;
 use App\Form\EstimateType;
 use App\Repository\CustomerRepository;
 use App\Repository\EstimateRepository;
@@ -59,22 +60,49 @@ class EstimateController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_estimate_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CustomerRepository $customerRepository): Response
     {
         $estimate = new Estimate();
+        $customers = $customerRepository->findByCompany($this->getUser()->getCompany());
         $form = $this->createForm(EstimateType::class, $estimate);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($estimate);
+        if($request->getMethod() == "POST"){
+            $data =$request->getContent();
+            $data = json_decode($data, true);
+            $estimate =$data ['estimate'];
+            $customer = $customerRepository->findById($estimate['customer']['id']);
+
+            $estimateObj = new estimate();
+            $estimateObj->setCustomer($customer);
+            $estimateObj->setCreatedAt(date_create_immutable($estimate['createdAt']));
+            $estimateObj->setDueDate((date_create_immutable($estimate['dueDate'])));
+            $estimateObj->setState(0);
+            $estimateObj->setType($estimate['type']);
+            $estimateObj->setCompany($this->getUser()->getCompany());
+            $estimateObj->setTotalPrice($estimate['totalPrice']);
+
+            foreach ($estimate ['estimateItems'] as $estimateLine){
+                $estimateDetail = new EstimateDetails();
+                $estimateDetail->setElement($estimateLine['name']);
+                $estimateDetail->setQuantity($estimateLine['quantity']);
+                $estimateDetail->setUnitPrice($estimateLine['unitPrice']);
+                $estimateDetail->setEstimate($estimateObj);
+
+                $entityManager->persist($estimateDetail);
+                $entityManager->flush();
+
+                $estimateObj->addEstimateDetail($estimateDetail);
+            }
+            $entityManager->persist($estimateObj);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_estimate_index', [], Response::HTTP_SEE_OTHER);
+            return $this->json($estimate);
         }
 
         return $this->render('user/estimate/new.html.twig', [
-            'estimate' => $estimate,
-            'form' => $form,
+            'customers' => $customers
+
         ]);
     }
 

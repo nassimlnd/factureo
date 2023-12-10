@@ -9,6 +9,7 @@ use App\Repository\InvoiceRepository;
 use App\Repository\TransactionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -118,7 +119,10 @@ class TransactionController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_transaction_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Transaction $transaction, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(TransactionType::class, $transaction);
+        $form = $this->createForm(TransactionType::class, $transaction, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('app_admin_company_edit', ['id' => $transaction->getId()])
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -127,9 +131,12 @@ class TransactionController extends AbstractController
             return $this->redirectToRoute('app_user_transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/transaction/edit.html.twig', [
-            'transaction' => $transaction,
-            'form' => $form,
+        return new JsonResponse([
+            'edit_modal' => $this->render('user/transaction/index.html.twig', [
+                'edit_modal' => 'edit_modal'
+            ],
+
+            )
         ]);
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EstimateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EstimateRepository::class)]
@@ -29,6 +31,23 @@ class Estimate
     #[ORM\ManyToOne(inversedBy: 'estimates')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $company = null;
+
+    #[ORM\OneToMany(mappedBy: 'estimate', targetEntity: EstimateDetails::class, orphanRemoval: true)]
+    private Collection $estimateDetails;
+
+    #[ORM\Column]
+    private ?float $totalPrice = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $dueDate = null;
+
+    public function __construct()
+    {
+        $this->estimateDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -91,6 +110,72 @@ class Estimate
     public function setCompany(?Company $company): static
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EstimateDetails>
+     */
+    public function getEstimateDetails(): Collection
+    {
+        return $this->estimateDetails;
+    }
+
+    public function addEstimateDetail(EstimateDetails $estimateDetail): static
+    {
+        if (!$this->estimateDetails->contains($estimateDetail)) {
+            $this->estimateDetails->add($estimateDetail);
+            $estimateDetail->setEstimate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstimateDetail(EstimateDetails $estimateDetail): static
+    {
+        if ($this->estimateDetails->removeElement($estimateDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($estimateDetail->getEstimate() === $this) {
+                $estimateDetail->setEstimate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDueDate(): ?\DateTimeImmutable
+    {
+        return $this->dueDate;
+    }
+
+    public function setDueDate(\DateTimeImmutable $dueDate): static
+    {
+        $this->dueDate = $dueDate;
 
         return $this;
     }

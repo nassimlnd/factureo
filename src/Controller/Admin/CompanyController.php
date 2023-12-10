@@ -66,6 +66,7 @@ class CompanyController extends AbstractController
     {
         $form = $this->createForm(CompanyType::class, $company, [
             'method' => 'POST',
+            'action' => $this->generateUrl('app_admin_company_edit', ['id' => $company->getId()])
         ]);
         $form->handleRequest($request);
 

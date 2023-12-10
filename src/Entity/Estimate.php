@@ -22,7 +22,7 @@ class Estimate
     private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tags = null;
+    private ?array $tags = [];
 
     #[ORM\ManyToOne(inversedBy: 'estimates')]
     #[ORM\JoinColumn(nullable: false)]
@@ -78,12 +78,15 @@ class Estimate
         return $this;
     }
 
-    public function getTags(): ?string
+    public function getTags(): ?array
     {
+        if (is_null($this->tags)) {
+            return [];
+        }
         return $this->tags;
     }
 
-    public function setTags(?string $tags): static
+    public function setTags(?array $tags): static
     {
         $this->tags = $tags;
 

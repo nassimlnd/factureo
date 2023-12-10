@@ -19,15 +19,21 @@
         >
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2 justify-start">
-                    <div class="rounded-full bg-blue-600 text-white w-8 h-8 flex items-center justify-center">
-                        {{ app.user.firstName|first }}{{ app.user.lastName|first }}
-                    </div>
+                    {% if app.user.profilePicture == null %}
+                        <div class="rounded-full bg-blue-600 text-white w-8 h-8 flex items-center justify-center">
+                            {{ app.user.firstName|first }}{{ app.user.lastName|first }}
+                        </div>
+                    {% else %}
+                        <img src="{{ vich_uploader_asset(app.user.profilePicture, 'imageFile') }}" alt="Profile picture"
+                             class="w-8 h-8 rounded-full">
+                    {% endif %}
                     <div>
                         <p class="-tracking-[0.48px] font-[400] text-base leading-[150%]">{{ app.user }}</p>
                         <p class="text-[11px] -tracking-[0.33px] leading-[125%] text-slate-500">Auto-entrepreneur</p>
                     </div>
                 </div>
-                <svg id="down-arrow" class="hidden" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                <svg id="down-arrow" class="hidden" xmlns="http://www.w3.org/2000/svg" width="12" height="8"
+                     viewBox="0 0 12 8" fill="none">
                     <path d="M11 1.5L6 6.5L1 1.5" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round"
                           stroke-linejoin="round"></path>
                 </svg>

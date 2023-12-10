@@ -2,6 +2,8 @@
 
 namespace App\Controller\User;
 
+use App\Entity\Media;
+use App\Form\MediaType;
 use App\Form\User\UserInfoType;
 use App\Form\User\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,20 +24,28 @@ class AccountController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+        $media = new Media();
 
         $infoForm = $this->createForm(UserInfoType::class, $user, [
             'method' => 'POST',
             'action' => $this->generateUrl('app_user_account_update')
         ]);
+
         $passwordForm = $this->createForm(UserPasswordType::class, $user, [
             'action' => $this->generateUrl('app_user_account_update'),
             'method' => 'POST'
         ]);
 
+        $mediaForm = $this->createForm(MediaType::class, $media, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('app_admin_account_update')
+        ]);
+
 
         return $this->render('user/account/index.html.twig', [
             'infoForm' => $infoForm,
-            'passwordForm' => $passwordForm
+            'passwordForm' => $passwordForm,
+            'mediaForm' => $mediaForm
         ]);
     }
 
@@ -46,12 +56,16 @@ class AccountController extends AbstractController
     public function update(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+        $media = new Media();
 
         $infoForm = $this->createForm(UserInfoType::class, $user);
         $infoForm->handleRequest($request);
 
         $passwordForm = $this->createForm(UserPasswordType::class, $user);
         $passwordForm->handleRequest($request);
+
+        $mediaForm = $this->createForm(MediaType::class, $media);
+        $mediaForm->handleRequest($request);
 
         if ($passwordForm->isSubmitted() && $passwordForm->isValid())
         {
@@ -119,10 +133,36 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_user_account');
         }
 
+        if ($mediaForm->isSubmitted() && $mediaForm->isValid())
+        {
+            $media->setCreatedAt(new \DateTimeImmutable());
+            $media->setUpdatedAt(new \DateTimeImmutable());
+
+            $entityManager->persist($media);
+            $entityManager->flush();
+
+            $user->setProfilePicture($media);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+            $this->addFlash(
+                'success',
+                [
+                    'message' => 'Votre image a bien été ajoutée.',
+                    'title' => 'Mise à jour réussie.'
+                ]
+            );
+
+            return $this->redirectToRoute('app_admin_account');
+        }
+
         return $this->render('user/account/index.html.twig',
             [
                 'passwordForm' => $passwordForm,
-                'infoForm' => $infoForm
+                'infoForm' => $infoForm,
+                'mediaForm' => $mediaForm
             ]
         );
     }

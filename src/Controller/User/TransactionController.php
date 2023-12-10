@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TransactionController extends AbstractController
 {
     #[Route('/', name: 'app_user_transaction_index', methods: ['GET'])]
-    public function index(TransactionRepository $transactionRepository,Request $request, CustomerRepository $customerRepository, InvoiceRepository $invoiceRepository): Response
+    public function index(TransactionRepository $transactionRepository, Request $request, CustomerRepository $customerRepository, InvoiceRepository $invoiceRepository): Response
     {
         $user = $this->getUser();
         $transaction = new Transaction();
@@ -28,33 +28,29 @@ class TransactionController extends AbstractController
         $newTransactionForm = $this->createForm(TransactionType::class, $transaction, [
             'method' => 'POST',
             'action' => $this->generateUrl('app_user_transaction_new'),
-            'invoice_repository' =>$invoiceRepository,
-            'customer_repository'=>$customerRepository
+            'invoice_repository' => $invoiceRepository,
+            'customer_repository' => $customerRepository
         ]);
 
         if ($request->get('critere') != "") {
             $transactionSort = [];
-            if ($request->get('critere') === "customer")
-            {
+            if ($request->get('critere') === "customer") {
                 $transactionSort = $transactionRepository->findByCustomer($user->getCompany(), $customer);
             }
-            if($request->get('critere') == "state")
-            {
+            if ($request->get('critere') == "state") {
                 $transactionSort = $transactionRepository->findByState($state);
             }
-            if($request->get('critere') == "paymentDate"){
-                if($request->get('paymentdate') == "Ascendant"){
+            if ($request->get('critere') == "paymentDate") {
+                if ($request->get('paymentdate') == "Ascendant") {
                     $transactionSort = $transactionRepository->paymentDateAsc();
-                }
-                else if($request->get('paymentdate') == "Descendant"){
+                } else if ($request->get('paymentdate') == "Descendant") {
                     $transactionSort = $transactionRepository->paymentDateDesc();
                 }
             }
-            if($request->get('critere') == "amount"){
-                if($request->get('amount') == "Ascendant"){
+            if ($request->get('critere') == "amount") {
+                if ($request->get('amount') == "Ascendant") {
                     $transactionSort = $transactionRepository->amountAsc();
-                }
-                else if($request->get('amount') == "Descendant"){
+                } else if ($request->get('amount') == "Descendant") {
                     $transactionSort = $transactionRepository->amountDesc();
                 }
             }
@@ -62,8 +58,8 @@ class TransactionController extends AbstractController
                 'transactions' => $transactionSort,
                 'customers' => $customerRepository->findAll(),
                 'newTransactionForm' => $newTransactionForm,
-                'invoice_repository' =>$invoiceRepository,
-                'customer_repository'=>$customerRepository
+                'invoice_repository' => $invoiceRepository,
+                'customer_repository' => $customerRepository
             ]);
         }
 
@@ -71,8 +67,8 @@ class TransactionController extends AbstractController
             'transactions' => $transactionRepository->findByUser($user->getCompany()),
             'customers' => $customerRepository->findAll(),
             'newTransactionForm' => $newTransactionForm,
-            'invoice_repository' =>$invoiceRepository,
-            'customer_repository'=>$customerRepository
+            'invoice_repository' => $invoiceRepository,
+            'customer_repository' => $customerRepository
         ]);
     }
 
@@ -80,19 +76,27 @@ class TransactionController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response
     {
         $transaction = new Transaction();
-        $form = $this->createForm(TransactionType::class, $transaction,[
+        $form = $this->createForm(TransactionType::class, $transaction, [
             'method' => 'POST',
             'action' => $this->generateUrl('app_user_transaction_new'),
             'invoice_repository' => $invoiceRepository,
         ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $transaction->setCompany($this->getUser()->getCompany());
             $transaction->setCustomer($transaction->getInvoice()->getCustomer());
+            if ($transaction->getAmount() < $transaction->getInvoice()->getTotalPrice()) {
+                $entityManager->persist($transaction);
+                $entityManager->flush();
 
-            $entityManager->persist($transaction);
-            $entityManager->flush();
+                return $this->redirectToRoute('app_user_transaction_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $this->addFlash('error', [
+                    'message' => "Vous ne pouvez créer une transaction avec un montant supérieur à la facture",
+                    'title' => "Une erreur est survenue"
+                ]);
+            }
+
 
             return $this->redirectToRoute('app_user_transaction_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -132,7 +136,7 @@ class TransactionController extends AbstractController
     #[Route('/{id}', name: 'app_user_transaction_delete', methods: ['POST'])]
     public function delete(Request $request, Transaction $transaction, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$transaction->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $transaction->getId(), $request->request->get('_token'))) {
             $entityManager->remove($transaction);
             $entityManager->flush();
         }

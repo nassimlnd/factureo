@@ -1,8 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facturéo - Mes factures{% endblock %}
+{% block title %}Transaction - Facturéo{% endblock %}
 
 {% block body %}
+    {% for type, message in app.flashes('error') %}
+        {{ component('Alert',
+            {
+                state: 'error',
+                title: message['title'],
+                content: message['message']
+            }
+        ) }}
+    {% endfor %}
     <div class="flex">
         {{ component('User:Sidebar') }}
         <div class="w-3/4 mx-auto my-6 lg:ml-[300px] pl-16">

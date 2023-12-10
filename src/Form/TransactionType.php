@@ -16,15 +16,22 @@ class TransactionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('paymentMethod',TextType::class,[
-                'attr' => [
-                    'class' => 'bg-slate-100 border border-gray-200 rounded-lg w-[200px] p-2.5 pl-6 h-[50px]'
-                ],
-                'label' => 'Méthode de paiement',
-                'row_attr' => [
-                    'class' => 'flex flex-col space-y-2 w-full'
+            ->add('paymentMethod', ChoiceType::class, [
+                    'attr' => [
+                        'class' => 'rounded-lg border p-2.5 pl-6 bg-slate-100 border border-gray-200 ml-2'
+                    ],
+                    'label' => 'Méthode de paiement',
+                    'row_attr' => [
+                        'class' => 'flex flex-col space-y-2 w-full'
+                    ],
+                    'choices' => [
+                        'Chèque' => 'cheque',
+                        'Virement' => 'virement',
+                        'Espèces' => 'especes',
+                        '3x sans frais' => '3x',
+                    ],
                 ]
-                ])
+            )
             ->add('amount', NumberType::class, [
                 'attr' => [
                     'class' => 'rounded-lg border p-2.5 pl-6 bg-slate-100 border border-gray-200 ml-2'

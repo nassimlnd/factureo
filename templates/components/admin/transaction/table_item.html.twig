@@ -1,0 +1,104 @@
+<div class="h-[72px] flex items-center border-b border-gray-200 w-full hover:bg-slate-50">
+    <div class="px-6 min-w-16">
+        <input type="checkbox" class="checkbox-all">
+    </div>
+    <div class="px-6 min-w-[110px]">
+        <p class="text-sm px-2 bg-gray-200 w-fit rounded-full text-slate-900">#{{ id }}</p>
+    </div>
+    <div class="px-6 min-w-[170px]">
+        <p class="text-sm">{{ companyName }}</p>
+    </div>
+    <div class="px-6 min-w-[210px]">
+        <p class="text-sm text-slate-700">{{ customerName }}</p>
+    </div>
+    <div class="px-6 min-w-[200px]">
+        <p class="text-sm text-slate-700">{{ paymentMethod }}</p>
+    </div>
+    <div class="px-6 min-w-[180px]">
+        <p class="text-sm text-slate-700">{{ amount }} €</p>
+    </div>
+    <div class="px-6 min-w-[180px]">
+        {% if state == 0 %}
+            <div class="flex text-green-500 bg-green-50 px-2 rounded-full text-sm items-center space-x-1.5 w-fit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <circle cx="4" cy="4" r="3" fill="#12B76A"></circle>
+                </svg>
+                <p>
+                    En cours
+                </p>
+            </div>
+        {% elseif state == 1 %}
+            <div class="flex text-green-500 bg-green-50 px-2 rounded-full text-sm items-center space-x-1.5 w-fit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <circle cx="4" cy="4" r="3" fill="#B71212"></circle>
+                </svg>
+                <p>
+                    Payé
+                </p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="px-6 min-w-[180px]">
+        <p class="text-sm text-slate-700">{{ date }}</p>
+    </div>
+    <div class="w-full flex justify-end px-6 relative">
+        <button class="py-2 px-3 hover:bg-gray-100 rounded-lg"
+                id="dropdown-btn"
+                onclick="(() => {
+                        document.getElementById('{{ id }}').classList.toggle('hidden');
+                        }) ()"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16" fill="none"
+                 class="pointer-events-none">
+                <path d="M2 8.83331C2.46023 8.83331 2.83333 8.46022 2.83333 7.99998C2.83333 7.53974 2.46023 7.16665 2 7.16665C1.53976 7.16665 1.16666 7.53974 1.16666 7.99998C1.16666 8.46022 1.53976 8.83331 2 8.83331Z"
+                      stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M2 2.99998C2.46023 2.99998 2.83333 2.62688 2.83333 2.16665C2.83333 1.70641 2.46023 1.33331 2 1.33331C1.53976 1.33331 1.16666 1.70641 1.16666 2.16665C1.16666 2.62688 1.53976 2.99998 2 2.99998Z"
+                      stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M2 14.6666C2.46023 14.6666 2.83333 14.2935 2.83333 13.8333C2.83333 13.3731 2.46023 13 2 13C1.53976 13 1.16666 13.3731 1.16666 13.8333C1.16666 14.2935 1.53976 14.6666 2 14.6666Z"
+                      stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+        <div class="absolute right-8 -bottom-24 bg-white border border-gray-200 rounded-lg px-2 py-2 drop-shadow-md hidden z-20 w-[234px] dropdown-content"
+             id="{{ id }}">
+            <button class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start"
+                    onclick="fetchTransaction{{ id }}()"
+            >Modifier
+            </button>
+            <button class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start"
+                    onclick="(() => {
+                            document.getElementById('delete-modal-{{ id }}').classList.toggle('hidden');
+                            }) ()"
+            >Supprimer
+            </button>
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        window.onclick = function (event) {
+            if (!event.target.matches('#dropdown-btn')) {
+                let dropdowns = document.getElementsByClassName("dropdown-content");
+                let i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('hidden')) {
+                        openDropdown.classList.toggle('hidden');
+                    }
+                }
+            }
+        }
+
+        async function fetchTransaction{{ id }}() {
+            console.log('{{ id }}')
+            const response = await axios.get('{{ path('app_admin_transaction_edit', {id: id}) }}');
+            if (response.status === 200) {
+                document.getElementById('edit-modal').innerHTML = response.data['html'];
+                document.getElementById('edit-modal').classList.toggle('hidden');
+            }
+        }
+
+        // TODO: if a div is already open, when I open another div it will close the other one.
+    </script>
+{% endblock %}

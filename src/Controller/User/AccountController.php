@@ -167,4 +167,40 @@ class AccountController extends AbstractController
         );
     }
 
+    #[Route('/account/picture/delete', name: 'app_user_account_picture_delete', methods: ['GET'])]
+    public function pictureDelete(Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse
+    {
+        $user = $this->getUser();
+        if ($user->getProfilePicture() != null) {
+            $pictureToDelete = $user->getProfilePicture();
+
+            $user->setProfilePicture(null);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $entityManager->remove($pictureToDelete);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                [
+                    'message' => 'Votre image a bien été supprimée.',
+                    'title' => 'Suppression réussie.'
+                ]
+            );
+
+            return $this->redirectToRoute('app_admin_account');
+        } else {
+            $this->addFlash(
+                'error',
+                [
+                    'message' => 'Vous n\'avez pas d\'image de profil.',
+                    'title' => 'Une erreur est survenue.'
+                ]
+            );
+
+            return $this->redirectToRoute('app_admin_account');
+        }
+    }
+
 }

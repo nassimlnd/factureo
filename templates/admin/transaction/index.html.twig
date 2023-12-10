@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Transaction index{% endblock %}
+{% block title %}[ADMIN] Transactions - Facturéo{% endblock %}
 
 {% block body %}
     <div class="flex">
@@ -78,6 +78,24 @@
                     </div>
                 </div>
             </div>
+            <twig:Admin:Transaction:Table>
+                {% for transaction in transactions %}
+                    {{ component('Admin:Transaction:TableItem', {
+                        id: transaction.id,
+                        date: transaction.paymentDate|date('d/m/Y'),
+                        customerName: transaction.customer.firstName ~ ' ' ~ transaction.customer.lastName,
+                        companyName: transaction.company.name,
+                        amount: transaction.amount,
+                        state: transaction.state,
+                        paymentMethod: transaction.paymentMethod,
+                    }) }}
+                    {{ component('Admin:Transaction:DeleteModal', {id: transaction.id}) }}
+                {% endfor %}
+            </twig:Admin:Transaction:Table>
         </div>
+    </div>
+    {{ component('Admin:Transaction:NewModal', {newTransactionForm: newTransactionForm}) }}
+    <div id="edit-modal" class="hidden">
+
     </div>
 {% endblock %}

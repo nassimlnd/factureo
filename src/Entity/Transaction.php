@@ -31,7 +31,7 @@ class Transaction
     #[ORM\Column]
     private ?int $state = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Invoice $invoice = null;
 
@@ -115,11 +115,9 @@ class Transaction
         return $this;
     }
 
-    public function getPaymentDate(): ?string
+    public function getPaymentDate(): ?\DateTimeInterface
     {
-        if($this->paymentDate != null){
-            return $this->paymentDate->format('Y-m-d');
-        } else return null;
+        return $this->paymentDate;
     }
 
     public function setPaymentDate(\DateTimeInterface $paymentDate): static

@@ -101,7 +101,7 @@ class TransactionController extends AbstractController
             return $this->redirectToRoute('app_user_transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/transaction/new.html.twig', [
+        return $this->render('user/transaction/index.html.twig', [
             'transaction' => $transaction,
             'newTransactionForm' => $form,
         ]);

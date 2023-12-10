@@ -8,6 +8,7 @@ use App\Form\User\InvoiceType;
 use App\Form\User\NewInvoiceType;
 use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
+use App\Repository\TransactionRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -136,9 +137,17 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_invoice_delete', methods: ['POST'])]
-    public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager, TransactionRepository $transactionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $invoice->getId(), $request->request->get('_token'))) {
+            foreach ($invoice->getDetails() as $detail) {
+                $entityManager->remove($detail);
+            }
+
+            foreach ($transactionRepository->findByInvoice($invoice) as $transaction) {
+                $entityManager->remove($transaction);
+            }
+
             $entityManager->remove($invoice);
             $entityManager->flush();
         }

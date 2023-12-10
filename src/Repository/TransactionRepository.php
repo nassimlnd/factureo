@@ -84,6 +84,15 @@ class TransactionRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function findByInvoice($invoice)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.invoice =:invoice')
+            ->setParameter('invoice', $invoice)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Transaction[] Returns an array of Transaction objects
 //     */

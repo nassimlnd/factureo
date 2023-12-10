@@ -21,5 +21,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "symfony:run": "symfony serve:start -d && encore dev --watch"
+    },
+    "dependencies": {
+        "axios": "^1.6.2"
     }
 }

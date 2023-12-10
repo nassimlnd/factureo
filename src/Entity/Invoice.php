@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\InvoiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
@@ -20,7 +23,7 @@ class Invoice
     private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tags = null;
+    private ?array $tags = [];
 
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,6 +32,23 @@ class Invoice
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $company = null;
+
+    #[ORM\OneToMany(mappedBy: 'invoice', targetEntity: InvoiceDetails::class, orphanRemoval: true)]
+    private Collection $details;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dueDate = null;
+
+    #[ORM\Column]
+    private ?float $totalPrice = null;
+
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,12 +86,16 @@ class Invoice
         return $this;
     }
 
-    public function getTags(): ?string
+    public function getTags(): ?array
     {
-        return $this->tags;
+        if ($this->tags != null) {
+            return $this->tags;
+        } else {
+            return [];
+        }
     }
 
-    public function setTags(?string $tags): static
+    public function setTags(?array $tags): static
     {
         $this->tags = $tags;
 
@@ -98,6 +122,76 @@ class Invoice
     public function setCompany(?Company $company): static
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InvoiceDetails>
+     */
+    public function getDetails(): Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(InvoiceDetails $detail): static
+    {
+        if (!$this->details->contains($detail)) {
+            $this->details->add($detail);
+            $detail->setInvoice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetail(InvoiceDetails $detail): static
+    {
+        if ($this->details->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getInvoice() === $this) {
+                $detail->setInvoice(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDueDate(): ?\DateTimeInterface
+    {
+        return $this->dueDate;
+    }
+
+    public function setDueDate(\DateTimeInterface $dueDate): static
+    {
+        $this->dueDate = $dueDate;
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return 'Facture : ' . $this->getId();
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }

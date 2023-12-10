@@ -1,0 +1,56 @@
+<div id="new-modal"
+     class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center">
+    <div class="bg-white p-6 mx-auto rounded-lg w-[600px] space-y-6">
+        <div class="flex justify-between">
+            <h4 class="text-xl leading-[150%] -tracking-[0.6px] font-bold">Nouveau client</h4>
+            <button class="p-1 hover:bg-gray-200 rounded"
+                    onclick="(() => {
+                            document.getElementById('new-modal').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
+                        }) ()"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M16.9497 8.46443C17.3403 8.0739 17.3403 7.44074 16.9497 7.05021C16.5592 6.65969 15.926 6.65969 15.5355 7.05021L12 10.5858L8.46443 7.05021C8.0739 6.65969 7.44074 6.65969 7.05021 7.05021C6.65969 7.44074 6.65969 8.0739 7.05021 8.46443L10.5858 12L7.05021 15.5355C6.65969 15.9261 6.65969 16.5592 7.05021 16.9497C7.44074 17.3403 8.0739 17.3403 8.46443 16.9497L12 13.4142L15.5355 16.9497C15.926 17.3403 16.5592 17.3403 16.9497 16.9497C17.3403 16.5592 17.3403 15.9261 16.9497 15.5355L13.4142 12L16.9497 8.46443Z"
+                          fill="black"></path>
+                </svg>
+            </button>
+        </div>
+        {{ form_start(newCustomerForm) }}
+        <div class="space-y-6">
+            <div class="space-y-6">
+                <div class="flex space-x-6">
+                    {{ form_row(newCustomerForm.lastName) }}
+                    {{ form_row(newCustomerForm.firstName) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(newCustomerForm.email) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(newCustomerForm.fullAdress) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(newCustomerForm.phoneNumber) }}
+                </div>
+                <div id="company-field" class="flex space-x-6">
+                    {{ form_row(newCustomerForm.company) }}
+                </div>
+                <div class="flex space-x-6">
+                    {{ form_row(newCustomerForm.isCompany) }}
+                </div>
+            </div>
+            <button type="submit"
+                    class="text-white w-fit bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
+                <div class="rounded-full border border-dashed border-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                         fill="none">
+                        <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                              stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+                <p>Enregistrer</p>
+            </button>
+        </div>
+        {{ form_end(newCustomerForm) }}
+    </div>
+</div>

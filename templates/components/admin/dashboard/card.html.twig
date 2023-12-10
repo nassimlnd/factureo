@@ -1,0 +1,27 @@
+<div class="flex flex-col min-h-[250px] p-6 w-[324px] border border-gray-200 rounded-lg space-y-2.5">
+    <div class="flex justify-between items-center">
+        <div class="flex space-x-2.5">
+            <p>{{ emoji }}</p>
+            <p>{{ title }}</p>
+        </div>
+        <button class="hover:bg-gray-50 p-1 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M6 12C6 13.1046 5.10457 14 4 14C2.89543 14 2 13.1046 2 12C2 10.8954 2.89543 10 4 10C5.10457 10 6 10.8954 6 12Z" fill="#0F172A"></path>
+                <path d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" fill="#0F172A"></path>
+                <path d="M22 12C22 13.1046 21.1046 14 20 14C18.8954 14 18 13.1046 18 12C18 10.8954 18.8954 10 20 10C21.1046 10 22 10.8954 22 12Z" fill="#0F172A"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="h-full flex items-center justify-center p-2.5">
+        <h2 class="text-3xl font-semibold -tracking-[0.96px]">{{ stat }}</h2>
+    </div>
+    <div class="h-[1px] w-full bg-gray-200"></div>
+    <div class="">
+        <a href="{{ link }}" class="flex items-center space-x-2.5 w-fit p-2.5 hover:bg-gray-50 rounded-lg">
+            <p>En savoir plus</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.21968 3.21967C9.51255 2.92678 9.98745 2.92678 10.2803 3.21967L15.5303 8.46967C15.8232 8.76255 15.8232 9.23745 15.5303 9.53032L10.2803 14.7803C9.98745 15.0732 9.51255 15.0732 9.21968 14.7803C8.9268 14.4874 8.9268 14.0125 9.21968 13.7197L13.1894 9.75H3C2.58579 9.75 2.25 9.41422 2.25 9C2.25 8.58577 2.58579 8.25 3 8.25H13.1894L9.21968 4.28033C8.9268 3.98743 8.9268 3.51256 9.21968 3.21967Z" fill="#0F172A"></path>
+            </svg>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div id="delete-modal-{{ id }}"
+     class="absolute hidden top-0 left-0 h-screen w-full z-30 bg-black bg-opacity-20 flex items-center">
+    <div class="bg-white mx-auto w-fit px-6 py-8 flex flex-col justify-center items-center rounded-lg space-y-6 min-w-[600px]">
+        <div class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="1" y="1" width="46" height="46" rx="23" stroke="#dc2626" stroke-width="2"></rect>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M33.8994 16.9289C34.6806 16.1478 34.6806 14.8815 33.8994 14.1004C33.1184 13.3194 31.852 13.3194 31.071 14.1004L24 21.1715L16.9289 14.1004C16.1478 13.3194 14.8815 13.3194 14.1004 14.1004C13.3194 14.8815 13.3194 16.1478 14.1004 16.9289L21.1716 23.9999L14.1004 31.0709C13.3194 31.8521 13.3194 33.1183 14.1004 33.8993C14.8815 34.6805 16.1478 34.6805 16.9289 33.8993L24 26.8283L31.071 33.8993C31.852 34.6805 33.1184 34.6805 33.8994 33.8993C34.6806 33.1183 34.6806 31.8521 33.8994 31.0709L26.8284 23.9999L33.8994 16.9289Z"
+                      fill="#C92323"></path>
+            </svg>
+        </div>
+        <p>Voulez-vous vraiment supprimer l'entreprise n°{{ id }}</p>
+        <div class="flex space-x-2.5 text-sm">
+            <button class="border border-gray-200 hover:bg-gray-100 text-slate-900 rounded-lg px-4 py-2.5 h-[44px] flex items-center justify-center"
+                    onclick="(() => {
+                            document.getElementById('delete-modal-{{ id }}').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
+                            }) ()"
+            >
+                Annuler
+            </button>
+            <form method="post" action="{{ path('app_admin_company_delete', {'id': id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
+                <button type="submit"
+                        class="bg-red-600 rounded-lg text-white px-4 py-2.5 h-[44px] hover:bg-red-700 flex items-center justify-center">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>

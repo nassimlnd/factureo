@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[ADMIN] Factures - Facturéo{% endblock %}
+
+{% block body %}
+    <div class="flex">
+        {{ component('Admin:Sidebar') }}
+        <div class="w-3/4 mx-auto my-6 lg:ml-[300px] pl-16">
+            <div class="flex items-center px-6 py-5 justify-between w-full border-b border-gray-100">
+                <div class="flex space-x-2 items-center">
+                    <h2 class="text-3xl -tracking-[0.96px] font-[600]">Factures</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <g clip-path="url(#clip0_622_773)">
+                            <path d="M6.05998 6.00004C6.21672 5.55449 6.52608 5.17878 6.93328 4.93946C7.34048 4.70015 7.81924 4.61267 8.28476 4.69252C8.75028 4.77236 9.17252 5.01439 9.4767 5.37573C9.78087 5.73706 9.94735 6.19439 9.94665 6.66671C9.94665 8.00004 7.94665 8.66671 7.94665 8.66671M7.99998 11.3334H8.00665M14.6666 8.00004C14.6666 11.6819 11.6819 14.6667 7.99998 14.6667C4.31808 14.6667 1.33331 11.6819 1.33331 8.00004C1.33331 4.31814 4.31808 1.33337 7.99998 1.33337C11.6819 1.33337 14.6666 4.31814 14.6666 8.00004Z"
+                                  stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_622_773">
+                                <rect width="16" height="16" fill="white"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <p class="hidden rounded-full bg-slate-900 text-white p-1 w-6 h-6 flex justify-center items-center text-[14px]">
+                        10
+                    </p>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="#"
+                       class="text-slate-900 border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8.08148 10.2908L8.08148 2.26343" stroke="#0E2354" stroke-width="1.2"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M10.0255 8.33899L8.08147 10.291L6.13747 8.33899" stroke="#0E2354"
+                                  stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M11.5061 5.00024H12.2121C13.7521 5.00024 15 6.21235 15 7.70892L15 11.2989C15 12.7911 13.7552 14.0002 12.2189 14.0002L3.78866 14.0002C2.24866 14.0002 1.00001 12.7874 1.00001 11.2916L1.00001 7.70083C1.00001 6.20941 2.24564 5.00024 3.7811 5.00024H4.49396"
+                                  stroke="#0E2354" stroke-width="1.2" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                        <p>Exporter</p>
+                    </a>
+                    <a href="{{ path('app_admin_invoice_new') }}" class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
+                        <div class="rounded-full border border-dashed border-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                 fill="none">
+                                <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                        <p>Nouvelle facture</p>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6">
+                <div class="relative border border-gray-200 rounded-2xl flex items-center h-14">
+                    <div class="absolute left-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <path d="M13.5037 12.7377L11.2121 10.4973V10.4973L11.1584 10.4156C11.0585 10.3162 10.922 10.2601 10.7794 10.2601C10.6369 10.2601 10.5003 10.3162 10.4005 10.4156V10.4156C8.45297 12.2023 5.45208 12.2994 3.38798 10.6425C1.32389 8.98566 0.837092 6.08895 2.25044 3.87349C3.66378 1.65802 6.53869 0.811272 8.96855 1.8948C11.3984 2.97832 12.6292 5.6559 11.8447 8.15177C11.7882 8.33208 11.8343 8.52816 11.9658 8.66615C12.0973 8.80414 12.294 8.86308 12.482 8.82077C12.67 8.77845 12.8206 8.64131 12.8771 8.461V8.461C13.8149 5.49914 12.3985 2.31174 9.54406 0.960746C6.68964 -0.390252 3.25387 0.50059 1.45935 3.05699C-0.335173 5.61338 0.050099 9.06814 2.36593 11.1864C4.68177 13.3046 8.23317 13.4506 10.7227 11.53L12.7517 13.5137C12.9613 13.7177 13.3001 13.7177 13.5096 13.5137C13.719 13.3068 13.719 12.9738 13.5096 12.7669V12.7669L13.5037 12.7377Z"
+                                  fill="#667085"></path>
+                        </svg>
+                    </div>
+                    <input type="text" placeholder="Rechercher une facture par client, type ou ID"
+                           class="relative h-full w-full rounded-2xl pl-12 bg-transparent">
+                    <div class="absolute right-0">
+                        <a href="#"
+                           class="py-2 px-3 text-slate-900 border border-gray-100 mr-2 my-3 rounded-lg flex items-center text-[14px] space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                 fill="none">
+                                <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#344054" stroke-width="1.67"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <p>Filtrer</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <twig:Admin:Invoice:Table>
+                {% for invoice in invoices %}
+                    {{ component('Admin:Invoice:TableItem', {
+                        id: invoice.id,
+                        customerName: invoice.customer.firstName ~ ' ' ~ invoice.customer.lastName,
+                        companyName: invoice.company.name,
+                        type: invoice.type,
+                        state: invoice.state,
+                        tags: invoice.tags,
+                    }) }}
+                    {{ component('Admin:Invoice:DeleteModal', {id: invoice.id}) }}
+                {% endfor %}
+            </twig:Admin:Invoice:Table>
+        </div>
+    </div>
+{% endblock %}

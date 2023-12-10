@@ -13,10 +13,4 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', []);
     }
-
-    #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(): Response
-    {
-        return $this->render('authenticated/dashboard.html.twig', []);
-    }
 }

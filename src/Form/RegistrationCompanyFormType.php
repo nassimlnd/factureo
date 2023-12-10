@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Company;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -60,7 +61,23 @@ class RegistrationCompanyFormType extends AbstractType
                     ],
                     'label' => false,
                     'choices' => [
-                        'Type 1' => 'secteur1'
+                        'Agroalimentaire' => 'Agroalimentaire',
+                        'Banque/Assurance'=> 'Banque/Assurance',
+                        'Bois/Carton/Papier/Imprimerie' => 'Bois/Carton/Papier/Imprimerie',
+                        'BTP/Matériaux de construction' => 'BTP/Matériaux de construction',
+                        'Chimie/Parachimie' => 'Chimie/Parachimie',
+                        'Commerce/Négoce/Distribution' => 'Commerce/Négoce/Distribution',
+                        'Edition/Communication/Multimédia' => 'Edition/Communication/Multimédia',
+                        'Electronique/Electricité' => 'Electronique/Electricité',
+                        'Etudes et conseils' => 'Etudes et conseils',
+                        'Industrie pharmaceutique' => 'Industrie pharmaceutique',
+                        'Informatique/Télécoms' => 'Informatique/Télécoms',
+                        'Machines et équipements/Automobile' => 'Machines et équipements/Automobile',
+                        'Métallurgie/Travail du métal' => 'Métallurgie/Travail du métal',
+                        'Plastique/Caoutchouc' => 'Plastique/Caoutchouc',
+                        'Service aux entreprises' => 'Service aux entreprises',
+                        'Textile/Habillement/Chaussure' => 'Textile/Habillement/Chaussure',
+                        'Transport/Logistique' => 'Transport/Logistique'
                     ]
                 ]
             )
@@ -72,7 +89,17 @@ class RegistrationCompanyFormType extends AbstractType
                     ],
                     'label' => false,
                     'choices' => [
-                        'Choice 1' => 'status1'
+                        'Auto-entreprise' => 'AE',
+                        'Entreprise individuelle' => 'EI',
+                        'Entreprise unipersonnelle à responsabilité limitée' => 'EURL',
+                        'Société à responsabilité limité' => 'SARL',
+                        'Société anonyme' => 'SA',
+                        'Société par actions simplifiées' => 'SAS',
+                        'Société par actions simplifiées unipersonnelle' => 'SASU',
+                        'Société en nom collectif' => 'SNC',
+                        'Société coopérative de production' => 'SCOP',
+                        'Société en commandite par actions' => 'SCA',
+                        'Société en commandite simple' => 'SCS'
                     ]
                 ]
             )
@@ -88,16 +115,13 @@ class RegistrationCompanyFormType extends AbstractType
                     ]
                 ]
             )
-            ->add('country', ChoiceType::class,
+            ->add('country', CountryType::class,
                 [
                     'attr' => [
                         'class' => 'w-[405px] h-[50px] border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6',
                         'placeholder' => 'Pays'
                     ],
                     'label' => false,
-                    'choices' => [
-                        'Country 1' => 'country1'
-                    ]
                 ]
             )
         ;

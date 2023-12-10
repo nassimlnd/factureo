@@ -43,6 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $company = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Media $profilePicture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
+
 
     public function setPassword(string $password): static
     {
@@ -162,6 +166,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCompany(Company $company): static
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?Media
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?Media $profilePicture): static
+    {
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }

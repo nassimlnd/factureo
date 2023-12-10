@@ -1,0 +1,57 @@
+{% if state == 'success' %}
+    <div class="right-8 top-8 flex bg-white border-t-2 border-green-500 rounded-lg pl-4 pr-4 py-3 shadow-2xl space-x-4 fixed max-w-xl z-50"
+         id="alert">
+        <div class="pt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M9.99996 18.3333C14.6025 18.3333 18.3333 14.6025 18.3333 9.99996C18.3333 5.39746 14.6025 1.66663 9.99996 1.66663C5.39746 1.66663 1.66663 5.39746 1.66663 9.99996C1.66663 14.6025 5.39746 18.3333 9.99996 18.3333Z"
+                      stroke="#115E59" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M7.5 10L9.16667 11.6667L12.5 8.33337" stroke="#115E59" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+            </svg>
+        </div>
+        <div class="pb-6">
+            <p class="font-semibold">{{ title }}</p>
+            <p class="text-[14px]">{{ content }}</p>
+        </div>
+        <div class="pt-1 hover:bg-gray-100 h-fit cursor-pointer rounded-lg p-1"
+             onclick="(() => {
+             document.getElementById('alert').classList.toggle('hidden');
+         })()"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                 class="fill-green-500">
+                <path d="M12 4L4 12L12 4Z" fill="#000000"></path>
+                <path d="M12 4L4 12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M4 4L12 12L4 4Z" fill="#000000"></path>
+                <path d="M4 4L12 12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </div>
+    </div>
+{% elseif state == 'error' %}
+    <div class="right-8 top-8 flex bg-white border-t-2 border-red-500 rounded-lg pl-4 pr-4 py-3 shadow-2xl space-x-4 fixed w-[500px] z-50"
+         id="alert">
+        <div class="pt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M15 5L5 15" stroke="#991B1B" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5 5L15 15" stroke="#991B1B" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </div>
+        <div class="pb-6">
+            <p class="font-semibold">{{ title }}</p>
+            <p class="text-[14px]">{{ content }}</p>
+        </div>
+        <div class="pt-1 hover:bg-gray-100 h-fit cursor-pointer rounded-lg p-1"
+             onclick="(() => {
+             document.getElementById('alert').classList.toggle('hidden');
+         })()"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                 class="fill-red-500">
+                <path d="M12 4L4 12L12 4Z" fill="#000000"></path>
+                <path d="M12 4L4 12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M4 4L12 12L4 4Z" fill="#000000"></path>
+                <path d="M4 4L12 12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </div>
+    </div>
+{% endif %}

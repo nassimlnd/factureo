@@ -1,0 +1,288 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle facture - Facturéo{% endblock %}
+
+{% block body %}
+    <div class="flex">
+        {{ component('User:Sidebar') }}
+        <div class="w-3/4 mx-auto my-6 lg:ml-[300px] pl-16">
+            <div class="flex items-center px-6 py-5 justify-between w-full border-b border-gray-100">
+                <div class="flex space-x-2 items-center">
+                    <h2 class="text-3xl -tracking-[0.96px] font-[600]">Nouveau Devis</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <g clip-path="url(#clip0_622_773)">
+                            <path d="M6.05998 6.00004C6.21672 5.55449 6.52608 5.17878 6.93328 4.93946C7.34048 4.70015 7.81924 4.61267 8.28476 4.69252C8.75028 4.77236 9.17252 5.01439 9.4767 5.37573C9.78087 5.73706 9.94735 6.19439 9.94665 6.66671C9.94665 8.00004 7.94665 8.66671 7.94665 8.66671M7.99998 11.3334H8.00665M14.6666 8.00004C14.6666 11.6819 11.6819 14.6667 7.99998 14.6667C4.31808 14.6667 1.33331 11.6819 1.33331 8.00004C1.33331 4.31814 4.31808 1.33337 7.99998 1.33337C11.6819 1.33337 14.6666 4.31814 14.6666 8.00004Z"
+                                  stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_622_773">
+                                <rect width="16" height="16" fill="white"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <p class="hidden rounded-full bg-slate-900 text-white p-1 w-6 h-6 flex justify-center items-center text-[14px]">
+                        10
+                    </p>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="#"
+                       class="text-slate-900 border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8.08148 10.2908L8.08148 2.26343" stroke="#0E2354" stroke-width="1.2"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M10.0255 8.33899L8.08147 10.291L6.13747 8.33899" stroke="#0E2354"
+                                  stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M11.5061 5.00024H12.2121C13.7521 5.00024 15 6.21235 15 7.70892L15 11.2989C15 12.7911 13.7552 14.0002 12.2189 14.0002L3.78866 14.0002C2.24866 14.0002 1.00001 12.7874 1.00001 11.2916L1.00001 7.70083C1.00001 6.20941 2.24564 5.00024 3.7811 5.00024H4.49396"
+                                  stroke="#0E2354" stroke-width="1.2" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                        <p>Brouillons</p>
+                    </a>
+                    <a href="#"
+                       class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2">
+                        <div class="rounded-full border border-dashed border-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                 fill="none">
+                                <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                        <p>Enregistrer</p>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-6 mt-8">
+                <div class="w-full p-6 rounded-2xl border border-gray-200 space-y-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="text-xl font-medium leading-[150%] -tracking-[0.6px]">Informations de l'entreprise</h4>
+                            <p class="text-sm text-slate-400">Informations et détails à propos de votre entreprise</p>
+                        </div>
+                        <button type="button"
+                                class="hidden text-slate-900 border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                            <p>Utiliser les informations de son profil</p>
+                        </button>
+                    </div>
+                    <div class="flex space-x-6 items-center">
+                        <div class="flex items-center justify-center h-16 w-16 bg-blue-600 rounded-lg">
+                            <h4 class="text-xl font-medium leading-[150%] -tracking-[0.6px] text-white">{{app.user.company.name|first|capitalize }}</h4>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button type="button"
+                                    class="text-slate-900 border border-gray-200 rounded-lg h-[44px] px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8.08148 10.2908L8.08148 2.26343" stroke="#0E2354" stroke-width="1.2"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M10.0255 8.33899L8.08147 10.291L6.13747 8.33899" stroke="#0E2354"
+                                          stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M11.5061 5.00024H12.2121C13.7521 5.00024 15 6.21235 15 7.70892L15 11.2989C15 12.7911 13.7552 14.0002 12.2189 14.0002L3.78866 14.0002C2.24866 14.0002 1.00001 12.7874 1.00001 11.2916L1.00001 7.70083C1.00001 6.20941 2.24564 5.00024 3.7811 5.00024H4.49396"
+                                          stroke="#0E2354" stroke-width="1.2" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                                <p>Upload un logo</p>
+                            </button>
+                            <button type="button"
+                                    class="text-red-600 border border-red-600 rounded-lg h-[44px] px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                                <p>Supprimer le logo</p>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-6 hidden">
+                        <div class="flex space-x-6">
+                            <div class="flex flex-col w-full">
+                                <label for="company-name">Nom</label>
+                                <input type="text" id="company-name" name="company-name" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <label for="company-email">Adresse e-mail</label>
+                                <input type="email" id="company-email" name="company-email" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                        <div class="flex space-x-6">
+                            <div class="flex flex-col w-full">
+                                <label for="company-country">Pays</label>
+                                <input type="text" id="company-country" name="company-country" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <label for="company-legalstatus">Statut juridique</label>
+                                <input type="text" id="company-legalstatus" name="company-legalstatus" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                            </div>
+                        </div>
+                        <div class="flex flex-col w-full">
+                            <label for="company-adress">Adresse complète</label>
+                            <input type="text" id="company-adress" name="company-adress" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full p-6 rounded-2xl border border-gray-200 space-y-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="text-xl font-medium leading-[150%] -tracking-[0.6px]">Informations du client</h4>
+                            <p class="text-sm text-slate-400">Détails et informations du client</p>
+                        </div>
+                        <button type="button"
+                                class="text-slate-900 border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                            <p>Ajouter un nouveau client</p>
+                        </button>
+                    </div>
+                    <div>
+                        <label for="customer">Client</label>
+                        {{ component('Combobox', {data: customers}) }}
+                    </div>
+                    <div class="flex space-x-6">
+                        <div class="flex flex-col w-full">
+                            <label for="estimate-createddate">Date de facturation</label>
+                            <input type="date" id="estimate-createddate" name="estimate-createddate" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                        <div class="flex flex-col w-full">
+                            <label for="estimate-duedate">Date limite de paiement</label>
+                            <input type="date" id="estimate-duedate" name="estimate-duedate" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full p-6 rounded-2xl border border-gray-200 space-y-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="text-xl font-medium leading-[150%] -tracking-[0.6px]">Éléments de facture</h4>
+                            <p class="text-sm text-slate-400">Entrez la liste des éléments à facturer</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-full">
+                        <label for="estimate-type">Type</label>
+                        <input type="text" id="estimate-type" name="estimate-type" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                    </div>
+                    <div id="estimate-items-list" class="space-y-2 overflow-y-auto">
+                        <h5 class="font-bold text-base -tracking-[0.48px]">Liste des éléments</h5>
+
+                    </div>
+                    <button type="button"
+                            onclick="addEstimateItem()"
+                            class="text-slate-900 border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-100 flex items-center space-x-2 text-[14px]">
+                        <p>Ajouter un nouvel élément</p>
+                    </button>
+                    <div class="h-[1px] bg-gray-200 w-full"></div>
+
+                    <div class="space-y-6">
+                        <div class="flex justify-between">
+                            <h5 class="font-bold text-base -tracking-[0.48px]">Paiement total</h5>
+                            <h5 id="totalPrice" class="font-bold text-base -tracking-[0.48px] text-blue-600">€ 0</h5>
+                        </div>
+                        <div class="flex flex-col w-full">
+                            <label for="customer">Notes de remerciement</label>
+                            <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                        <div class="flex flex-col w-full">
+                            <label for="customer">Tags</label>
+                            <input type="text" id="customer" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6">
+                        </div>
+                    </div>
+                    <div class="h-[1px] bg-gray-200 w-full"></div>
+                    <button onclick="createEstimate()"
+                            class="text-white bg-slate-900 px-4 py-3 rounded-lg text-[14px] flex items-center space-x-2 w-fit">
+                        <div class="rounded-full border border-dashed border-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                 fill="none">
+                                <path d="M8 3.33337V12.6667M3.33333 8.00004H12.6667" stroke="#F5F6F7"
+                                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                        <p>Enregistrer</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript">
+            const NB_MAX_ITEMS = 10;
+            let nbItems = 0;
+            let selectedCustomer;
+
+            function addEstimateItem() {
+                if (nbItems < NB_MAX_ITEMS) {
+                    document.getElementById('estimate-items-list').insertAdjacentHTML('beforeend', '<div id="estimate-items-'+ nbItems +'" class="flex space-x-2 estimate-items"><div class="flex flex-col min-w-[300px] w-full"><label for="estimate-items-name-' + nbItems + '">Nom de l\'élément</label><input type="text" id="estimate-items-name-' + nbItems + '" name="estimate-items-name-' + nbItems + '" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="estimate-items-unit-price-' + nbItems + '">Prix unitaire</label><input type="text" id="estimate-items-unit-price-' + nbItems + '" name="customer" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="estimate-items-quantity-' + nbItems + '">Quantité</label><input type="number" value="0" id="estimate-items-quantity-' + nbItems + '" name="estimate-items-quantity-' + nbItems + '" onchange="((source) => {document.getElementById(\'estimate-items-total-' + nbItems + '\').value = source.value * document.getElementById(\'estimate-items-unit-price-' + nbItems + '\').value + \' €\'; onTotalChange() }) (this)" class="border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex flex-col max-w-[200px]"><label for="estimate-items-total-' + nbItems + '">Total</label><input onchange="onTotalChange()" type="text" disabled value="0 €" id="estimate-items-total-' + nbItems + '" name="estimate-items-total-' + nbItems + '" class="estimate-items-total border border-gray-200 rounded-lg mt-2 bg-gray-50 p-3 pl-6"></div><div class="flex items-center justify-center"><button class="p-1 hover:bg-gray-200 rounded" onclick="(() => { document.getElementById(\'estimate-items-\'+ ' + nbItems + ').remove() }) ()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div>');
+                    nbItems++;
+                }
+            }
+
+            function getTotal() {
+                let total = 0;
+                let totals = document.querySelectorAll('.estimate-items-total');
+                for (item of totals) {
+                    total += parseFloat(item.value);
+                }
+
+                return parseFloat(total);
+            }
+
+            function onTotalChange() {
+                document.getElementById('totalPrice').innerHTML = getTotal() + ' €';
+            }
+
+            function getEstimateItems() {
+                let estimateDivs = document.querySelectorAll('.estimate-items');
+                let estimateItems = {}
+                for (estimateDiv of estimateDivs) {
+                    let id = estimateDiv.id.charAt(estimateDiv.id.length-1);
+                    let name = document.getElementById('estimate-items-name-' + id).value;
+                    let unitPrice = parseFloat(document.getElementById('estimate-items-unit-price-' + id).value);
+                    let quantity = parseInt(document.getElementById('estimate-items-quantity-' + id).value);
+                    let total = parseInt(document.getElementById('estimate-items-total-' + id).value.split('')[0]);
+
+                    estimateItems['item-'+id] = {
+                        id: id,
+                        name: name,
+                        unitPrice: unitPrice,
+                        quantity: quantity,
+                        total: total
+                    }
+                }
+                return estimateItems;
+            }
+
+            function createEstimate() {
+                let estimate = {}
+
+                let estimateItems = getEstimateItems();
+                let createdAt = document.getElementById('estimate-createddate').value;
+                let dueDate = document.getElementById('estimate-duedate').value;
+                let type = document.getElementById('estimate-type').value;
+
+                if (Object.keys(estimateItems).length >= 1 && selectedCustomer !== {} && createdAt !== "" && dueDate !== "") {
+                    let total = getTotal();
+                    console.log(total);
+                    for (estimateItem in estimateItems) {
+                        if (estimateItem.name !== "") {
+                            continue;
+                        } else
+                            return;
+                    }
+                    console.log("ok");
+                    if (dueDate >= createdAt) {
+                        if (type !== "") {
+                            estimate = {
+                                customer: selectedCustomer,
+                                estimateItems: estimateItems,
+                                createdAt: createdAt,
+                                dueDate: dueDate,
+                                type: type,
+                                totalPrice: total,
+                            }
+
+                            axios.post('{{ path('app_user_estimate_new') }}', {
+                                estimate: estimate
+                            }).then((response) => {
+                                console.log(response);
+                                if (response.status === 200) {
+                                    window.location.href = '{{ path('app_user_estimate_index') }}';
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        </script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,84 @@
+<div class="border border-gray-200 rounded-lg mt-2 bg-gray-50 relative">
+    <div onclick="showCompanyList()"
+         id="company-combobox-btn"
+         class="cursor-pointer hover:bg-gray-100 flex justify-between items-center h-full p-3 pl-6">
+        <p id="company-selectedItem" class="pointer-events-none">Choisissez l'entreprise</p>
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+             class="pointer-events-none">
+            <path d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
+                  fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+    </div>
+    <div id="company-combobox-list"
+         class="hidden absolute top-14 left-0 w-full bg-white rounded-xl border border-gray-200 drop-shadow-2xl divide-y divide-gray-200">
+        <div id="company-comboxbox-test" class="relative flex items-center h-12">
+            <div class="absolute left-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M13.5037 12.7377L11.2121 10.4973V10.4973L11.1584 10.4156C11.0585 10.3162 10.922 10.2601 10.7794 10.2601C10.6369 10.2601 10.5003 10.3162 10.4005 10.4156V10.4156C8.45297 12.2023 5.45208 12.2994 3.38798 10.6425C1.32389 8.98566 0.837092 6.08895 2.25044 3.87349C3.66378 1.65802 6.53869 0.811272 8.96855 1.8948C11.3984 2.97832 12.6292 5.6559 11.8447 8.15177C11.7882 8.33208 11.8343 8.52816 11.9658 8.66615C12.0973 8.80414 12.294 8.86308 12.482 8.82077C12.67 8.77845 12.8206 8.64131 12.8771 8.461V8.461C13.8149 5.49914 12.3985 2.31174 9.54406 0.960746C6.68964 -0.390252 3.25387 0.50059 1.45935 3.05699C-0.335173 5.61338 0.050099 9.06814 2.36593 11.1864C4.68177 13.3046 8.23317 13.4506 10.7227 11.53L12.7517 13.5137C12.9613 13.7177 13.3001 13.7177 13.5096 13.5137C13.719 13.3068 13.719 12.9738 13.5096 12.7669V12.7669L13.5037 12.7377Z"
+                          fill="#667085"></path>
+                </svg>
+            </div>
+            <input id="company-comboxbox-input" type="text" placeholder="Rechercher une entreprise par nom"
+                   class="relative h-full w-full pl-10 bg-transparent text-sm rounded-t-xl">
+        </div>
+        <div id="company-items-list"
+             class="p-1 rounded-b-xl max-h-64 overflow-y-auto">
+            {% for company in data %}
+                <div id="company-combobox-item-{{ company.id }}"
+                     onclick="selectCompany({{ company.id }}, '{{ company.name }}')"
+                     class="cursor-pointer hover:bg-gray-100 rounded p-2 pl-10">
+                    <p>{{ company.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="mt-6">
+
+</div>
+
+{% block javascripts %}
+    <script type="text/javascript">
+        let companies;
+
+        window.addEventListener('load', () => {
+            companies = JSON.parse({{ data|json_encode() }});
+        })
+
+        function showCompanyList() {
+            document.getElementById('company-combobox-list').classList.toggle('hidden');
+        }
+
+        function selectCompany(companyId, companyName) {
+            document.getElementById('company-selectedItem').innerHTML = companyName;
+            selectedCompany = {
+                id: companyId,
+            }
+            for (const company of companies) {
+                if (customer.id === selectedCompany.id) {
+                    selectedCompany = customer;
+                }
+            }
+            console.log(selectedCompany);
+        }
+
+        function setList(result) {
+            document.getElementById('company-items-list').innerHTML = '';
+            for (const company of result) {
+                document.getElementById('company-items-list').innerHTML += '<div id="company-combobox-item-'+ company.id +'" onclick="selectCompany('+ company.id +')" class="cursor-pointer hover:bg-gray-100 rounded p-2 pl-10"><p>'+ company.name +'</p></div>'
+            }
+        }
+
+        document.getElementById('company-comboxbox-input').addEventListener("input", (event) => {
+            let value = event.target.value;
+
+            if (value && value.trim().length > 2) {
+                value = value.trim().toLowerCase();
+                setList(companies.filter(company => {
+                    return (company.name).includes(value);
+                }))
+            }
+        })
+    </script>
+{% endblock %}

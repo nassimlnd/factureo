@@ -44,9 +44,9 @@ class CustomerController extends AbstractController
 
         if ($request->query->get('page') != "") {
             $page = $request->get('page');
-            $customerss = $customerRepository->findAllByPage($page, 8);
+            $customers = $customerRepository->findAllByPage($page, 8);
         } else {
-            $customerss = $customerRepository->findAllByPage(1, 8);
+            $customers = $customerRepository->findAllByPage(1, 8);
         }
 
         return $this->render('user/customer/index.html.twig', [
@@ -60,7 +60,7 @@ class CustomerController extends AbstractController
             'editForm' => $form->createView(),
             'forms' => $forms,
             'nbPages' => $nbPages,
-            'customerss' => $customerss,
+
             'companies' => $companyRepository->findAll()
         ]);
     }

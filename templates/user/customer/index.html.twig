@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="border mt-6 h-[650px] rounded-lg overflow-hidden ">
+        <div class="border mt-6 h-[800px] rounded-lg overflow-hidden ">
             <div class="h-[90%]">
                 <table class="table-auto w-full">
                     <thead class="h-10 border-b bg-gray-100">
@@ -193,15 +193,23 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
             </div>
             <div class="flex  h-[10%] pt-3 pb-4 px-6 items-center justify-between ">
-                <a href="#">
-                    <div class="flex items-center justify-center gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
+                <a onclick="(() => {
+                        if (window.location.search.includes('page=')) {
+                        let page = parseInt(window.location.search.split('page=')[1]);
+                        if (page > 1) {
+                        window.location.href = '{{ path('app_user_customer_index') }}?page=' + (page - 1);
+                        }
+                        } else {
+                        window.location.href = '{{ path('app_user_customer_index') }}?page=1';
+                        }
+                        })()" class="flex items-center justify-center gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.8334 10.0001H4.16675M4.16675 10.0001L10.0001 15.8334M4.16675 10.0001L10.0001 4.16675" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <p>Précédent</p>
-                    </div>
                 </a>
                 <div class="gap-2 flex items-center">
                     {% for i in 1..nbPages %}
@@ -210,13 +218,18 @@
                         </a>
                     {% endfor %}
                 </div>
-                <a href="#">
-                    <div class="flex items-center justify-center  gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
+                <a onclick="(() => {
+                if (window.location.search.includes('page=')) {
+                let page = parseInt(window.location.search.split('page=')[1]);
+                window.location.href = '{{ path('app_user_customer_index') }}?page=' + (page + 1);
+                } else {
+                window.location.href = '{{ path('app_user_customer_index') }}?page=2';
+                }
+                })()" class="flex items-center justify-center  gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
                         <p>Suivant</p>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4.16675 10.0001H15.8334M15.8334 10.0001L10.0001 4.16675M15.8334 10.0001L10.0001 15.8334" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
                 </a>
             </div>
         </div>

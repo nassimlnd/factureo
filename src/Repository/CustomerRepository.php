@@ -72,6 +72,25 @@ class CustomerRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByPage($page, $limit)
+    {
+        return $this->createQueryBuilder('p')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllNbPages($limit)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('COUNT(p)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return ceil($query / $limit);
+    }
+
 //    /**
 //     * @return Customer[] Returns an array of Customer objects
 //     */

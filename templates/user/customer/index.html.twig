@@ -40,31 +40,42 @@
                         Exporter
                     </button>
 
-                <button onclick="newClient()" class="flex py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.99992 3.33337V12.6667M3.33325 8.00004H12.6666" stroke="#F5F6F7"
-                              stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                <button onclick="(() => {
+                            document.getElementById('new').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
+                            }) ()" class="flex py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
+                    <div class="rounded-full border border-dashed border-gray-100">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.99992 3.33337V12.6667M3.33325 8.00004H12.6666" stroke="#F5F6F7"
+                                  stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     Nouveau client
                 </button>
             </div>
         </div>
 
-        <div class="flex items-start p-2 justify-between items-center rounded-2xl border border-gray-200 my-6 h-14">
-            <div class="flex gap-2.5 items-center justify-center shrink-0 rounded-2xl py-3 pl-9 pr-4">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.5036 12.7377L11.212 10.4973L11.1583 10.4156C11.0584 10.3161 10.9219 10.2601 10.7794 10.2601C10.6368 10.2601 10.5003 10.3161 10.4004 10.4156C8.45291 12.2023 5.45202 12.2994 3.38792 10.6425C1.32383 8.98566 0.837031 6.08895 2.25038 3.87349C3.66372 1.65802 6.53863 0.811272 8.96848 1.8948C11.3983 2.97832 12.6291 5.6559 11.8446 8.15177C11.7881 8.33208 11.8343 8.52816 11.9657 8.66615C12.0972 8.80414 12.294 8.86308 12.4819 8.82077C12.6699 8.77845 12.8205 8.64131 12.877 8.461C13.8148 5.49914 12.3984 2.31174 9.544 0.960746C6.68958 -0.390252 3.25381 0.50059 1.45929 3.05699C-0.335235 5.61338 0.050038 9.06814 2.36587 11.1864C4.68171 13.3046 8.23311 13.4506 10.7227 11.53L12.7517 13.5137C12.9612 13.7177 13.3 13.7177 13.5096 13.5137C13.7189 13.3068 13.7189 12.9738 13.5096 12.7669L13.5036 12.7377Z" fill="#667085"/>
-                </svg>
-                <form>
-                    <input name="recherche" value="{{ id }}" type="text" placeholder="Rechercher un client par nom ou ID" size="40" class="outline-none" >
-                </form>
+        <div class="mt-6">
+            <div class="relative flex items-start justify-between items-center rounded-2xl border border-gray-200 my-6 h-14">
+                <div class="absolute left-6">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5036 12.7377L11.212 10.4973L11.1583 10.4156C11.0584 10.3161 10.9219 10.2601 10.7794 10.2601C10.6368 10.2601 10.5003 10.3161 10.4004 10.4156C8.45291 12.2023 5.45202 12.2994 3.38792 10.6425C1.32383 8.98566 0.837031 6.08895 2.25038 3.87349C3.66372 1.65802 6.53863 0.811272 8.96848 1.8948C11.3983 2.97832 12.6291 5.6559 11.8446 8.15177C11.7881 8.33208 11.8343 8.52816 11.9657 8.66615C12.0972 8.80414 12.294 8.86308 12.4819 8.82077C12.6699 8.77845 12.8205 8.64131 12.877 8.461C13.8148 5.49914 12.3984 2.31174 9.544 0.960746C6.68958 -0.390252 3.25381 0.50059 1.45929 3.05699C-0.335235 5.61338 0.050038 9.06814 2.36587 11.1864C4.68171 13.3046 8.23311 13.4506 10.7227 11.53L12.7517 13.5137C12.9612 13.7177 13.3 13.7177 13.5096 13.5137C13.7189 13.3068 13.7189 12.9738 13.5096 12.7669L13.5036 12.7377Z" fill="#667085"/>
+                    </svg>
+                </div>
+                <input name="recherche" value="{{ id }}" type="text" placeholder="Rechercher un client par nom ou ID"
+                       class="relative h-full w-full rounded-2xl pl-12 pr-28 bg-transparent" >
+                <div class="absolute right-0">
+                    <button onclick="(() => {
+                            document.getElementById('filtre').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
+                            }) ()" class="flex items-center border gap-2 rounded-lg  mr-2 my-3 space-x-2 py-2 px-3 text-slate-900">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Filtrer
+                    </button>
+                </div>
             </div>
-            <button onclick="filtre()" class="flex items-center border gap-2 rounded-lg  mr-2 my-3 space-x-2 py-2 px-3 text-slate-900">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Filtrer
-            </button>
         </div>
 
         <div class="border mt-6 h-[650px] rounded-lg overflow-hidden ">
@@ -83,7 +94,7 @@
                             <th>Email</th>
                             <th>Adresse</th>
                             <th>Numéro de téléphone</th>
-                            <th>IsCompany</th>
+                            <th>Entreprise?</th>
                             <th></th>
 
                         </tr>
@@ -93,10 +104,13 @@
                         <tr class="h-20 gap-8 items-center">
                             <td class="pl-6">
                                 <form>
-                                    <input type="checkbox" name="box" value="{{ customer.id }}" id="checkbox">
+                                    <input type="checkbox" name="checkbox" value="{{ customer.id }}" id="checkbox" onchange="toggleButtons(this)">
                                 </form>
                             </td>
-                            <td class="bg-slate-400 rounded-lg px-2 w-fit">{{ customer.id }}</td>
+                            <td>
+                                <p class="bg-gray-200 rounded-lg px-2 border w-fit">{{ customer.id }}
+                                </p>
+                            </td>
                             <td>{{ customer.firstName }}</td>
                             <td>{{ customer.lastName }}</td>
                             <td>{{ customer.email }}</td>
@@ -109,27 +123,35 @@
                                     <p>No</p>
                                 {% endif %}
                             </td>
-                            <td>
-                                <button onclick="clientModif()" id="dropdown-btn">
+                            <td class="px-6 flex justify-end items-center h-20 relative">
+                                <button class="py-2 px-3 hover:bg-gray-100 rounded-lg" onclick="(() => {
+                                        document.getElementById('dropdown-menu-{{ customer.id }}').classList.toggle('hidden');
+                                        }) ()" id="dropdown-btn">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10 10.8333C10.4602 10.8333 10.8333 10.4602 10.8333 9.99998C10.8333 9.53974 10.4602 9.16665 10 9.16665C9.53976 9.16665 9.16667 9.53974 9.16667 9.99998C9.16667 10.4602 9.53976 10.8333 10 10.8333Z" stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M10 4.99998C10.4602 4.99998 10.8333 4.62688 10.8333 4.16665C10.8333 3.70641 10.4602 3.33331 10 3.33331C9.53976 3.33331 9.16667 3.70641 9.16667 4.16665C9.16667 4.62688 9.53976 4.99998 10 4.99998Z" stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M10 16.6666C10.4602 16.6666 10.8333 16.2935 10.8333 15.8333C10.8333 15.3731 10.4602 15 10 15C9.53976 15 9.16667 15.3731 9.16667 15.8333C9.16667 16.2935 9.53976 16.6666 10 16.6666Z" stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </button>
-                            </td>
-                            <div class="absolute hidden bg-white mr-4 p-2 text-sm font-medium rounded-lg drop-shadow-lg text-slate-900 border
-                                        dropdown-content right-8 -bottom-20  px-2 py-2 drop-shadow-md z-20 w-[234px]" id="popupForm">
-                                <div>
-                                    <button onclick="" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Modifier</button>
-
-                                        <button onclick="document.getElementById('delete-modal-{{ customer.id }}').style.display='block'"
-                                                type="submit" id="delete-btn" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Supprimer</button>
-
-                                    <button type="button" onclick="closeForm()" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Fermer
-                                    </button>
+                                <div class="absolute hidden bg-white text-sm font-medium rounded-lg drop-shadow-lg text-slate-900 border
+                                        dropdown-content right-8 -bottom-20 drop-shadow-md z-20 w-[234px] px-2 py-2" id="dropdown-menu-{{ customer.id }}">
+                                    <div>
+                                        <button>
+                                            <a href="{{ path('app_user_customer_edit', {'id': customer.id}) }}" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Modifier</a>
+                                        </button>
+                                        {#<button id="edit-button" onclick="(() => {
+                                                document.getElementById('modif-modal').classList.toggle('hidden');
+                                                document.body.classList.toggle('overflow-hidden');
+                                                }) ()" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start">Modifier</button>
+                                        #}
+                                        <button onclick="(() => {
+                                                document.getElementById('delete-modal-{{ customer.id }}').classList.toggle('hidden');
+                                                document.body.classList.toggle('overflow-hidden');
+                                                }) ()"
+                                                type="submit" id="delete-btn" class="w-full cursor-pointer hover:bg-gray-100 py-2 px-3 rounded-lg text-sm text-start" data-id="{{ customer.id }}">Supprimer</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </td>
 
                             <div id="delete-modal-{{ customer.id }}"
                                  class="absolute hidden top-0 left-0 h-screen w-full z-30 bg-black bg-opacity-20 flex items-center">
@@ -152,7 +174,7 @@
                                         >
                                             Annuler
                                         </button>
-                                        <form method="post" action="{{ path('app_admin_company_delete', {'id': customer.id}) }}">
+                                        <form method="post" action="{{ path('app_user_customer_delete', {'id': customer.id}) }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ customer.id) }}">
                                             <button type="submit"
                                                     class="bg-red-600 rounded-lg text-white px-4 py-2.5 h-[44px] hover:bg-red-700 flex items-center justify-center">
@@ -163,7 +185,6 @@
 
                                 </div>
                             </div>
-
                         </tr>
                     {% else %}
                         <tr>
@@ -173,99 +194,183 @@
                     </tbody>
                 </table>
             </div>
+            <div class="flex  h-[10%] pt-3 pb-4 px-6 items-center justify-between ">
+                <a href="#">
+                    <div class="flex items-center justify-center gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.8334 10.0001H4.16675M4.16675 10.0001L10.0001 15.8334M4.16675 10.0001L10.0001 4.16675" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p>Précédent</p>
+                    </div>
+                </a>
+                <div class="flex items-center justify-center gap-2.5 ">
+                    <a href="#">
+                        <div class="flex items-center justify-center rounded-lg w-8 gap-2.5 px-3 py-1.5 border text-sm">
+                            <p>1</p>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="flex items-center justify-center rounded-lg gap-2.5 w-8 px-3 py-1.5 border focus:bg-gray-200 text-sm ">
+                            <p>2</p>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="flex items-center justify-center rounded-lg gap-2.5 w-8  px-3 py-1.5 border focus:bg-gray-200 text-sm">
+                            <p>3</p>
+                        </div>
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="flex items-center justify-center  gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
+                        <p>Suivant</p>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.16675 10.0001H15.8334M15.8334 10.0001L10.0001 4.16675M15.8334 10.0001L10.0001 15.8334" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
         </div>
 
-            <div class="flex fixed h-[500px] hidden border items-start justify-between self-stretch inline-flex inset-y-24 inset-x-48 z-10 bg-white rounded-lg" id="new">
-                <div class="m-6">
-                    <div class="flex mb-6 items-start self-stretch justify-between">
-                        <h1 class="text-black font-normal text-base font-semibold leading-5 tracking-tighter">Nouvel utilisateur</h1>
-                        <svg onclick="closeClient()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9497 8.46443C17.3403 8.0739 17.3403 7.44074 16.9497 7.05021C16.5592 6.65969 15.926 6.65969 15.5355 7.05021L12 10.5858L8.46443 7.05021C8.0739 6.65969 7.44074 6.65969 7.05021 7.05021C6.65969 7.44074 6.65969 8.0739 7.05021 8.46443L10.5858 12L7.05021 15.5355C6.65969 15.9261 6.65969 16.5592 7.05021 16.9497C7.44074 17.3403 8.0739 17.3403 8.46443 16.9497L12 13.4142L15.5355 16.9497C15.926 17.3403 16.5592 17.3403 16.9497 16.9497C17.3403 16.5592 17.3403 15.9261 16.9497 15.5355L13.4142 12L16.9497 8.46443Z" fill="black"/>
-                        </svg>
-                    </div>
-                    {{ form_start(newCustomerForm) }}
-                    <div class="flex-col items-start gap-6 self-stretch justify-between">
+        {#
+        {% for form in forms %}
+        <div id="modif-modal" class="
+                            absolute hidden top-0 left-0 h-screen w-full z-30 bg-black bg-opacity-20 flex items-center">
+            <div  class="bg-white mx-auto w-fit px-6 py-8 flex flex-col justify-center items-center rounded-lg space-y-6 min-w-[600px]" >
+                <div class="flex mb-6 items-start self-stretch justify-between">
+                    <h1 class="text-black font-normal text-base font-semibold leading-5 tracking-tighter">Modifier le client n°</h1>
+                    <svg onclick="(() => {
+                            document.getElementById('modif-modal').classList.toggle('hidden');
+                            document.body.classList.toggle('overflow-hidden');
+                            }) ()"
+                         width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9497 8.46443C17.3403 8.0739 17.3403 7.44074 16.9497 7.05021C16.5592 6.65969 15.926 6.65969 15.5355 7.05021L12 10.5858L8.46443 7.05021C8.0739 6.65969 7.44074 6.65969 7.05021 7.05021C6.65969 7.44074 6.65969 8.0739 7.05021 8.46443L10.5858 12L7.05021 15.5355C6.65969 15.9261 6.65969 16.5592 7.05021 16.9497C7.44074 17.3403 8.0739 17.3403 8.46443 16.9497L12 13.4142L15.5355 16.9497C15.926 17.3403 16.5592 17.3403 16.9497 16.9497C17.3403 16.5592 17.3403 15.9261 16.9497 15.5355L13.4142 12L16.9497 8.46443Z" fill="black"/>
+                    </svg>
+                </div>
+                {% set firstNameWidget = form_widget(form.firstName) %}
+                {{ form_start(editForm) }}
+                <div class="flex-col items-start gap-6 self-stretch justify-between">
+                    <div class="flex items-start gap-2">
+                        {{ firstNameWidget }}
+                        </div>
+                </div>
+                <div class="flex-col my-6 items-start gap-2 self-stretch">
+                </div>
+                <div class="flex my-6 items-start gap-2 self-stretch">
+                </div>
+                <div class="flex my-6 items-start gap-2 self-stretch">
+                </div>
+                <div class="flex-col my-6 items-start gap-2 self-stretch">
+                </div>
+                <button type="submit" value="" class="flex w-1/2 h-11 py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.00016 3.33325V12.6666M3.3335 7.99992H12.6668" stroke="#F5F6F7" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Enregistrer
+                </button>
+                {{ form_end(editForm) }}
+            </div>
+        </div>
+        {% endfor %}
+        #}
+        <div class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center" id="new">
+            <div class="bg-white p-6 mx-auto rounded-lg space-y-6 w-[700px]">
+
+                    <div class="m-6">
+                        <div class="flex mb-6 items-start self-stretch justify-between">
+                            <h1 class="text-black font-normal text-base font-semibold leading-5 tracking-tighter">Nouvel utilisateur</h1>
+                            <svg class="hover:bg-gray-200 rounded" onclick="(() => {
+                                document.getElementById('new').classList.toggle('hidden');
+                                document.body.classList.toggle('overflow-hidden');
+                                }) ()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9497 8.46443C17.3403 8.0739 17.3403 7.44074 16.9497 7.05021C16.5592 6.65969 15.926 6.65969 15.5355 7.05021L12 10.5858L8.46443 7.05021C8.0739 6.65969 7.44074 6.65969 7.05021 7.05021C6.65969 7.44074 6.65969 8.0739 7.05021 8.46443L10.5858 12L7.05021 15.5355C6.65969 15.9261 6.65969 16.5592 7.05021 16.9497C7.44074 17.3403 8.0739 17.3403 8.46443 16.9497L12 13.4142L15.5355 16.9497C15.926 17.3403 16.5592 17.3403 16.9497 16.9497C17.3403 16.5592 17.3403 15.9261 16.9497 15.5355L13.4142 12L16.9497 8.46443Z" fill="black"/>
+                            </svg>
+                        </div>
+                        {{ form_start(newCustomerForm) }}
+                        <div class="flex-col items-start gap-6 self-stretch justify-between">
+                            <div class="flex-col my-6 items-start gap-2 self-stretch">
+
+                                {{ form_row(newCustomerForm.isCompany) }}
+
+                                {{ form_row(newCustomerForm.company) }}
+
+                            </div>
+                            <div class="flex items-start gap-2">
+
+                                {{ form_row(newCustomerForm.firstName) }}
+
+                                {{ form_row(newCustomerForm.lastName) }}
+
+                            </div>
+                        </div>
                         <div class="flex-col my-6 items-start gap-2 self-stretch">
 
-                            {{ form_row(newCustomerForm.isCompany) }}
-
-                            {{ form_row(newCustomerForm.company) }}
-                            <div>
-                                    <a href="#"  class="border">
-                                    Créer une entreprise
-                                    </a>
-                            </div>
+                            {{ form_row(newCustomerForm.fullAdress) }}
 
                         </div>
-                        <div class="flex items-start gap-2">
+                        <div class="flex my-6 items-start gap-2 self-stretch">
 
-                            {{ form_row(newCustomerForm.firstName) }}
+                            {{ form_row(newCustomerForm.email) }}
 
-                            {{ form_row(newCustomerForm.lastName) }}
+                            {{ form_row(newCustomerForm.phoneNumber) }}
 
                         </div>
+                        <button type="submit" value="" class="flex  w-fit h-11 py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
+                            <svg class="border border-dashed rounded-lg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.00016 3.33325V12.6666M3.3335 7.99992H12.6668" stroke="#F5F6F7" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Enregistrer
+                        </button>
                     </div>
-                    <div class="flex-col my-6 items-start gap-2 self-stretch">
+                    {{ form_end(newCustomerForm) }}
 
-                        {{ form_row(newCustomerForm.fullAdress) }}
-
-                    </div>
-                    <div class="flex my-6 items-start gap-2 self-stretch">
-
-                        {{ form_row(newCustomerForm.email) }}
-
-                        {{ form_row(newCustomerForm.phoneNumber) }}
-
-                    </div>
-                    <button type="submit" value="" class="flex w-1/2 h-11 py-2.5 px-4 justify-center items-center bg-slate-900 text-white rounded-lg gap-2">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.00016 3.33325V12.6666M3.3335 7.99992H12.6668" stroke="#F5F6F7" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Enregistrer
-                    </button>
-                </div>
-                {{ form_end(newCustomerForm) }}
             </div>
-
+        </div>
 
         <form>
-            <div class="flex-col fixed hidden  items-start gap-6 p-6 inset-0 shrink-0 z-10 bg-white border rounded-2xl inset-1/3 h-64 w-[500px]" id="filtre">
-                <div class="flex items-center self-stretch justify-between px-2">
-                    <h1>Filtrage</h1>
-                    <div>
-                        <svg onclick="closeFiltre()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9498 8.46443C17.3404 8.0739 17.3404 7.44074 16.9498 7.05021C16.5593 6.65969 15.9261 6.65969 15.5356 7.05021L12.0001 10.5858L8.46456 7.05021C8.07403 6.65969 7.44087 6.65969 7.05034 7.05021C6.65982 7.44074 6.65982 8.0739 7.05034 8.46443L10.5859 12L7.05034 15.5355C6.65982 15.9261 6.65982 16.5592 7.05034 16.9497C7.44087 17.3403 8.07403 17.3403 8.46456 16.9497L12.0001 13.4142L15.5356 16.9497C15.9261 17.3403 16.5593 17.3403 16.9498 16.9497C17.3404 16.5592 17.3404 15.9261 16.9498 15.5355L13.4143 12L16.9498 8.46443Z" fill="black"/>
-                        </svg>
+            <div class="absolute hidden top-0 left-0 bg-black bg-opacity-20 h-screen w-full z-50 overflow-hidden flex items-center" id="filtre">
+                <div class="bg-white p-6 mx-auto rounded-lg space-y-6 w-[400px]">
+                    <div class="flex items-center self-stretch justify-between px-2">
+                        <h1>Filtrage</h1>
+                        <button class="hover:bg-gray-200 rounded">
+                            <svg onclick="(() => {
+                                document.getElementById('filtre').classList.toggle('hidden');
+                                document.body.classList.toggle('overflow-hidden');
+                                }) ()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9498 8.46443C17.3404 8.0739 17.3404 7.44074 16.9498 7.05021C16.5593 6.65969 15.9261 6.65969 15.5356 7.05021L12.0001 10.5858L8.46456 7.05021C8.07403 6.65969 7.44087 6.65969 7.05034 7.05021C6.65982 7.44074 6.65982 8.0739 7.05034 8.46443L10.5859 12L7.05034 15.5355C6.65982 15.9261 6.65982 16.5592 7.05034 16.9497C7.44087 17.3403 8.07403 17.3403 8.46456 16.9497L12.0001 13.4142L15.5356 16.9497C15.9261 17.3403 16.5593 17.3403 16.9498 16.9497C17.3404 16.5592 17.3404 15.9261 16.9498 15.5355L13.4143 12L16.9498 8.46443Z" fill="black"/>
+                            </svg>
+                        </button>
                     </div>
-                </div>
+                    <div class="flex self-stretch p-2 items-start gap-2.5  rounded-2xl">
+                        <div class="flex flex-col p-2 items-start self-stretch gap-2.5 p-2.5">
+                            <div>
+                                <input type="radio" name="idOrderASC" id="Critère1" value="ASC">
+                                <label for="Critère1">Id croissant</label>
+                            </div>
 
-                <div class="flex self-stretch p-2 items-start gap-2.5  rounded-2xl">
-                    <div class="flex items-center self-stretch gap-2.5 p-2.5">
-                        <input type="radio" name="critère" id="Critère1" value="ASC">
-                        <label for="Critère1">Id croissant</label>
+                            <div>
+                                <input type="radio" name="idOrderDESC" id="Critère2" value="DESC">
+                                <label for="Critère2">Id Décroissant</label>
+                            </div>
 
-                        <input type="radio" name="critère" id="Critère2" value="DESC">
-                        <label for="Critère2">Id Décroissant</label>
-
-                        <input type="radio" name="critère" id="Critère3" value="1">
-                        <label for="Critère3">isCompany</label>
+                            <div>
+                                <input type="radio" name="critère" id="Critère3" value="1">
+                                <label for="Critère3">Pas une entreprise</label>
+                            </div>
+                        </div>
                     </div>
+                    <button class="flex justify-center items-center gap-2 py-2.5 px-4 bg-gray-950 rounded-lg text-white"
+                            type="submit">Filtrer
+                    </button>
                 </div>
-                <button class="flex justify-center items-center gap-2 py-2.5 px-4 bg-gray-950 rounded-lg text-white"
-                        type="submit">Filtrer
-                </button>
             </div>
         </form>
 
         {% block javascripts %}
             <script>
-                var modal = document.getElementById("popupForm");
-                var modalfiltre = document.getElementById("filtre");
-                var modalNew = document.getElementById("new");
+
                 var checkbox = document.getElementById('checkbox');
-                var button = document.getElementById('delete-btn');
-
-
+                var deleteButton = document.getElementById('delete-btn');
+                var editButton = document.getElementById('edit-button');
 
 
                 window.onclick = function (event) {
@@ -281,34 +386,6 @@
                     }
                 }
 
-                function newClient(){
-                    modalNew.style.display = "block";
-                }
-
-                function closeClient(){
-                    modalNew.style.display = "none";
-                }
-
-                function filtre(){
-                    modalfiltre.style.display = "block";
-                }
-
-                function clientModif(){
-                    modal.style.display = "block";
-                }
-
-                function closeForm() {
-                    modal.style.display = "none";
-                }
-                function closeFiltre(){
-                    modalfiltre.style.display = "none";
-                }
-
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
 
                 function selectAll(ch) {
                     var tab = document.getElementsByTagName("input");
@@ -320,56 +397,26 @@
 
                 window.onload = function() {
                     // Désactiver le bouton par défaut
-                    button.disabled = true;
+                    deleteButton.disabled = true;
+                    editButton.disabled = true;
 
                     // Activer le bouton lorsque la case à cocher est cochée
                     checkbox.onchange = function() {
                         if (this.checked) {
-                            button.disabled = false;
+                            deleteButton.disabled = false;
+                            editButton.disabled = false;
                             var id = checkbox.value();
-                            button.href = Routing.generate('app_user_customer_delete', {id: id});
+                            deleteButton.href = Routing.generate('app_user_customer_delete', {id: id});
+                            editButton.href = Routing.generate('app_user_customer_edit', {id: id});
                         } else {
-                            button.disabled = true;
+                            deleteButton.disabled = true;
+                            editButton.disabled = true;
                         }
                     };
                 };
             </script>
         {% endblock %}
-        <div class="flex items-center justify-between ">
-            <a href="#">
-                <div class="flex items-center justify-center gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15.8334 10.0001H4.16675M4.16675 10.0001L10.0001 15.8334M4.16675 10.0001L10.0001 4.16675" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <p>Précédent</p>
-                </div>
-            </a>
-            <div class="flex items-center justify-center gap-2.5 ">
-                <a href="#">
-                    <div class="flex items-center justify-center rounded-lg w-8 gap-2.5 px-3 py-1.5 border active:bg-black text-sm">
-                        <p>1</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="flex items-center justify-center rounded-lg gap-2.5 w-8 px-3 py-1.5 border focus:bg-gray-200 text-sm ">
-                        <p>2</p>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="flex items-center justify-center rounded-lg gap-2.5 w-8  px-3 py-1.5 border focus:bg-gray-200 text-sm">
-                        <p>3</p>
-                    </div>
-                </a>
-            </div>
-            <a href="#">
-                <div class="flex items-center justify-center  gap-2.5 border rounded-lg py-2 px-6 m-2 text-sm text-slate-900">
-                    <p>Suivant</p>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.16675 10.0001H15.8334M15.8334 10.0001L10.0001 4.16675M15.8334 10.0001L10.0001 15.8334" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </a>
-        </div>
+
     </div>
 </div>
 {% endblock %}

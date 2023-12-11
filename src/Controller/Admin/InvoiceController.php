@@ -9,6 +9,8 @@ use App\Repository\CompanyRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +19,25 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/invoice')]
 class InvoiceController extends AbstractController
 {
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     #[Route('/', name: 'app_admin_invoice_index', methods: ['GET'])]
-    public function index(InvoiceRepository $invoiceRepository): Response
+    public function index(Request $request, InvoiceRepository $invoiceRepository): Response
     {
+        $nbPages = $invoiceRepository->getAllNbPages(8);
+
+        if ($request->query->get('page') != "") {
+            $page = $request->get('page');
+            $invoices = $invoiceRepository->findAllByPage($page, 8);
+        } else {
+            $invoices = $invoiceRepository->findAllByPage(1, 8);
+        }
+
         return $this->render('admin/invoice/index.html.twig', [
-            'invoices' => $invoiceRepository->findAll(),
+            'invoices' => $invoices,
+            'nbPages' => $nbPages,
         ]);
     }
 

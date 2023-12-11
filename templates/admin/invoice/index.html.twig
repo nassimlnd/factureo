@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <twig:Admin:Invoice:Table>
+            <twig:Admin:Invoice:Table nbPages="{{ nbPages }}">
                 {% for invoice in invoices %}
                     {{ component('Admin:Invoice:TableItem', {
                         id: invoice.id,

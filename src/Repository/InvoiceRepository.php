@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Invoice;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -67,6 +69,40 @@ class InvoiceRepository extends ServiceEntityRepository
             ->setParameter('state', $state)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByPage($company, $page, $limit)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.company =:company')
+            ->setParameter('company', $company)
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllByPage($page, $limit)
+    {
+        return $this->createQueryBuilder('p')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getAllNbPages($limit)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('COUNT(p)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return ceil($query / $limit);
     }
 
 //    /**

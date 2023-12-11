@@ -1,20 +1,35 @@
-<div class="h-[72px] flex items-center border-b border-gray-200 w-full hover:bg-slate-50">
-    <div class="px-6 min-w-16">
+<div class="h-[72px] flex items-center border-b border-gray-200 w-full hover:bg-slate-50 cursor-pointer">
+    <div class="px-6 min-w-16 cursor-default">
         <input type="checkbox" class="checkbox-all">
     </div>
-    <div class="px-6 min-w-[163px]">
+    <div onclick="(() => {
+            window.location.href = '{{ path('app_admin_invoice_show', {id: id}) }}';
+            }) ()"
+         class="px-6 min-w-[163px]">
         <p class="text-sm px-2 bg-gray-200 w-fit rounded-full text-slate-900">#{{ id }}</p>
     </div>
-    <div class="px-6 min-w-[205px]">
+    <div onclick="(() => {
+            window.location.href = '{{ path('app_admin_invoice_show', {id: id}) }}';
+            }) ()"
+         class="px-6 min-w-[205px]">
         <p class="text-sm">{{ customerName }}</p>
     </div>
-    <div class="px-6 min-w-[205px]">
+    <div onclick="(() => {
+            window.location.href = '{{ path('app_admin_invoice_show', {id: id}) }}';
+            }) ()"
+         class="px-6 min-w-[205px]">
         <p class="text-sm">{{ companyName }}</p>
     </div>
-    <div class="px-6 min-w-[205px]">
+    <div onclick="(() => {
+            window.location.href = '{{ path('app_admin_invoice_show', {id: id}) }}';
+            }) ()"
+         class="px-6 min-w-[205px]">
         <p class="text-sm">{{ type }}</p>
     </div>
-    <div class="px-6 min-w-[180px]">
+    <div onclick="(() => {
+            window.location.href = '{{ path('app_admin_invoice_show', {id: id}) }}';
+            }) ()"
+         class="px-6 min-w-[180px]">
         {% if state == 0 %}
             <div class="flex text-amber-500 bg-amber-50 px-2 rounded-full text-sm items-center space-x-1.5 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
@@ -44,7 +59,10 @@
             </div>
         {% endif %}
     </div>
-    <div class="px-6 min-w-[208px] flex space-x-1.5">
+    <div onclick="(() => {
+            window.location.href = '{{ path('app_admin_invoice_show', {id: id}) }}';
+            }) ()"
+         class="px-6 min-w-[208px] flex space-x-1.5">
         {% for tag in tags %}
             <div class="flex text-slate-900 bg-slate-200 px-2 rounded-full text-sm items-center space-x-1.5 w-fit">
                 <p>
@@ -54,7 +72,7 @@
         {% endfor %}
     </div>
     <div class="w-full flex justify-end px-6 relative">
-        <button class="py-2 px-3 hover:bg-gray-100 rounded-lg"
+        <button class="py-2 px-3 hover:bg-gray-100 rounded-lg cursor-pointer"
                 id="dropdown-btn"
                 onclick="(() => {
                         document.getElementById('{{ id }}').classList.toggle('hidden');

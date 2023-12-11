@@ -30,6 +30,25 @@ class CustomerController extends AbstractController
             'action' => $this->generateUrl('app_user_customer_new')
         ]);
 
+        $form = $this->createForm(CustomerType::class, $customer,
+            [
+                'method' => 'POST',
+            ]);
+
+        $forms = [];
+        foreach ($customers as $customer) {
+            $forms[] = $this->createForm(CustomerType::class, $customer)->createView();
+        }
+
+        $nbPages = $customerRepository->getAllNbPages(8);
+
+        if ($request->query->get('page') != "") {
+            $page = $request->get('page');
+            $customers = $customerRepository->findAllByPage($page, 8);
+        } else {
+            $customers = $customerRepository->findAllByPage(1, 8);
+        }
+
         return $this->render('user/customer/index.html.twig', [
             'controller_name' => 'CustomerController',
             'id' => $id,
@@ -38,6 +57,10 @@ class CustomerController extends AbstractController
             'isCompany' => $isCompany,
             'customers' => $customers,
             'newCustomerForm' => $newCustomerForm,
+            'editForm' => $form->createView(),
+            'forms' => $forms,
+            'nbPages' => $nbPages,
+
             'companies' => $companyRepository->findAll()
         ]);
     }
@@ -73,7 +96,12 @@ class CustomerController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_customer_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(CustomerType::class, $customer,
+            [
+                'method' => 'POST',
+                'action' => $this->generateUrl('app_user_customer_edit', ['id' => $customer->getId()])
+            ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -84,7 +112,7 @@ class CustomerController extends AbstractController
 
         return $this->render('user/customer/edit.html.twig', [
             'customer' => $customer,
-            'form' => $form,
+            'editForm' => $form->createView(),
         ]);
     }
 

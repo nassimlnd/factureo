@@ -74,15 +74,15 @@ class CustomerType extends AbstractType
                 ]
             ])
             ->add('isCompany', CheckboxType::class, [
-                'label' => 'Le client est t\'il une entreprise?',
+                'label' => 'Le client est il une entreprise?  ',
 
             ])
             ->add('company',EntityType::class, [
                 'class' => Company::class,
                 'choice_label' => 'name',
-                'label' => 'Si oui, laquelle?',
+                'label' => 'Si oui, laquelle?  ',
                 'attr' => [
-                    'class' => ' w-48 h-12 py-2 px-2 pl-6 items-center gap-2 border border-gray-300 rounded bg-gray-50',
+                    'class' => ' w-fit h-12 p-4 items-center gap-2 border border-gray-300 rounded-lg bg-gray-50',
                 ]
 
             ])

@@ -172,7 +172,7 @@
                                         #{{ transaction.invoice.id }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ transaction.paymentDate }}</p>
+                                    <p>{{ transaction.paymentDate|date('d/m/Y') }}</p>
                                 </td>
                                 <td class="px-6 flex justify-end items-center h-20 relative">
                                     <button class="py-2 px-3 hover:bg-gray-100 rounded-lg"

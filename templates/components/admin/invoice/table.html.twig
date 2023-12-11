@@ -1,4 +1,4 @@
-<div class="min-h-[650px] rounded-lg border border-gray-200 mt-6 overflow-x-auto">
+<div class="h-[700px] rounded-lg border border-gray-200 mt-6 overflow-x-auto flex flex-col">
     <div class="flex bg-gray-100 h-11 rounded-t-lg items-center justify-start">
         <div class="px-6 min-w-16">
             <input type="checkbox"
@@ -30,7 +30,52 @@
             <p class="text-sm text-slate-700">Tags</p>
         </div>
     </div>
+    <div class="grow">
     {% block content %}
 
     {% endblock %}
+    </div>
+    <div class="flex h-[10%] pt-3 pb-4 px-6 justify-between items-center">
+        <a onclick="(() => {
+               if (window.location.search.includes('page=')) {
+                   let page = parseInt(window.location.search.split('page=')[1]);
+                   if (page > 1) {
+                       window.location.href = '{{ path('app_admin_invoice_index') }}?page=' + (page - 1);
+                   }
+               } else {
+                   window.location.href = '{{ path('app_admin_invoice_index') }}?page=1';
+               }
+           })()"
+           class="flex items-center text-sm text-slate-900 py-2 rounded-lg gap-2 px-3 border cursor-pointer hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M15.8334 10.0001H4.16675M4.16675 10.0001L10.0001 15.8334M4.16675 10.0001L10.0001 4.16675"
+                      stroke="#344054" stroke-width="1.67" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+            </svg>
+            Précédent
+        </a>
+        <div class="gap-2 flex items-center">
+            {% for i in 1..nbPages %}
+                <a class="rounded-lg px-3 py-1.5 text-sm hover:bg-gray-100" href="{{ path('app_admin_invoice_index') }}?page={{ i }}">
+                    {{ i }}
+                </a>
+            {% endfor %}
+        </div>
+        <a onclick="(() => {
+               if (window.location.search.includes('page=')) {
+                   let page = parseInt(window.location.search.split('page=')[1]);
+                   window.location.href = '{{ path('app_admin_invoice_index') }}?page=' + (page + 1);
+               } else {
+                   window.location.href = '{{ path('app_admin_invoice_index') }}?page=2';
+               }
+           })()"
+           class="flex items-center text-sm text-slate-900 py-2 rounded-lg gap-2 px-3 border cursor-pointer hover:bg-gray-100">
+            Suivant
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M4.16675 10.0001H15.8334M15.8334 10.0001L10.0001 4.16675M15.8334 10.0001L10.0001 15.8334"
+                      stroke="#344054" stroke-width="1.67" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+            </svg>
+        </a>
+    </div>
 </div>
